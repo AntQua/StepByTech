@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_133111) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_140647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "program_attributes", force: :cascade do |t|
+    t.integer "weight"
+    t.bigint "program_id", null: false
+    t.integer "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_id"], name: "index_program_attributes_on_program_id"
+  end
 
   create_table "programs", force: :cascade do |t|
     t.string "title"
@@ -75,8 +84,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_133111) do
     t.index ["user_id"], name: "index_users_programs_steps_on_user_id"
   end
 
+  create_table "users_programs_steps_submissions", force: :cascade do |t|
+    t.bigint "users_programs_step_id", null: false
+    t.string "content"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_programs_step_id"], name: "index_upss_on_ups_id"
+  end
+
+  add_foreign_key "program_attributes", "programs"
   add_foreign_key "steps", "programs"
   add_foreign_key "users_programs_steps", "programs"
   add_foreign_key "users_programs_steps", "steps"
   add_foreign_key "users_programs_steps", "users"
+  add_foreign_key "users_programs_steps_submissions", "users_programs_steps"
 end
