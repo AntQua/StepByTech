@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_140647) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_141825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_140647) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["program_id"], name: "index_steps_on_program_id"
+  end
+
+  create_table "user_attributes", force: :cascade do |t|
+    t.bigint "program_attribute_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_attribute_id"], name: "index_user_attributes_on_program_attribute_id"
+    t.index ["user_id"], name: "index_user_attributes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -95,6 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_140647) do
 
   add_foreign_key "program_attributes", "programs"
   add_foreign_key "steps", "programs"
+  add_foreign_key "user_attributes", "program_attributes"
+  add_foreign_key "user_attributes", "users"
   add_foreign_key "users_programs_steps", "programs"
   add_foreign_key "users_programs_steps", "steps"
   add_foreign_key "users_programs_steps", "users"
