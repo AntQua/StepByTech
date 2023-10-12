@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_141825) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_142301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "date"
+    t.integer "status"
+    t.integer "type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
 
   create_table "program_attributes", force: :cascade do |t|
     t.integer "weight"
@@ -102,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_141825) do
     t.index ["users_programs_step_id"], name: "index_upss_on_ups_id"
   end
 
+  add_foreign_key "events", "users"
   add_foreign_key "program_attributes", "programs"
   add_foreign_key "steps", "programs"
   add_foreign_key "user_attributes", "program_attributes"
