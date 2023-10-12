@@ -1,0 +1,2 @@
+class NotificationsConfig < ApplicationRecord
+end
