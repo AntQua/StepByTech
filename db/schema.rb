@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_143203) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_143657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +110,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_143203) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.boolean "participated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_users_events_on_event_id"
+    t.index ["user_id"], name: "index_users_events_on_user_id"
+  end
+
   create_table "users_programs_steps", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "program_id", null: false
@@ -138,6 +148,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_143203) do
   add_foreign_key "steps", "programs"
   add_foreign_key "user_attributes", "program_attributes"
   add_foreign_key "user_attributes", "users"
+  add_foreign_key "users_events", "events"
+  add_foreign_key "users_events", "users"
   add_foreign_key "users_programs_steps", "programs"
   add_foreign_key "users_programs_steps", "steps"
   add_foreign_key "users_programs_steps", "users"
