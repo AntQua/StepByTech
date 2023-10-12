@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_111012) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_131145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "programs", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "registration_start_date"
+    t.date "registration_end_date"
+    t.date "begin_date"
+    t.date "end_date"
+    t.integer "registration_limit"
+    t.boolean "active"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
