@@ -1,0 +1,17 @@
+.sidebar {
+    padding: 40px;
+    width: 340px;
+    height: 100vh;
+    position: sticky;
+}
+
+.profile-bottom {
+    position: absolute;
+    bottom: 20px;
+
+    width: 260px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

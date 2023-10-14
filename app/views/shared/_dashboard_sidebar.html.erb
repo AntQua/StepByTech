@@ -1,0 +1,67 @@
+<div class="sidebar" style="background-color: #101124; color: #E3E4E9">
+    <div class="d-flex justify-content-center align-items-center mb-5">
+        <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>
+    </div>
+
+    <div>
+        <div class="d-flex gap-2 align-items-center my-4">
+            <i class="fa-solid fa-table-list" style="color: #5e6278;"></i>
+            <p class="m-0">Dashboard</p>
+        </div>
+        <div class="d-flex gap-2 align-items-center my-4">
+            <i class="fa-solid fa-tv" style="color: #5e6278;"></i>
+            <p class="m-0">Programs</p>
+        </div>
+        <div class="d-flex gap-2 align-items-center my-4">
+            <i class="fa-regular fa-calendar" style="color: #5e6278;"></i>
+            <p class="m-0">Events</p>
+        </div>
+        <div class="d-flex gap-2 align-items-center my-4">
+            <i class="fa-regular fa-folder" style="color: #5e6278;"></i>
+            <p class="m-0">Resources</p>
+        </div>
+    </div>
+
+    <%# Profile details menu begin%>
+    <div style="background-color: #1E1E2D;">
+        <div >
+            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
+            </a>
+            <span>
+                <p>Luu Ssaunier</p>
+                <%= current_user.email %>
+            </span>
+        </div>
+        <div>
+            <p>My Profile</p>
+            <div class="d-flex gap-2 align-items-center">
+                <p>Settings</p>
+                <i class="fa-regular fa-folder" style="color: #5e6278;"></i>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+                <p>Mode</p>
+                <i class="fa-regular fa-folder" style="color: #5e6278;"></i>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+                <p>Language</p>
+                <i class="fa-regular fa-folder" style="color: #5e6278;"></i>
+            </div>
+
+        </div>
+    </div>
+    <%# Profile details menu end%>
+
+
+    <%# Profile default begin%>
+    <div class="profile-bottom">
+        <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
+        </a>
+        <div class="dash-button">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            <p class="m-0">Logout</p>
+        </div>
+    </div>
+    <%# Profile default end%>
+</div>
