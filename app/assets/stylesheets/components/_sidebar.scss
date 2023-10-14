@@ -5,6 +5,10 @@
     position: sticky;
 }
 
+.line-bottom {
+    border-bottom: 1px solid $dark-gray;
+}
+
 .profile-bottom {
     position: absolute;
     bottom: 20px;
@@ -14,4 +18,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.profile-floating {
+    background-color: $medium-black;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.profile-floating > :first-child {
+    display: flex;
+    gap: 12px;
+}
+
+.avatar-square {
+    border: none;
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.avatar-profile {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }

@@ -20,3 +20,65 @@
   gap: 10px;
   align-items: center;
 }
+
+
+// Switch button begin
+.switch {
+  // position: absolute;
+  width: 1.5rem;
+  height: 0.8rem;
+  /*border:red 2px solid;*/
+  scale: 2;
+}
+
+.switch input {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.slider {
+  position: absolute;
+  /*border:1px solid green;*/
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(215, 215, 228);
+  border-radius: 30px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.4rem;
+  width: 0.4rem;
+  border-radius: 20px;
+  /*border:1px solid black;*/
+  left: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(40deg, $red, $orange 70%);
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  /*primo slider subito dopo input*/
+  background-color: #37393f;
+  transition: 0.4;
+}
+
+input:checked + .slider:before {
+  left: 15px;
+  background: #37393f;
+  box-shadow: inset -2px -2px 5px -2px #8983f7, inset -6px -3px 0 0 #a3dafb;
+}
+// Switch button end
+
+
+.flag {
+  width: 15px;
+  border-radius: 8px;
+}
