@@ -12,7 +12,7 @@
           <div class="input-group">
             <%= content_tag(:i, nil, class: "fa-solid fa-user auth-icon") %>
             <%= f.error_notification %>
-            <%= f.input :email,
+            <%= f.input :name,
                         label: false,
                         required: true,
                         autofocus: true,
@@ -22,7 +22,7 @@
           </div>
           <div class="input-group">
             <%= content_tag(:i, nil, class: "fa-solid fa-envelope auth-icon") %>
-            <%= f.input :password,
+            <%= f.input :email,
                         label: false,
                         required: true,
                         placeholder: "Email",
