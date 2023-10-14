@@ -1,18 +1,30 @@
-<h2>Forgot your password?</h2>
+<div class="auth-container">
+  <div class="auth-left-content">
+    <%= image_tag "stepbytech-astro2.png", class: "auth-image" %>
+  </div>
+  <div class="auth-right-content">
+    <%= image_tag "stepbytech-title-p-500.png", class: "auth-title" %>
+
+    <p class="mt-5">Forgot your password?</p>
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+  <div class="auth-form">
+    <div class="input-group">
+      <%= f.error_notification %>
+        <%= content_tag(:i, nil, class: "fa-solid fa-envelope auth-icon") %>
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    label: false,
+                    placeholder: "Email",
+                    input_html: { autocomplete: "email" } %>
+      </div>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-  </div>
+    </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+    <%= f.button :submit, "Send me reset password instructions", class: "primary-button"  %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<p style="font-size: 12px" class="text-center mt-3">Back to <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>
