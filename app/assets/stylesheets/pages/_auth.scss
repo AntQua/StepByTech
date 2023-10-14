@@ -73,3 +73,22 @@
   border-top-left-radius: 10px;
   width: 50px;
 }
+
+
+/* ------------MEDIA QUERIES (SMALL DEVICES----------- */
+
+@media screen and (max-width: 600px) {
+  .auth-right-content {
+    width: 100%;
+  }
+  .auth-left-content {
+    display: none;
+  }
+
+  .auth-left-content img {
+    display: none;
+  }
+  .auth-form input {
+    width: 35vh;
+  }
+}
