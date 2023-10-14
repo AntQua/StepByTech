@@ -1,0 +1,10 @@
+.primary-button{
+  padding: 10px 0 10px 0;
+  width: 100%;
+  border: none;
+  &:hover{
+    background-color: $purple;
+    color: $white;
+    border: 1px solid $blue-2 ;
+  }
+}
