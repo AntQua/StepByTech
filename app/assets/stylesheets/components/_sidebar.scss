@@ -1,0 +1,74 @@
+.sidebar {
+    padding: 40px;
+    width: 340px;
+    height: 100vh;
+    position: sticky;
+    grid-area: sidebar;
+}
+
+.line-bottom {
+    border-bottom: 1px solid $dark-gray;
+}
+
+.menu-item:hover p {
+    cursor: pointer;
+    color: $light-purple;
+}
+
+.profile-bottom {
+    position: absolute;
+    bottom: 20px;
+    padding: 0 10px;
+
+    width: 260px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-floating {
+    background-color: $medium-black;
+    padding: 20px;
+    border-radius: 20px 20px;
+    transition: all .4s;
+    transform: translate(0px, 15px);
+    display: none;
+}
+
+.profile-floating > :first-child {
+    display: flex;
+    gap: 12px;
+}
+
+.avatar-square {
+    border: none;
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.avatar-profile {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.profile-floating.active {
+    display: none;
+    opacity: 1;
+    transition: 0.5s;
+    visibility: visible;
+}
+
+.text-purple {
+    color: $purple;
+}
+
+.user-menu:hover .profile-floating{
+    display: block;
+}
