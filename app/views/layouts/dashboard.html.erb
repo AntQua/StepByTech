@@ -10,8 +10,10 @@
   </head>
   <body>
     <%= render "shared/dashboard_sidebar" %>
-    <main>
-      <%= yield %>
-    </main>
+    <div data-controller="programs">
+      <main>
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

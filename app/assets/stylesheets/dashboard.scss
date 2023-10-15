@@ -11,6 +11,9 @@
 @import "components/index";
 @import "pages/index";
 
+@import "programs_list";
+
+
 body {
     display: grid;
     grid-template-areas: "sidebar main";
