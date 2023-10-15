@@ -11,3 +11,14 @@
 @import "components/index";
 @import "pages/index";
 
+body {
+    display: grid;
+    grid-template-areas: "sidebar main";
+}
+
+main {
+    grid-area: main;
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 30px;
+}

@@ -3,15 +3,22 @@
     width: 340px;
     height: 100vh;
     position: sticky;
+    grid-area: sidebar;
 }
 
 .line-bottom {
     border-bottom: 1px solid $dark-gray;
 }
 
+.menu-item:hover p {
+    cursor: pointer;
+    color: $purple;
+}
+
 .profile-bottom {
     position: absolute;
     bottom: 20px;
+    padding: 0 10px;
 
     width: 260px;
 
@@ -23,7 +30,10 @@
 .profile-floating {
     background-color: $medium-black;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 20px 20px;
+    transition: all .4s;
+    transform: translate(0px, 15px);
+    display: none;
 }
 
 .profile-floating > :first-child {
@@ -45,4 +55,20 @@
     width: 50px;
     height: 50px;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.profile-floating.active {
+    display: none;
+    opacity: 1;
+    transition: 0.5s;
+    visibility: visible;
+}
+
+.text-purple {
+    color: $purple;
+}
+
+.user-menu:hover .profile-floating{
+    display: block;
 }

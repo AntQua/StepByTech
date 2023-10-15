@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get 'profile', to: 'users#profile'
     get 'settings', to: 'users#settings'
 
-    # get 'dashboard', to: 'pages#dashboard'
+    get 'dashboard', to: 'pages#dashboard'
     # get 'programs', to: 'programs#index'
 
     # get 'events', to: 'events#index'
