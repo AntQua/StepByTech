@@ -13,10 +13,6 @@
     <div data-controller="programs">
       <main>
         <%= yield %>
-
-        <% if @show_programs_list %>
-          <%= render "programs/programs_list", programs: @programs %>
-        <% end %>
       </main>
     </div>
   </body>

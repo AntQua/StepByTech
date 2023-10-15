@@ -1,40 +1,46 @@
+<h2>New Program</h2>
+
 <div class="container mt-5">
   <%= simple_form_for(@program) do |f| %>
 
     <div class="mb-3">
-      <%= f.input :title, input_html: { class: 'form-control' } %>
+      <%= f.input :title, input_html: { class: 'form-control bg-white' } %>
     </div>
 
     <div class="mb-3">
-      <%= f.input :description, as: :text, input_html: { class: 'form-control' } %>
+      <%= f.input :description, as: :text, input_html: { class: 'form-control bg-white' } %>
+    </div>
+
+    <!-- Group the registration dates -->
+    <div class="row mb-3">
+      <div class="col">
+        <%= f.input :registration_start_date, as: :date, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <div class="col">
+        <%= f.input :registration_end_date, as: :date, input_html: { class: 'form-control bg-white' } %>
+      </div>
+    </div>
+
+    <!-- Group the event dates -->
+    <div class="row mb-3">
+      <div class="col">
+        <%= f.input :begin_date, as: :date, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <div class="col">
+        <%= f.input :end_date, as: :date, input_html: { class: 'form-control bg-white' } %>
+      </div>
     </div>
 
     <div class="mb-3">
-      <%= f.input :registration_start_date, as: :date, input_html: { class: 'form-control' } %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.input :registration_end_date, as: :date, input_html: { class: 'form-control' } %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.input :begin_date, as: :date, input_html: { class: 'form-control' } %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.input :end_date, as: :date, input_html: { class: 'form-control' } %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.input :registration_limit, as: :integer, input_html: { class: 'form-control' } %>
+      <%= f.input :registration_limit, as: :integer, input_html: { class: 'form-control bg-white' } %>
     </div>
 
     <div class="mb-3 form-check">
-      <%= f.input :active, as: :boolean, input_html: { class: 'form-check-input' } %>
+      <%= f.input :active, as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
 
     <div class="mb-3 form-check">
-      <%= f.input :completed, as: :boolean, input_html: { class: 'form-check-input' } %>
+      <%= f.input :completed, as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
 
     <div class="mb-3">
