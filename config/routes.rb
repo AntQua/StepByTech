@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'programs/index'
+  get 'programs/show'
+  get 'programs/new'
+  get 'programs/edit'
+  get 'programs/create'
+  get 'programs/update'
+  get 'programs/destroy'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -10,9 +17,11 @@ Rails.application.routes.draw do
     get 'settings', to: 'users#settings'
 
     get 'dashboard', to: 'pages#dashboard'
-    # get 'programs', to: 'programs#index'
+    #get 'programs', to: 'programs#index'
 
     # get 'events', to: 'events#index'
     # get 'resources', to: 'resources#index'
+    resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+
   end
 end

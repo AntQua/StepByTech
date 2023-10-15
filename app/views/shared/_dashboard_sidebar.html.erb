@@ -5,7 +5,7 @@
   <div class="line-bottom">
     <%# sidebar_link is a helper %>
     <%= sidebar_link('fa-table-list', 'Dashboard', "dashboard") %>
-    <%= sidebar_link('fa-tv', 'Programs', "programs") %>
+    <%= sidebar_link('fa-tv', 'Programs', programs_path, data: { remote: true }) %>
     <%= sidebar_link('fa-calendar', 'Events') %>
     <%= sidebar_link('fa-folder', 'Resources') %>
   </div>
