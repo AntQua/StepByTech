@@ -2,10 +2,16 @@
   padding: 10px 0 10px 0;
   width: 100%;
   border: none;
+  background-color: $light-purple;
+  border-radius: 8px;
+  color: $white;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   &:hover{
-    background-color: $purple;
     color: $white;
-    border: 1px solid $blue;
+    background-color: $purple;
   }
 }
 
