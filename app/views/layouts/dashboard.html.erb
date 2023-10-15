@@ -10,8 +10,14 @@
   </head>
   <body>
     <%= render "shared/dashboard_sidebar" %>
-    <main>
-      <%= yield %>
-    </main>
+    <div data-controller="programs">
+      <main>
+        <%= yield %>
+
+        <% if @show_programs_list %>
+          <%= render "programs/programs_list", programs: @programs %>
+        <% end %>
+      </main>
+    </div>
   </body>
 </html>

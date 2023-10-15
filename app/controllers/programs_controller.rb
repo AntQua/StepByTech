@@ -1,15 +1,18 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
-  layout "dashboard", only: [ :index ]
+  layout "dashboard", only: [:index, :new]
 
   # GET /programs
   def index
     @programs = Program.all
 
     # Check if the request is AJAX
-    if request.xhr?
-      render partial: 'programs_list', locals: { programs: @programs }
-    end
+    # if request.xhr?
+    #   render partial: 'programs_list', locals: { programs: @programs }
+    # end
+
+    render 'programs_list', layout: 'dashboard'
+
   end
 
   # GET /programs/1
@@ -19,14 +22,26 @@ class ProgramsController < ApplicationController
   # GET /programs/new
   def new
     @program = Program.new
+
+    # # Check if the request is AJAX
+    # if request.xhr?
+    #   render partial: 'new_program_form', locals: { program: @program }
+    # else
+    #   # You can handle non-ajax requests if needed
+    #   render :new
+    # end
+    render 'new_program_form', layout: 'dashboard'
   end
+
+
+
 
   # POST /programs
   def create
     @program = Program.new(program_params)
 
     if @program.save
-      redirect_to @program, notice: 'Program was successfully created.'
+      redirect_to programs_path, notice: 'Program was successfully created.'
     else
       render :new
     end
@@ -60,6 +75,6 @@ class ProgramsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def program_params
-    params.require(:program).permit(:title, :description, :begin_date, :end_date)
+    params.require(:program).permit(:title, :description, :registration_start_date, :registration_end_date, :begin_date, :end_date, :registration_limit, :active, :completed)
   end
 end

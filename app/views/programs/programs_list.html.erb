@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="border-bottom pb-1">Programs</h2>
+  <%= link_to 'New Program', new_program_path, class: 'btn btn-primary' %>
+</div>
+
+
+
+<div class="programs-list row">
+  <% @programs.each do |program| %>
+    <div class="program-card col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="card-title d-flex justify-content-between align-items-center">
+            <h3><%= program.title %></h3>
+            <!-- You can add an icon or any additional item on the right side of the card title here. -->
+          </div>
+          <p class="card-text"><%= program.description %></p>
+          <ul class="list-unstyled">
+            <li><strong>Begin Date:</strong> <%= program.begin_date %></li>
+            <li><strong>End Date:</strong> <%= program.end_date %></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <!-- You can add additional links or buttons here, like an 'Edit' or 'View Details' button. -->
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get 'programs/index'
-  get 'programs/show'
-  get 'programs/new'
-  get 'programs/edit'
-  get 'programs/create'
-  get 'programs/update'
-  get 'programs/destroy'
+  # get 'programs/index'
+  # get 'programs/show'
+  # get 'programs/new'
+  # get 'programs/edit'
+  # get 'programs/create'
+  # get 'programs/update'
+  # get 'programs/destroy'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   authenticate :user do
     get 'profile', to: 'users#profile'
     get 'settings', to: 'users#settings'
-
     get 'dashboard', to: 'pages#dashboard'
     #get 'programs', to: 'programs#index'
 
