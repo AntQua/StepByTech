@@ -88,3 +88,9 @@ input:checked + .slider:before {
   width: 15px;
   border-radius: 8px;
 }
+
+.nav-button {
+  background: $light-purple;
+  width: 110px;
+  border-radius: 5px;
+}
