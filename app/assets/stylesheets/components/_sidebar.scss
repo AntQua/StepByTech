@@ -72,3 +72,9 @@
 .user-menu:hover .profile-floating{
     display: block;
 }
+
+/* classe 'active' para os links da sidebar*/
+.menu-item.active {
+    color: $light-purple;
+}
+  
