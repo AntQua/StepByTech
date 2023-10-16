@@ -1,16 +1,14 @@
+
 <h2>Novo Programa</h2>
 
 <div class="container mt-5">
   <%= simple_form_for(@program) do |f| %>
-
     <div class="mb-3">
       <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <div class="mb-3">
       <%= f.input :description, label: "Descrição", as: :text, input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <!-- Group the registration dates -->
     <div class="row mb-3">
       <div class="col">
@@ -20,7 +18,6 @@
         <%= f.input :registration_end_date, label: "Data de fim da inscrição", as: :date, input_html: { class: 'form-control bg-white' } %>
       </div>
     </div>
-
     <!-- Group the event dates -->
     <div class="row mb-3">
       <div class="col">
@@ -30,19 +27,15 @@
         <%= f.input :end_date, label: "Data de fim do programa", as: :date, input_html: { class: 'form-control bg-white' } %>
       </div>
     </div>
-
     <div class="mb-3">
       <%= f.input :registration_limit, label: "Número máximo de candidatos", as: :integer, input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <div class="mb-3 form-check">
       <%= f.input :active, label: "Ativo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
-
     <div class="mb-3 form-check">
       <%= f.input :completed, label: "Completo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
-
     <div class="mb-3">
       <%= f.button :submit, 'Criar Programa', class: 'btn btn-primary' %>
     </div>

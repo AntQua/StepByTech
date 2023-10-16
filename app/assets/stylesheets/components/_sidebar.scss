@@ -1,5 +1,5 @@
 .sidebar {
-    padding: 40px;
+    padding: 30px;
     width: 340px;
     height: 100vh;
     position: sticky;
@@ -15,24 +15,28 @@
     color: $light-purple;
 }
 
-.profile-bottom {
+.user-menu {
     position: absolute;
     bottom: 20px;
-    padding: 0 10px;
 
-    width: 260px;
+    width: 280px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.user-menu:hover .profile-floating{
+    display: block;
+}
+
 .profile-floating {
+    position: absolute;
     background-color: $medium-black;
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     border-radius: 20px 20px;
-    transition: all .4s;
-    transform: translate(0px, 15px);
+    transition: 0.5s;
+    transform: translate(0px, -191px);
     display: none;
 }
 
@@ -52,8 +56,8 @@
 .avatar-profile {
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     cursor: pointer;
 }
@@ -69,6 +73,19 @@
     color: $purple;
 }
 
-.user-menu:hover .profile-floating{
-    display: block;
+.menu-item {
+    color: $gray;
+    padding: 6px;
+    transition: ease 0.4s;
 }
+
+/* classe 'active' para os links da sidebar*/
+.menu-item.active {
+    color: $light-purple;
+    font-weight: 700;
+    background-color: $medium-black;
+    border-radius: 4px;
+    border: 1px solid $dark-gray;
+    padding: 6px;
+}
+  
