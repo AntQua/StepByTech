@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
-  layout "dashboard", only: [:index, :new]
+  #layout "dashboard", only: [:index, :new, :show]
 
   # GET /programs
   def index
@@ -17,6 +17,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1
   def show
+    render layout: 'dashboard'
   end
 
   # GET /programs/new
@@ -49,21 +50,22 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1/edit
   def edit
+    render 'edit_program_form', layout: 'dashboard'
   end
 
   # PATCH/PUT /programs/1
   def update
     if @program.update(program_params)
-      redirect_to @program, notice: 'Program was successfully updated.'
+      redirect_to program_path(@program), notice: 'Program was successfully updated.'
     else
-      render :edit
+      render 'edit_program_form', layout: 'dashboard'
     end
   end
 
   # DELETE /programs/1
   def destroy
     @program.destroy
-    redirect_to programs_url, notice: 'Program was successfully destroyed.'
+    redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
 
   private
