@@ -73,8 +73,19 @@
     display: block;
 }
 
+.menu-item {
+    color: $gray;
+    padding: 6px;
+    transition: ease 0.4s;
+}
+
 /* classe 'active' para os links da sidebar*/
 .menu-item.active {
     color: $light-purple;
+    font-weight: 700;
+    background-color: $medium-black;
+    border-radius: 4px;
+    border: 1px solid $dark-gray;
+    padding: 6px;
 }
   
