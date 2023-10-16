@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
-  layout "dashboard", only: [:index, :new]
+  layout "dashboard", only: [:index, :new, :show]
 
   # GET /programs
   def index
@@ -17,6 +17,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1
   def show
+    render layout: 'dashboard'
   end
 
   # GET /programs/new
