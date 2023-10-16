@@ -1,0 +1,25 @@
+.card-profile {
+    background-color: aliceblue;
+    border-radius: 12px;
+    height: 250px;
+    padding: 30px;
+    position: relative;
+}
+
+.avatar-square-s {
+    border: none;
+    border-radius: 12px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.show-more-profile {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    background-color: $light-purple;
+    padding: 8px 10px;
+    border-radius: 10px;
+}

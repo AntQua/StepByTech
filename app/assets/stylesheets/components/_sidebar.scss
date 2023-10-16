@@ -1,5 +1,5 @@
 .sidebar {
-    padding: 40px;
+    padding: 30px;
     width: 340px;
     height: 100vh;
     position: sticky;
@@ -18,9 +18,8 @@
 .user-menu {
     position: absolute;
     bottom: 20px;
-    padding: 0 10px;
 
-    width: 260px;
+    width: 280px;
 
     display: flex;
     justify-content: space-between;
@@ -34,7 +33,7 @@
 .profile-floating {
     position: absolute;
     background-color: $medium-black;
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     border-radius: 20px 20px;
     transition: 0.5s;
     transform: translate(0px, -191px);
@@ -57,8 +56,8 @@
 .avatar-profile {
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     cursor: pointer;
 }

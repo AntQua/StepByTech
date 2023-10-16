@@ -1,0 +1,23 @@
+<div class="card-profile d-flex align-items-center gap-3">
+  <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-square-s", alt: "dropdown menu" %>
+  <div class="d-flex row gap-1">
+    <p class="m-0"><strong><%= current_user.name %></strong></p>
+    <div class="d-flex gap-4">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-circle-user"></i>
+        <p class="m-0">Developer</p>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-location-dot"></i>
+        <p class="m-0">Lisboa</p>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-envelope"></i>
+        <p class="m-0"><%= current_user.email %></p>
+      </div>
+    </div>
+  </div>
+  <div class="show-more-profile">
+    <i class="fa-solid fa-ellipsis fa-lg"></i>
+  </div>
+</div>
