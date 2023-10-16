@@ -11,6 +11,7 @@
     <%= sidebar_link('fa-folder', 'Recursos') %>
   </div>
   <%# Profile default begin%>
+  <%# <div class="user-menu"> %>
   <div class="user-menu">
     <%# Profile details menu begin%>
     <div class="profile-floating">
@@ -33,9 +34,9 @@
           <i class="fa-solid fa-gear" style="color: #5e6278;"></i>
         </div>
         <!--begin::Menu language item-->
-        <div class="">
-          <div class="d-flex justify-content-between menu-item">
-            <p class="m-0">Linguagens</p>
+        <div class="p-0">
+          <div class="d-flex align-items-center justify-content-between menu-item">
+            <p class="m-0">Linguagem</p>
             <span class="">Portuguese
               <img class="flag" src="assets/flags/portugal.svg" alt="" />
             </span>
@@ -51,7 +52,7 @@
         <div class="d-flex align-items-center justify-content-between menu-item">
           <p class="m-0">Modo</p>
           <div>
-            <label class="switch">
+            <label class="switch mx-3">
               <input type="checkbox" />
               <span class="slider"></span>
             </label>
@@ -60,17 +61,14 @@
       </div>
     </div>
     <%# Profile details menu end%>
-    <div class="profile-bottom">
-      <div class="user-menu">
-        <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-profile", alt: "dropdown menu" %>
+    <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-profile", alt: "dropdown menu" %>
+    <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none" do %>
+      <div class="dash-button">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        <p class="m-0">Logout</p>
       </div>
-      <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none" do %>
-        <div class="dash-button">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          <p class="m-0">Logout</p>
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   </div>
+  <%# </div> %>
   <%# Profile default end%>
 </div>

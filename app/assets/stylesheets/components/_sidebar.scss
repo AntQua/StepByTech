@@ -15,7 +15,7 @@
     color: $light-purple;
 }
 
-.profile-bottom {
+.user-menu {
     position: absolute;
     bottom: 20px;
     padding: 0 10px;
@@ -27,12 +27,17 @@
     align-items: center;
 }
 
+.user-menu:hover .profile-floating{
+    display: block;
+}
+
 .profile-floating {
+    position: absolute;
     background-color: $medium-black;
     padding: 20px;
     border-radius: 20px 20px;
-    transition: all .4s;
-    transform: translate(0px, 15px);
+    transition: 0.5s;
+    transform: translate(0px, -191px);
     display: none;
 }
 
@@ -67,10 +72,6 @@
 
 .text-purple {
     color: $purple;
-}
-
-.user-menu:hover .profile-floating{
-    display: block;
 }
 
 .menu-item {
