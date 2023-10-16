@@ -65,7 +65,7 @@ class ProgramsController < ApplicationController
   # DELETE /programs/1
   def destroy
     @program.destroy
-    redirect_to programs_url, notice: 'Program was successfully destroyed.'
+    redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
 
   private

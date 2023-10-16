@@ -21,8 +21,14 @@
   <p>Activo: <%= @program.active ? "Sim" : "Não" %></p>
   <p>Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
 
- <div class="d-flex justify-content-between align-items-center">
-  <%= link_to 'Regressar a Lista de Programas', programs_path, class: 'btn btn-primary mt-3' %>
-  <%= link_to "Editar Programa", edit_program_path(@program), class: "btn btn-secondary mt-3" %>
+  <div class="d-flex justify-content-between align-items-center">
+    <%= link_to 'Regressar a Lista de Programas', programs_path, class: 'btn btn-primary mt-3' %>
+    <%= link_to "Editar Programa", edit_program_path(@program), class: "btn btn-secondary mt-3" %>
+    <%= link_to "Cancelar", program_path(@program), method: :delete, data: { confirm: 'Tem a certeza que pretende cancelar o programa de #{@program.title}?' }, class: "btn btn-danger mt-3" %>
+  </div>
 </div>
-</div>
+
+
+<%# <%= form_with url: program_path(@program), method: :delete do %>
+  <%# <%= submit_tag "Delete", data: { confirm: "Are you sure you want to delete the program titled: #{@program.title}?" }, class: "btn btn-danger" %>
+<%# <% end %> 
