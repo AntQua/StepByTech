@@ -1,0 +1,87 @@
+.homepage-container {
+  margin: 0 170px 0 170px;
+}
+
+.section {
+  min-height: 100vh;
+  h2 {
+    margin-bottom: 25px;
+  }
+}
+
+#home {
+  background-image: url("stepbytech_astro.png");
+  background-size: 85%;
+  background-repeat: no-repeat;
+  background-position: center;
+  p {
+    max-width: 380px;
+  }
+ .home-patrocinio-img {
+    width: 15%;
+ }
+ .home-content {
+   margin-left: 70px;
+ }
+
+}
+
+#sobre-nos {
+  margin-bottom: 100px;
+  h6 {
+    color: $blue;
+  }
+  p {
+    color: $white;
+    margin-bottom: 20px;
+  }
+  span {
+    color: $white;
+  }
+  .stepbytech-topics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    gap: 100px;
+    margin-top: 100px;
+  }
+
+  .stepbytech-context {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.stepbytech-individual-topic {
+  text-align: center;
+  .topic-img {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+}
+
+.other-collabs {
+  text-align: center;
+
+  .patrociono-img {
+    width: 20%;
+    margin: 0 45px 0 45px;
+  }
+}
+
+.patrocinador-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 35px;
+  h6 {
+    color: $blue;
+    font-family: $body-font;
+  }
+  p {
+    color: $white;
+  }
+  .main-patrocinio-img {
+    width: 25%;
+  }
+}
