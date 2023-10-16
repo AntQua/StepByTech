@@ -6,9 +6,9 @@
     <%# sidebar_link is a helper %>
     <%= sidebar_link('fa-table-list', 'Dashboard', "dashboard") %>
     <%# <%= sidebar_link('fa-tv', 'Programs', programs_path, data: { remote: true, turbo: "false" }) %>
-    <%= sidebar_link('fa-tv', 'Programs', programs_path) %>
-    <%= sidebar_link('fa-calendar', 'Events') %>
-    <%= sidebar_link('fa-folder', 'Resources') %>
+    <%= sidebar_link('fa-tv', 'Programas', programs_path) %>
+    <%= sidebar_link('fa-calendar', 'Eventos') %>
+    <%= sidebar_link('fa-folder', 'Recursos') %>
   </div>
   <%# Profile default begin%>
   <div class="user-menu">
@@ -25,17 +25,17 @@
       </div>
       <div class="d-flex row g-3 pt-5">
         <%= link_to profile_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
-          <p class="m-0">My Profile</p>
+          <p class="m-0">Meu Perfil</p>
           <i class="fa-solid fa-user" style="color: #5e6278;"></i>
         <% end %>
         <div class="d-flex align-items-center justify-content-between menu-item">
-          <p class="m-0">Settings</p>
+          <p class="m-0">Configurações</p>
           <i class="fa-solid fa-gear" style="color: #5e6278;"></i>
         </div>
         <!--begin::Menu language item-->
         <div class="">
           <div class="d-flex justify-content-between menu-item">
-            <p class="m-0">Languages</p>
+            <p class="m-0">Linguagens</p>
             <span class="">Portuguese
               <img class="flag" src="assets/flags/portugal.svg" alt="" />
             </span>
@@ -49,7 +49,7 @@
         </div>
         <!--end::Menu language item-->
         <div class="d-flex align-items-center justify-content-between menu-item">
-          <p class="m-0">Mode</p>
+          <p class="m-0">Modo</p>
           <div>
             <label class="switch">
               <input type="checkbox" />
