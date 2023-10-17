@@ -29,10 +29,10 @@
           <p class="m-0">Meu Perfil</p>
           <i class="fa-solid fa-user" style="color: #5e6278;"></i>
         <% end %>
-        <div class="d-flex align-items-center justify-content-between menu-item">
+        <%= link_to settings_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
           <p class="m-0">Configurações</p>
           <i class="fa-solid fa-gear" style="color: #5e6278;"></i>
-        </div>
+        <% end %>
         <!--begin::Menu language item-->
         <div class="p-0">
           <div class="d-flex align-items-center justify-content-between menu-item">

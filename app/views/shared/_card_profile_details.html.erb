@@ -1,39 +1,39 @@
 <div class="card-details-profile d-flex gap-3">
-  <div class="d-flex align-items-center justify-content-between line-bottom">
-    <p class="m-0 fw-bold">Profile Details</p>
-    <button class="btn-edit-profile mb-4">Edit Profile</button>
-  </div>
-  <div class="mt-4">
-    <div class="mx-5 fw-bold">
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="txt-title">Full Name</p>
-            <p class="txt-p"><%= current_user.name %></p>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="txt-title">Email</p>
-            <p class="txt-p"><%= current_user.email %></p>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="txt-title">Contact Phone</p>
-            <p class="txt-p">+351 912 629 632</p>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="txt-title">Country</p>
-            <p class="txt-p">Portugal</p>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="txt-title">City</p>
-            <p class="txt-p">Lisboa</p>
+    <div class="d-flex align-items-center justify-content-between line-bottom">
+        <p class="m-0 fw-bold">Perfil - Detalhes</p>
+        <%= button_to "Edit Profile", settings_path, method: :get, class: "btn-edit-profile mb-4" %>
+    </div>
+    <div class="mt-4">
+        <div class="mx-5 fw-bold">
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="txt-title">Nome Completo</p>
+                <p class="txt-p"><%= current_user.name %></p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="txt-title">Email</p>
+                <p class="txt-p"><%= current_user.email %></p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="txt-title">Contato telemóvel</p>
+                <p class="txt-p">+351 912 629 632</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="txt-title">País</p>
+                <p class="txt-p">Portugal</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="txt-title">Cidade</p>
+                <p class="txt-p">Lisboa</p>
+            </div>
         </div>
     </div>
-  </div>
-  <div class="mx-5">
-    <p class="txt-title fw-bold">About me</p>
-    <p class="txt-p">
-      As a professional transitioning into IT, I am driven by innovation and dedication. 
-      My passion for solving complex challenges, combined with sharp analytical skills, 
-      defines my commitment to thriving in this dynamic technological field. I am determined 
-      to acquire new knowledge and demonstrate my adaptability to achieve success on this journey.
-    </p>
-  </div>
+    <div class="mx-5">
+        <p class="txt-title fw-bold">Sobre mim</p>
+        <p class="txt-p">
+        As a professional transitioning into IT, I am driven by innovation and dedication. 
+        My passion for solving complex challenges, combined with sharp analytical skills, 
+        defines my commitment to thriving in this dynamic technological field. I am determined 
+        to acquire new knowledge and demonstrate my adaptability to achieve success on this journey.
+        </p>
+    </div>
 </div>
