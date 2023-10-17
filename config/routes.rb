@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
     # get 'events', to: 'events#index'
     # get 'resources', to: 'resources#index'
-    resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+    resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
+      resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
+    end
 
   end
 end
