@@ -9,7 +9,6 @@
 .card-details-profile {
     background-color: aliceblue;
     border-radius: 12px;
-    height: 500px;
     padding: 30px;
     position: relative;
     flex-direction: column;
@@ -23,7 +22,7 @@
     object-fit: cover;
 }
 
-.btn-show-more-profile {
+.btn-profile {
     position: absolute;
     top: 30px;
     right: 30px;
