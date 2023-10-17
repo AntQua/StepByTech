@@ -6,12 +6,13 @@
     position: relative;
 }
 
-.card-edit-profile {
+.card-details-profile {
     background-color: aliceblue;
     border-radius: 12px;
     height: 500px;
     padding: 30px;
     position: relative;
+    flex-direction: column;
 }
 
 .avatar-square-s {
@@ -34,8 +35,17 @@
 }
 
 .btn-edit-profile {
-    padding: 12px 16px;
+    padding: 10px 16px;
     background-color: $light-purple;
+    color: $gray;
     border: none;
     border-radius: 6px;
+}
+
+.txt-title {
+    color: $dark-gray;
+}
+
+.txt-p {
+    color: #3F4254;
 }
