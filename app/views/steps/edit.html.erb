@@ -23,10 +23,13 @@
         <input type="date" data-date-adder-target="datePicker">
         <button type="button" data-action="click->date-adder#addDate">Escolha uma Data</button>
     </div>
-    <ul data-date-adder-target="selectedDates"></ul>
+    <ul data-date-adder-target="selectedDates">
+      <% @step.dates.each do |date| %>
+        <li><%= date.strftime('%Y-%m-%d') %></li>
+      <% end %>
+    </ul>
 
-    <%= f.hidden_field :dates, data: { date_adder_target: "datesArray" } %>
-
+    <%= f.hidden_field :dates, value: @step.dates.join(','), data: { date_adder_target: "datesArray" } %>
 
     <div class="row mb-3">
       <div class="col">
