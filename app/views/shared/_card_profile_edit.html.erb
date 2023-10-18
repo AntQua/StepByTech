@@ -1,35 +1,36 @@
 <div class="card-details-profile d-flex gap-3">
-    <div class="d-flex align-items-center justify-content-between line-bottom">
-        <p class="m-0 fw-bold">Profile Details</p>
-        <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="reset" class="btn btn-light btn-active-light-primary me-2">Descartar</button>
-            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Salvar mudanças</button>
-        </div>
-    </div>
-
-    <%= simple_form_for :user_profile, method: :post do |f| %>
+  <div class="d-flex align-items-center justify-content-between line-bottom">
+    <p class="m-0 fw-bold mb-4">Perfil - Detalhes</p>
+  </div>
+  <%= simple_form_for @user, url: user_settings_path, local: true, method: :patch do |f| %>
     <!-- Nome -->
-        <div class="row">
-            <div class="col-md-6">
-                <%= f.input :first_name, label: 'Primeiro Nome', required: true %>
-            </div>
-            <div class="col-md-6">
-                <%= f.input :last_name, label: 'Último Nome', required: true %>
-            </div>
-        </div>
-        <!-- Email -->
-        <%= f.input :email, label: 'Email', required: true %>
-        <!-- Contato Telefônico -->
-        <%= f.input :phone, label: 'Contato Telefônico', required: true %>
-        <!-- País -->
-        <%= f.input :country, label: 'País', collection: ['Portugal'], prompt: 'Selecione um país', required: true %>
-        <!-- Cidade -->
-        <%= f.input :city, label: 'Cidade', collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true %>
-        <!-- Sobre Mim -->
-        <%= f.input :about, label: 'Sobre Mim', as: :text, input_html: { rows: 4 } %>
-    <% end %>
-
-    <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Desativar conta</button>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :name, 'Nome completo' %>
+        <%= f.input :name, required: true %>
+      </div>
     </div>
+    <!-- Email -->
+    <%= f.label :email, 'Email' %>
+    <%= f.input :email, required: true %>
+    <!-- Contato Telefônico -->
+    <%= f.label :phone, 'Contato Telefônico' %>
+    <%= f.input :phone, required: true %>
+    <!-- País -->
+    <%= f.label :country, 'País' %>
+    <%= f.input :country, collection: ['Portugal'], prompt: 'Selecione um país', required: true %>
+    <!-- Cidade -->
+    <%= f.label :city, 'Cidade' %>
+    <%= f.input :city, collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true %>
+    <!-- Sobre Mim -->
+    <%= f.label :about_me, 'Sobre Mim' %>
+    <%= f.input :about_me, as: :text, input_html: { rows: 4 } %>
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+      <%= f.submit "Salvar Alterações", data: { confirm: 'Você tem certeza?' }, class: "btn-edit-profile" %>
+    </div>
+  <% end %>
 </div>
+<!-- Botão de cancelar conta -->
+<%# <div class="card-details-profile d-flex justify-content-end my-5 py-6 px-9">
+    <button type="reset" class="btn-cancel">Desativar conta</button>
+</div> %>

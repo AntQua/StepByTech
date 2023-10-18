@@ -89,3 +89,11 @@ input:checked + .slider:before {
   width: 110px;
   border-radius: 5px;
 }
+
+.btn-cancel {
+  background-color: $red;
+  color: $gray;
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: none;
+}

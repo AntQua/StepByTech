@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   authenticate :user do
-    get 'profile', to: 'users#profile'
-    get 'settings', to: 'users#settings'
+    get 'user/profile', to: 'users#profile'
+    get 'user/settings', to: 'users#settings'
+    patch 'user/settings', to: 'users#update_settings'
+
     get 'dashboard', to: 'pages#dashboard'
     #get 'programs', to: 'programs#index'
 
