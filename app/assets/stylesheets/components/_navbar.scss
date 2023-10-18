@@ -1,19 +1,29 @@
 .navbar-stepbytech {
   justify-content: space-between;
   background: $dark-purple;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: all 0.5s;
+  z-index: 99;
 }
 
 .container-fluid {
   padding: 0 30px 0 70px;
 }
 
-.navbar-stepbytech .navbar-collapse {
-  flex-grow: 0;
+.navbar-brand{
+  flex-grow: 1;
 }
 
+ .navbar-stepbytech .navbar-collapse {
+  //  flex-grow: 0;
+   justify-content: space-between;
+ }
+
 .navbar-nav {
-  gap: 120px;
-}
+  display: flex;
+ }
 
 .navbar-stepbytech .navbar-center {
   display: flex;
@@ -21,6 +31,7 @@
 
 .navbar-stepbytech .navbar-right {
   display: flex;
+  gap: 10px;
 }
 
 .navbar-stepbytech .nav-link{

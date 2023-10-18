@@ -34,9 +34,6 @@ class ProgramsController < ApplicationController
     render 'new_program_form', layout: 'dashboard'
   end
 
-
-
-
   # POST /programs
   def create
     @program = Program.new(program_params)

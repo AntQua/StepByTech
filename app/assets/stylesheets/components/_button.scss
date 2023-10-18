@@ -97,3 +97,11 @@ input:checked + .slider:before {
   border-radius: 6px;
   border: none;
 }
+
+.btn-programs {
+  background: $light-purple;
+  width: 175px;
+  border-radius: 50px;
+  color: $white;
+  font-weight: bold;
+}

@@ -1,0 +1,58 @@
+<h2>Alterar Step <%= @step.step_order %>: <%= @step.name %></h2>
+
+<div class="container mt-5">
+
+  <%= simple_form_for [@program, @step], html: { method: :patch }, data: { controller: "date-adder" } do |f| %>
+    <!-- Input fields for the step attributes similar to your new.html.erb form -->
+    <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
+    <%= f.input :step_order, label: "Ordem do Step", input_html: { class: 'form-control bg-white' } %>
+
+    <div class="custom-control custom-checkbox mb-3">
+      <%= f.input :submission, label: "Submission", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
+    </div>
+
+    <div class="custom-control custom-checkbox mb-3">
+      <%= f.input :active, label: "Active", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
+    </div>
+
+    <%= f.input :description, label: "Descrição", input_html: { class: 'form-control bg-white' } %>
+    <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
+
+    <div id="date-picker-wrapper">
+        <label for="date-picker">Dates:</label>
+        <input type="date" data-date-adder-target="datePicker">
+        <button type="button" data-action="click->date-adder#addDate">Escolha uma Data</button>
+    </div>
+    <ul data-date-adder-target="selectedDates">
+      <% @step.dates.each do |date| %>
+        <li>
+          <%= date.strftime('%Y-%m-%d') %>
+          <!-- Adding remove button for each date -->
+           <button type="button" data-action="click->date-adder#removeDate">Remove</button>
+        </li>
+      <% end %>
+    </ul>
+
+
+
+    <% @step.dates.each do |date| %>
+      <%= f.hidden_field "dates[]", value: date.strftime('%Y-%m-%d'), data: { date_adder_target: "datesArray" } %>
+    <% end %>
+
+
+    <div class="row mb-3">
+      <div class="col">
+        <%= f.input :hour_start, label: "Hora de inicio das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <div class="col">
+        <%= f.input :hour_finish, label: "Hora de fim das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.button :submit, 'Atualizar Step', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Voltar para detalhes do Step', program_step_path(@program, @step), class: 'btn btn-secondary mt-3' %>
+</div>
