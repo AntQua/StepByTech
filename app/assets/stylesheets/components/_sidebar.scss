@@ -88,4 +88,16 @@
     border: 1px solid $dark-gray;
     padding: 6px;
 }
-  
+
+.txt-menu-nav-profile {
+    color: $dark-gray;
+    text-decoration: none;
+    padding: 24px 0;
+    font-weight: 600;
+    // border-bottom: 2px solid $dark-gray;
+}
+
+.txt-menu-nav-profile.active {
+    color: $light-purple;
+    border-bottom: 3px solid $light-purple;
+}

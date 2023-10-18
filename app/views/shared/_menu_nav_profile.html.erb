@@ -1,0 +1,5 @@
+<div class="d-flex gap-4 mb-4">
+  <%= link_to "Visão geral", profile_path, class: "txt-menu-nav-profile #{'active' if current_page?(profile_path)}" %>
+  <%= link_to "Configurações", settings_path, class: "txt-menu-nav-profile #{'active' if current_page?(settings_path)}" %>
+</div>
+
