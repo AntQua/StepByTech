@@ -9,13 +9,13 @@
 
     <%= simple_form_for :user_profile, method: :post do |f| %>
     <!-- Nome -->
-        <div class="d-flex">
-        <div class="col-md-6">
-            <%= f.input :first_name, label: 'Primeiro Nome', required: true %>
-        </div>
-        <div class="col-md-6">
-            <%= f.input :last_name, label: 'Último Nome', required: true %>
-        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <%= f.input :first_name, label: 'Primeiro Nome', required: true %>
+            </div>
+            <div class="col-md-6">
+                <%= f.input :last_name, label: 'Último Nome', required: true %>
+            </div>
         </div>
         <!-- Email -->
         <%= f.input :email, label: 'Email', required: true %>
