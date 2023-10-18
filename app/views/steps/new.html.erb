@@ -1,6 +1,19 @@
 <h2>Novo Step para o Programa <%= @program.title %></h2>
 
 <div class="container mt-5">
+
+  <% if @step.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@step.errors.count, "error") %> prohibited this step from being saved:</h2>
+      <ul>
+      <% @step.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
   <%= simple_form_for [@program, @step], data: { controller: "date-adder" }  do |f| %>
     <!-- Input fields for the step attributes -->
 
@@ -25,8 +38,7 @@
     </div>
     <ul data-date-adder-target="selectedDates"></ul>
 
-    <%= f.hidden_field :dates, data: { date_adder_target: "datesArray" } %>
-
+    <input data-date-adder-target="datesArray" autocomplete="off" type="hidden" value="" name="step[dates][]" id="step_dates">
 
     <div class="row mb-3">
       <div class="col">
@@ -43,3 +55,5 @@
   <% end %>
 
 </div>
+
+  <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-secondary mt-3' %>

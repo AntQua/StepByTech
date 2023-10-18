@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
 
-  <%= simple_form_for [@program, @step], data: { controller: "date-adder" }  do |f| %>
+  <%= simple_form_for [@program, @step], html: { method: :patch }, data: { controller: "date-adder" } do |f| %>
     <!-- Input fields for the step attributes similar to your new.html.erb form -->
     <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
     <%= f.input :step_order, label: "Ordem do Step", input_html: { class: 'form-control bg-white' } %>
@@ -25,11 +25,20 @@
     </div>
     <ul data-date-adder-target="selectedDates">
       <% @step.dates.each do |date| %>
-        <li><%= date.strftime('%Y-%m-%d') %></li>
+        <li>
+          <%= date.strftime('%Y-%m-%d') %>
+          <!-- Adding remove button for each date -->
+           <button type="button" data-action="click->date-adder#removeDate">Remove</button>
+        </li>
       <% end %>
     </ul>
 
-    <%= f.hidden_field :dates, value: @step.dates.join(','), data: { date_adder_target: "datesArray" } %>
+
+
+    <% @step.dates.each do |date| %>
+      <%= f.hidden_field "dates[]", value: date.strftime('%Y-%m-%d'), data: { date_adder_target: "datesArray" } %>
+    <% end %>
+
 
     <div class="row mb-3">
       <div class="col">

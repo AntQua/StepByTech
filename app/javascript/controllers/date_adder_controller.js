@@ -3,37 +3,46 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["datePicker", "selectedDates", "datesArray"];
 
-  connect() {
-    console.log("date_adder_controller connected!");
-  }
+  // connect() {
+  //   console.log("date_adder_controller connected!");
+  // }
 
   addDate() {
-
-    console.log("addDate method connected!");
-
     const selectedDate = this.datePickerTarget.value;
+    const existingDates = [...this.element.querySelectorAll(`input[name="step[dates][]"]`)].map(input => input.value);
 
-    if (selectedDate) {
-      const listItem = document.createElement('li');
-      listItem.textContent = selectedDate;
+    if (selectedDate && !existingDates.includes(selectedDate)) {
+        const listItem = document.createElement('li');
+        listItem.textContent = selectedDate + " ";
 
-      const removeButton = document.createElement('button');
-      removeButton.textContent = "Remove";
-      removeButton.dataset.action = "click->date-adder#removeDate";
-      listItem.appendChild(removeButton);
-      this.selectedDatesTarget.appendChild(listItem);
+        // Create a new hidden input field for the date
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'step[dates][]';
+        hiddenInput.value = selectedDate;
 
-      this.updateDatesArrayField();
+        // Append the hidden input to the form
+        this.element.appendChild(hiddenInput);
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = "Remove";
+        removeButton.dataset.action = "click->date-adder#removeDate";
+        listItem.appendChild(removeButton);
+        this.selectedDatesTarget.appendChild(listItem);
     }
   }
 
   removeDate(event) {
-    this.selectedDatesTarget.removeChild(event.target.parentElement);
-    this.updateDatesArrayField();
-  }
+    const dateValueToRemove = event.target.parentElement.textContent.trim().slice(0, 10);
 
-  updateDatesArrayField() {
-    const dates = Array.from(this.selectedDatesTarget.children).map(li => li.textContent.split(" ")[0]);
-    this.datesArrayTarget.value = dates.join(",");
+    // Remove the corresponding hidden input
+    const correspondingHiddenInput = [...this.element.querySelectorAll(`input[name="step[dates][]"]`)].find(input => input.value === dateValueToRemove);
+    if (correspondingHiddenInput) {
+      this.element.removeChild(correspondingHiddenInput);
+    }
+
+    // Remove the date from the list
+    this.selectedDatesTarget.removeChild(event.target.parentElement);
   }
 }
+
