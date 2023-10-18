@@ -49,3 +49,43 @@
 .txt-p {
     color: #3F4254;
 }
+
+
+// Card Programas
+
+.cards-test {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-column-gap: 50px;
+  grid-row-gap: 25px;
+  justify-content: space-between;
+}
+
+.card-programs {
+  width: 350px;
+  height: 500px;
+  border-radius: 12px;
+  background-color: $medium-black;
+
+
+  .card-header {
+    width: 350px;
+    height: 25px;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+    background-color: $light-purple;
+  }
+
+  .card-title {
+    margin-top: 20px;
+    color: $white;
+  }
+
+  .card-sub-title {
+    color: $light-purple;
+  }
+
+  .card-text {
+    color: $white;
+  }
+}

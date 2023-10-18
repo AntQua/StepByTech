@@ -4,29 +4,31 @@
       <%= image_tag "stepbytech-title-p-500.png", class: "stepbytech-nav-logo" %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <%# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> %>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav">
         <div class="navbar-center">
           <li class="nav-item active">
             <%= link_to "Home", "#", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Sobre Nós", "#", class: "nav-link" %>
+            <%= link_to "Sobre Nós", "#aboutus", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Programas", "#", class: "nav-link" %>
+            <%= link_to "Programas", "#programs", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Eventos", "#", class: "nav-link" %>
+            <%= link_to "Eventos", "#events", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Patrocinadores", "#", class: "nav-link" %>
+            <%= link_to "Patrocinadores", "#patrocinadores", class: "nav-link" %>
           </li>
         </div>
+      </ul>
+      <ul class="navbar-nav">
         <div class="navbar-right">
           <% if user_signed_in? %>
             <li class="nav-item dropdown">

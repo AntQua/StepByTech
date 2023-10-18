@@ -11,7 +11,7 @@
 @import "components/index";
 @import "pages/index";
 @import "components/section";
-
+@import "components/footer";
 // @import "programs_list";
 
 
@@ -22,7 +22,7 @@
 
 ::before,
 ::after {
-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -33,6 +33,13 @@ body {
   margin: 0;
   padding: 0;
   color: $white;
-  background: url("bg_back_blend-25.png"), linear-gradient(145deg, rgba(21,20,56,1) 0%, rgba(39,25,67,1) 35%, rgba(67,32,84,1) 65%, rgba(56,72,154,1) 100%);
+  background: linear-gradient(145deg, rgba(21, 20, 56, 1) 0%, rgba(39, 25, 67, 1) 35%, rgba(67, 32, 84, 1) 65%, rgba(56, 72, 154, 1) 100%);
   background-repeat: no-repeat;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+
+body::-webkit-scrollbar{
+  display: none;
 }
