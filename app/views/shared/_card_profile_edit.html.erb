@@ -7,24 +7,24 @@
     <div class="row">
       <div class="col-md-12">
         <%= f.label :name, 'Nome completo' %>
-        <%= f.input :name, required: true %>
+        <%= f.input :name, required: true, label: false %>
       </div>
     </div>
     <!-- Email -->
     <%= f.label :email, 'Email' %>
-    <%= f.input :email, required: true %>
+    <%= f.input :email, required: true, label: false %>
     <!-- Contato Telefônico -->
     <%= f.label :phone, 'Contato Telefônico' %>
-    <%= f.input :phone, required: true %>
+    <%= f.input :phone, required: true, label: false %>
     <!-- País -->
     <%= f.label :country, 'País' %>
-    <%= f.input :country, collection: ['Portugal'], prompt: 'Selecione um país', required: true %>
+    <%= f.input :country, collection: ['Portugal'], prompt: 'Selecione um país', required: true, label: false %>
     <!-- Cidade -->
     <%= f.label :city, 'Cidade' %>
-    <%= f.input :city, collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true %>
+    <%= f.input :city, collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true, label: false %>
     <!-- Sobre Mim -->
     <%= f.label :about_me, 'Sobre Mim' %>
-    <%= f.input :about_me, as: :text, input_html: { rows: 4 } %>
+    <%= f.input :about_me, as: :text, input_html: { rows: 4 }, label: false %>
     <div class="card-footer d-flex justify-content-end py-6 px-9">
       <%= f.submit "Salvar Alterações", data: { confirm: 'Você tem certeza?' }, class: "btn-edit-profile" %>
     </div>
