@@ -1,6 +1,6 @@
 <div class="bg-white rounded-4 p-3 mb-4">
   <div class="container mt-5">
-  <h2>Detalhes do Step: <%= @step.name %></h2>
+  <h2>Detalhes do Step <%= @step.step_order%>: <%= @step.name %></h2>
 
   <div class="mb-3">
     <strong>Nome do Step:</strong> <%= @step.name %>
@@ -43,8 +43,9 @@
     <strong>Hora de fim das sessões:</strong> <%= @step.hour_finish.strftime('%H:%M') unless @step.hour_finish.nil? %>
   </div>
 
-  <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-secondary mt-3' %>
+  <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-primary mt-3' %>
   <%= link_to 'Alterar', edit_program_step_path(@step.program, @step), class: 'btn btn-secondary mt-3' %>
+  <%= link_to "Cancelar", program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "btn btn-danger mt-3" %>
 </div>
 
 </div>
