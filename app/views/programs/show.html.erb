@@ -39,10 +39,10 @@
             <h3>Step <%= step.step_order %> - <%= step.name %></h3>
           </div>
           <p class="card-text"><%= step.description %></p>
-          <p>Debug: <%= step.dates.inspect %></p>
+          <%# <p>Debug: <%= step.dates.inspect</p> %>
           <p>Dias das sessões:</p>
           <% if step.dates.present? %>
-            <% grouped_dates = step.dates.group_by { |date| date.strftime('%B') } %>
+            <% grouped_dates = step.dates.compact.group_by { |date| date.strftime('%B') } %>
             <% sessions_strings = grouped_dates.map do |month, dates|
               days = dates.map { |date| date.day }.compact.uniq.sort
               next if days.empty?
