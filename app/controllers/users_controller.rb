@@ -28,4 +28,8 @@ class UsersController < ApplicationController
     def user_params
         params.require(:user).permit(:name, :email, :phone, :country, :city, :about_me)
     end
+
+    # def after_sign_in_path_for(resource)
+    #   dashboard_path
+    # end
 end
