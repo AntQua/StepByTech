@@ -24,8 +24,10 @@ export default class extends Controller {
         // Append the hidden input to the form
         this.element.appendChild(hiddenInput);
 
-        const removeButton = document.createElement('button');
-        removeButton.textContent = "Remove";
+        const removeButton = document.createElement('i');
+        removeButton.classList.add("fa-solid", "fa-trash");
+        removeButton.setAttribute("role", "button");
+        removeButton.setAttribute("tabindex", "0");
         removeButton.dataset.action = "click->date-adder#removeDate";
         listItem.appendChild(removeButton);
         this.selectedDatesTarget.appendChild(listItem);
@@ -33,7 +35,7 @@ export default class extends Controller {
   }
 
   removeDate(event) {
-    const dateValueToRemove = event.target.parentElement.textContent.trim().slice(0, 10);
+    const dateValueToRemove = event.target.previousSibling.textContent.trim();
 
     // Remove the corresponding hidden input
     const correspondingHiddenInput = [...this.element.querySelectorAll(`input[name="step[dates][]"]`)].find(input => input.value === dateValueToRemove);
@@ -45,4 +47,3 @@ export default class extends Controller {
     this.selectedDatesTarget.removeChild(event.target.parentElement);
   }
 }
-
