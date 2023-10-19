@@ -92,6 +92,16 @@ input:checked + .slider:before {
     color: $white;
     background-color: $purple;
   }
+  text-decoration: none;
+}
+
+.btn-cancel {
+  background-color: $red;
+  color: $gray;
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: none;
+  text-decoration: none;
 }
 
 .btn-programs {

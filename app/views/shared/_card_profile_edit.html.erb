@@ -1,0 +1,36 @@
+<div class="card-details-profile d-flex gap-3">
+  <div class="d-flex align-items-center justify-content-between line-bottom">
+    <p class="m-0 fw-bold mb-4">Perfil - Detalhes</p>
+  </div>
+  <%= simple_form_for @user, url: user_settings_path, local: true, method: :patch do |f| %>
+    <!-- Nome -->
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label :name, 'Nome completo' %>
+        <%= f.input :name, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
+      </div>
+    </div>
+    <!-- Email -->
+    <%= f.label :email, 'Email' %>
+    <%= f.input :email, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
+    <!-- Contato Telefônico -->
+    <%= f.label :phone, 'Contato Telefônico' %>
+    <%= f.input :phone, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <!-- País -->
+    <%= f.label :country, 'País' %>
+    <%= f.input :country, collection: ['Portugal'], prompt: 'Selecione um país', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <!-- Cidade -->
+    <%= f.label :city, 'Cidade' %>
+    <%= f.input :city, collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <!-- Sobre Mim -->
+    <%= f.label :about_me, 'Sobre Mim' %>
+    <%= f.input :about_me, as: :text, input_html: { rows: 4 }, label: false, input_html: { class: 'form-control bg-white' } %>
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+      <%= f.submit "Salvar Alterações", data: { confirm: 'Você tem certeza?' }, class: "btn-edit-profile" %>
+    </div>
+  <% end %>
+</div>
+<!-- Botão de cancelar conta -->
+<%# <div class="card-details-profile d-flex justify-content-end my-5 py-6 px-9">
+    <button type="reset" class="btn-cancel">Desativar conta</button>
+</div> %>

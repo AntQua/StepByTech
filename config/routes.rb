@@ -6,16 +6,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   authenticate :user do
-    get 'profile', to: 'users#profile'
-    get 'settings', to: 'users#settings'
-    get 'dashboard', to: 'pages#dashboard'
-    #get 'programs', to: 'programs#index'
+    get 'user/profile', to: 'users#profile'
+    get 'user/settings', to: 'users#settings'
+    patch 'user/settings', to: 'users#update_settings'
 
-    # get 'events', to: 'events#index'
-    # get 'resources', to: 'resources#index'
+    get 'dashboard', to: 'pages#dashboard'
+
+     # Temporary debugging route
+    #post '/programs/:program_id/steps/:id', to: 'steps#update'
+
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
       resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
     end
-
   end
 end
