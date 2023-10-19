@@ -1,0 +1,69 @@
+<div class="d-flex align-items-center gap-3 mb-3">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Detalhes</p>
+</div>
+<h3 class="mb-5">Programa</h3>
+<div class="bg-white rounded-4 p-3 mb-4 d-flex gap-5">
+  <div>
+    <%= image_tag "image_web_details.png", class: "some css class here" %>
+  </div>
+  <div>
+    <div class="d-flex justify-content-between gap-3">
+      <div class="d-flex col align-items-center gap-2">
+        <h5><%= @program.title %></h5>
+        <%= image_tag "tag_badges_complete.svg" %>
+      </div>
+      <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
+    </div>
+    <p class="card-sub-title mb-3"><%= @program.description %></p>
+    <div class="d-flex col">
+      <div class="d-flex row gap-2">
+        <div class="d-flex gap-2 align-items-center">
+          <%= image_tag "date_range.png" %>
+          <p class="m-0 card-sub-title">Data de início da inscrição : <%= @program.registration_start_date %></p>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+          <%= image_tag "date_range.png" %>
+          <p class="m-0 card-sub-title">Data de fim da inscrição : <%= @program.registration_end_date %></p>
+        </div>
+      </div>
+      <div class="d-flex row">
+        <div class="d-flex gap-2 align-items-center">
+          <%= image_tag "date_range.png" %>
+          <p class="m-0 card-sub-title">Data de início : <%= @program.begin_date %></p>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+          <%= image_tag "date_range.png" %>
+          <p class="m-0 card-sub-title">Data de fim: <%= @program.end_date %></p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex gap-2 align-items-center mt-3 gap-5">
+      <div class="d-flex gap-2 align-items-center justify-content-between">
+        <%= image_tag "user_alt_fill.png" %>
+        <p class="m-0 card-sub-title">Número máximo de candidatos: <%= @program.registration_limit %></p>
+      </div>
+      <%# ter certeza que isto abaixo é necessário... %>
+      <div class="d-flex gap-2 align-items-center">
+        <p class="m-0 card-sub-title">Activo: <%= @program.active ? "Sim" : "Não" %></p>
+        <p class="m-0 card-sub-title">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+  <%= link_to programs_path do %>
+    <%= image_tag "arrow_left.png" %>
+  <% end %>
+  <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
+</div>
+<!-- Botão de cancelar programa -->
+<%# <div class="card-details-profile d-flex justify-content-end my-5 py-6 px-9">
+    <button type="reset" class="btn-cancel">Desativar conta</button>
+</div> %>
+<div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
+  <%= link_to "Cancelar", program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
+</div>
