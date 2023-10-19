@@ -32,9 +32,9 @@
     <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
 
     <div id="date-picker-wrapper">
-        <label for="date-picker">Dates:</label>
-        <input type="date" data-date-adder-target="datePicker">
-        <button type="button" data-action="click->date-adder#addDate">Escolha uma Data</button>
+        <label for="date-picker">Datas do Step:</label>
+        <input type="date" data-controller="datepicker" data-date-adder-target="datePicker" placeholder="escolha uma data">
+        <button type="button" data-action="click->date-adder#addDate">Adicione uma Data</button>
     </div>
     <ul data-date-adder-target="selectedDates"></ul>
 

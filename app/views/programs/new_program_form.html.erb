@@ -12,19 +12,19 @@
     <!-- Group the registration dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :registration_start_date,  label: "Data de início da inscrição", as: :date, input_html: { class: 'form-control bg-white' } %>
+        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :registration_end_date, label: "Data de fim da inscrição", as: :date, input_html: { class: 'form-control bg-white' } %>
+        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
       </div>
     </div>
     <!-- Group the event dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :begin_date, label: "Data de início do programa", as: :date, input_html: { class: 'form-control bg-white' } %>
+        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :end_date, label: "Data de fim do programa", as: :date, input_html: { class: 'form-control bg-white' } %>
+        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
       </div>
     </div>
     <div class="mb-3">
