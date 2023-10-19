@@ -24,7 +24,7 @@
     <strong>Datas selecionadas:</strong>
       <ul>
         <% @step.dates.compact.each do |date| %>
-          <li><%= date.strftime('%B %d, %Y') %></li>
+          <li><%= date.strftime('%Y-%m-%d') %></li>
         <% end %>
       </ul>
   </div>
@@ -41,5 +41,3 @@
   <%= link_to 'Alterar', edit_program_step_path(@step.program, @step), class: 'btn btn-secondary mt-3' %>
   <%= link_to "Cancelar", program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "btn btn-danger mt-3" %>
 </div>
-
-
