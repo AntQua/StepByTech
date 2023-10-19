@@ -1,5 +1,14 @@
-<h2>Novo Step para o Programa <%= @program.title %></h2>
-<div class="container mt-5">
+<div class="d-flex align-items-center gap-3 mb-3">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Step</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Novo</p>
+</div>
+<h3 class="mb-5">Novo Step</h3>
+<div class="card-profile container mt-5">
   <% if @step.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@step.errors.count, "error") %> prohibited this step from being saved:</h2>

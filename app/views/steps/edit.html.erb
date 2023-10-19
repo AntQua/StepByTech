@@ -1,5 +1,14 @@
-<h2>Alterar Step <%= @step.step_order %>: <%= @step.name %></h2>
-<div class="container mt-5">
+<div class="d-flex align-items-center gap-3 mb-3">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Step</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Editar</p>
+</div>
+<h2>Alterar <%= @step.name %></h2>
+<div class="card-profile container mt-5">
   <%= simple_form_for [@program, @step], html: { method: :patch }, data: { controller: "datepicker" } do |f| %>
     <!-- Input fields for the step attributes similar to your new.html.erb form -->
     <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
