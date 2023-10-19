@@ -11,51 +11,43 @@
   <h3>Alterar Programa</h3>
   <h4 class="text-purple"><%= @program.title %></h4>
 </div>
-
-<div class="card-profile container mt-5 bg-white">
+<div class="card-profile container mt-5 bg-white" data-controller="datepicker">
   <%= simple_form_for(@program) do |f| %>
     <div class="mb-3">
       <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <div class="mb-3">
       <%= f.input :description, label: "Descrição", as: :text, input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <!-- Group the registration dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
+        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { value: @program.registration_start_date.strftime('%d/%m/%Y'),data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
+        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { value: @program.registration_end_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
     </div>
-
     <!-- Group the event dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
+        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { value: @program.begin_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { data: { controller: "datepicker"}, placeholder: "Selecionar data" } %>
+        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { value: @program.end_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
     </div>
-
     <div class="mb-3">
       <%= f.input :registration_limit, label: "Número máximo de candidatos", as: :integer, input_html: { class: 'form-control bg-white' } %>
     </div>
-
     <div class="mb-3 form-check">
       <%= f.input :active, label: "Ativo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
-
     <div class="mb-3 form-check">
       <%= f.input :completed, label: "Completo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
-
-    <div class="d-flex mb-3 justify-content-between">
-      <%= link_to 'Voltar para detalhes do Programa', program_path(@program), class: 'dash-button text-decoration-none mt-3' %>
+    <div class="card-footer d-flex justify-content-between py-6 px-9">
+      <%= link_to 'Voltar para os detalhes do Programa', program_path(@program), class: 'btn btn-secondary mt-3' %>
       <%= f.button :submit, 'Atualizar Programa', class: 'btn-edit-profile' %>
     </div>
   <% end %>
