@@ -1,5 +1,4 @@
 <%= render "shared/card_program_details" %>
-
 <div class="steps-list row">
   <% @program.steps.each do |step| %>
     <div class="steps-card col-md-4 mb-4">
@@ -21,14 +20,12 @@
               else
                 days[0...-1].join(', ') + " e #{days.last}"
               end
-              "- #{month} dias #{formatted_days}"
+              "- #{t(month.downcase, locale: :pt)} dias #{formatted_days}"
             end.reject(&:nil?).join('<br>').html_safe %>
             <%= sessions_strings %>
           <% end %>
-
           <p class="mt-2">Início: <%= step.hour_start.strftime('%H:%M') if step.hour_start %> | Fim: <%= step.hour_finish.strftime('%H:%M') if step.hour_finish %></p>
         </div>
-
         <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
         <div class="card-footer border-0 bg-transparent text-end">
           <%= link_to program_step_path(step.program, step) do %>

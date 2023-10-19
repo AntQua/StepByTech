@@ -10,6 +10,7 @@ class StepsController < ApplicationController
   def create
     Rails.logger.info params.inspect
 
+    params[:step][:dates] = params[:step][:dates].split(",").map { |date_str| Date.parse(date_str) }
     params[:step][:dates].reject!(&:blank?)
 
     @step = @program.steps.build(step_params)
@@ -47,11 +48,10 @@ class StepsController < ApplicationController
     # Log the existing dates before update
     Rails.logger.info "Existing dates before update: #{@step.dates}"
 
-    existing_dates = @step.dates
-    new_dates = params[:step][:dates].map { |date_str| Date.parse(date_str) }
-    combined_dates = (existing_dates + new_dates).uniq
+    params[:step][:dates] = params[:step][:dates].split(",").map { |date_str| Date.parse(date_str) }
+    params[:step][:dates].reject!(&:blank?)
 
-    updated_params = step_params.merge(dates: combined_dates)
+    updated_params = step_params.merge(dates: params[:step][:dates])
 
     Rails.logger.info updated_params.inspect
     if @step.update(updated_params)
