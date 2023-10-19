@@ -1,52 +1,57 @@
 .card-profile {
-    background-color: aliceblue;
-    border-radius: 12px;
-    height: 250px;
-    padding: 30px;
-    position: relative;
+  background-color: $white;
+  border-radius: 12px;
+  // height: 250px;
+  padding: 30px;
+  position: relative;
 }
 
 .card-details-profile {
-    background-color: aliceblue;
-    border-radius: 12px;
-    padding: 30px;
-    position: relative;
-    flex-direction: column;
+  background-color: $white;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  flex-direction: column;
 }
 
 .avatar-square-s {
-    border: none;
-    border-radius: 12px;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
+  border: none;
+  border-radius: 12px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
 }
 
 .btn-profile {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    cursor: pointer;
-    background-color: $light-purple;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 10px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  background-color: $light-purple;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 10px;
 }
 
 .btn-edit-profile {
-    padding: 10px 16px;
-    background-color: $light-purple;
-    color: $gray;
-    border: none;
-    border-radius: 6px;
+  padding: 10px 16px;
+  background-color: $light-purple;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+}
+
+.btn-edit-profile:hover {
+  background-color: $purple;
+  color: $white;
 }
 
 .txt-title {
-    color: $dark-gray;
+  color: $dark-gray;
 }
 
 .txt-p {
-    color: #3F4254;
+  color: #3F4254;
 }
 
 
@@ -65,26 +70,53 @@
   height: 500px;
   border-radius: 12px;
   background-color: $medium-black;
+}
 
+.card-header {
+  width: 350px;
+  height: 25px;
+  border-radius: 12px;
+  background-color: $light-purple;
+}
 
-  .card-header {
-    width: 350px;
-    height: 25px;
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-    background-color: $light-purple;
-  }
+.card-title {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: $black;
+}
 
-  .card-title {
-    margin-top: 20px;
-    color: $white;
-  }
+.card-sub-title {
+  color: $dark-gray;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 50%;
+}
 
-  .card-sub-title {
-    color: $light-purple;
-  }
+.card-text {
+  color: $white;
+}
 
-  .card-text {
-    color: $white;
-  }
+.card-date {
+  display: flex;
+  gap: 7px;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(169, 169, 169, 0.5);
+  border-radius: 12px;
+  padding: 10px 25px;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  color: $dark;
+}
+
+.card-date span {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  color: $dark-gray;
+  opacity: 50%;
 }

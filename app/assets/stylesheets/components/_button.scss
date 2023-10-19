@@ -88,6 +88,7 @@ input:checked + .slider:before {
   background: $light-purple;
   width: 110px;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .btn-cancel {
@@ -96,6 +97,7 @@ input:checked + .slider:before {
   padding: 10px 24px;
   border-radius: 6px;
   border: none;
+  text-decoration: none;
 }
 
 .btn-programs {

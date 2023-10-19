@@ -1,6 +1,18 @@
-<h2>Alterar Programa <%= @program.title %></h2>
+<%# Colocar isto dinamico %>
+<div class="d-flex align-items-center gap-3 mb-5">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Alterar Programa</p>
+</div>
+<%# Colocar isto dinamico %>
+<div class="d-flex align-items-center gap-5">
+  <h3>Alterar Programa</h3>
+  <h4 class="text-purple"><%= @program.title %></h4>
+</div>
 
-<div class="container mt-5">
+<div class="card-profile container mt-5 bg-white">
   <%= simple_form_for(@program) do |f| %>
     <div class="mb-3">
       <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
@@ -42,9 +54,9 @@
       <%= f.input :completed, label: "Completo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
 
-    <div class="mb-3">
-      <%= f.button :submit, 'Atualizar Programa', class: 'btn btn-primary' %>
+    <div class="d-flex mb-3 justify-content-between">
+      <%= link_to 'Voltar para detalhes do Programa', program_path(@program), class: 'dash-button text-decoration-none mt-3' %>
+      <%= f.button :submit, 'Atualizar Programa', class: 'btn-edit-profile' %>
     </div>
   <% end %>
-  <%= link_to 'Voltar para detalhes do Programa', program_path(@program), class: 'btn btn-secondary mt-3' %>
 </div>
