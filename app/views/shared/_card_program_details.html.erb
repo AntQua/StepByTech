@@ -23,21 +23,21 @@
       <div class="d-flex row gap-2">
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de início da inscrição : <%= @program.registration_start_date %></p>
+          <p class="m-0 card-sub-title">Data de início da inscrição : <%= @program.registration_start_date.strftime('%d/%m/%Y') %></p>
         </div>
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de fim da inscrição : <%= @program.registration_end_date %></p>
+          <p class="m-0 card-sub-title">Data de fim da inscrição : <%= @program.registration_end_date.strftime('%d/%m/%Y') %></p>
         </div>
       </div>
       <div class="d-flex row">
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de início : <%= @program.begin_date %></p>
+          <p class="m-0 card-sub-title">Data de início : <%= @program.begin_date.strftime('%d/%m/%Y') %></p>
         </div>
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de fim: <%= @program.end_date %></p>
+          <p class="m-0 card-sub-title">Data de fim: <%= @program.end_date.strftime('%d/%m/%Y') %></p>
         </div>
       </div>
     </div>
@@ -59,11 +59,4 @@
     <%= image_tag "arrow_left.png" %>
   <% end %>
   <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
-</div>
-<!-- Botão de cancelar programa -->
-<%# <div class="card-details-profile d-flex justify-content-end my-5 py-6 px-9">
-    <button type="reset" class="btn-cancel">Desativar conta</button>
-</div> %>
-<div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
-  <%= link_to "Cancelar", program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
 </div>

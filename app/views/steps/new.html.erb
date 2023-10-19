@@ -1,45 +1,40 @@
-<h2>Novo Step para o Programa <%= @program.title %></h2>
-
-<div class="container mt-5">
-
+<div class="d-flex align-items-center gap-3 mb-3">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Step</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Novo</p>
+</div>
+<h3 class="mb-5">Novo Step</h3>
+<div class="card-profile container mt-5">
   <% if @step.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@step.errors.count, "error") %> prohibited this step from being saved:</h2>
       <ul>
-      <% @step.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @step.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-
-  <%= simple_form_for [@program, @step], data: { controller: "date-adder" }  do |f| %>
+  <%= simple_form_for [@program, @step], data: { controller: "datepicker" }  do |f| %>
     <!-- Input fields for the step attributes -->
-
     <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
     <%= f.input :step_order, label: "Ordem do Step", input_html: { class: 'form-control bg-white' } %>
-
     <div class="custom-control custom-checkbox mb-3">
       <%= f.input :submission, label: "Submission", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
     </div>
-
     <div class="custom-control custom-checkbox mb-3">
       <%= f.input :active, label: "Active", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
     </div>
-
     <%= f.input :description, label: "Descrição", input_html: { class: 'form-control bg-white' } %>
     <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
-
-    <div id="date-picker-wrapper">
-        <label for="date-picker">Datas do Step:</label>
-        <input type="string" data-controller="datepicker" data-date-adder-target="datePicker" placeholder="Escolha uma data">
-        <i class="fa-solid fa-plus" role="button" tabindex="0" data-action="click->date-adder#addDate"></i>
+    <div class="mb-3">
+      <label for="step[dates]" class="form-label">Escolha as Datas</label>
+      <input type="date" required class="datepicker form-control bg-white" name="step[dates]" data-mode="multiple" />
     </div>
-    <ul data-date-adder-target="selectedDates"></ul>
-
-    <input data-date-adder-target="datesArray" autocomplete="off" type="hidden" value="" name="step[dates][]" id="step_dates">
-
     <div class="row mb-3">
       <div class="col">
         <%= f.input :hour_start, label: "Hora de inicio das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
@@ -48,12 +43,9 @@
         <%= f.input :hour_finish, label: "Hora de fim das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
       </div>
     </div>
-
-    <div class="form-group">
-      <%= f.button :submit, "Create Step", class: "btn btn-primary" %>
+    <div class="card-footer d-flex justify-content-between py-6 px-9">
+      <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-secondary mt-3' %>
+      <%= f.submit "Criar Step", data: { confirm: 'Você tem certeza?' }, class: "btn-edit-profile" %>
     </div>
   <% end %>
-
 </div>
-
-  <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-secondary mt-3' %>
