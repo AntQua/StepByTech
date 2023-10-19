@@ -1,13 +1,13 @@
 .card-profile {
-  background-color: aliceblue;
+  background-color: $white;
   border-radius: 12px;
-  height: 250px;
+  // height: 250px;
   padding: 30px;
   position: relative;
 }
 
 .card-details-profile {
-  background-color: aliceblue;
+  background-color: $white;
   border-radius: 12px;
   padding: 30px;
   position: relative;
@@ -36,9 +36,14 @@
 .btn-edit-profile {
   padding: 10px 16px;
   background-color: $light-purple;
-  color: $gray;
+  color: $white;
   border: none;
   border-radius: 6px;
+}
+
+.btn-edit-profile:hover {
+  background-color: $purple;
+  color: $white;
 }
 
 .txt-title {

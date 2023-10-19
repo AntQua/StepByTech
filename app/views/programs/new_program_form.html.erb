@@ -1,7 +1,16 @@
+<%# Colocar isto dinamico %>
+<div class="d-flex align-items-center gap-3 mb-5">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Programas</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Novo Programa</p>
+</div>
+<%# Colocar isto dinamico %>
 
-<h2>Novo Programa</h2>
+<h3>Novo Programa</h3>
 
-<div class="container mt-5">
+<div class="card-profile container mt-5">
   <%= simple_form_for(@program) do |f| %>
     <div class="mb-3">
       <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
@@ -36,8 +45,8 @@
     <div class="mb-3 form-check">
       <%= f.input :completed, label: "Completo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
     </div>
-    <div class="mb-3">
-      <%= f.button :submit, 'Criar Programa', class: 'btn btn-primary' %>
+    <div class="d-flex align-items-end justify-content-end">
+      <%= f.button :submit, 'Criar Programa', class: "btn-edit-profile" %>
     </div>
   <% end %>
 </div>
