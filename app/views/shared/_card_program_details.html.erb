@@ -18,38 +18,38 @@
       </div>
       <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
     </div>
-    <p class="card-sub-title mb-3"><%= @program.description %></p>
+    <p class="card-sub-title-dashboard mb-3"><%= @program.description %></p>
     <div class="d-flex col">
       <div class="d-flex row gap-2">
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de início da inscrição : <%= @program.registration_start_date.strftime('%d/%m/%Y') %></p>
+          <p class="m-0 card-sub-title-dashboard">Data de início da inscrição : <%= @program.registration_start_date.strftime('%d/%m/%Y') %></p>
         </div>
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de fim da inscrição : <%= @program.registration_end_date.strftime('%d/%m/%Y') %></p>
+          <p class="m-0 card-sub-title-dashboard">Data de fim da inscrição : <%= @program.registration_end_date.strftime('%d/%m/%Y') %></p>
         </div>
       </div>
       <div class="d-flex row">
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de início : <%= @program.begin_date.strftime('%d/%m/%Y') %></p>
+          <p class="m-0 card-sub-title-dashboard">Data de início : <%= @program.begin_date.strftime('%d/%m/%Y') %></p>
         </div>
         <div class="d-flex gap-2 align-items-center">
           <%= image_tag "date_range.png" %>
-          <p class="m-0 card-sub-title">Data de fim: <%= @program.end_date.strftime('%d/%m/%Y') %></p>
+          <p class="m-0 card-sub-title-dashboard">Data de fim: <%= @program.end_date.strftime('%d/%m/%Y') %></p>
         </div>
       </div>
     </div>
     <div class="d-flex gap-2 align-items-center mt-3 gap-5">
       <div class="d-flex gap-2 align-items-center justify-content-between">
         <%= image_tag "user_alt_fill.png" %>
-        <p class="m-0 card-sub-title">Número máximo de candidatos: <%= @program.registration_limit %></p>
+        <p class="m-0 card-sub-title-dashboard">Número máximo de candidatos: <%= @program.registration_limit %></p>
       </div>
       <%# ter certeza que isto abaixo é necessário... %>
       <div class="d-flex gap-2 align-items-center">
-        <p class="m-0 card-sub-title">Activo: <%= @program.active ? "Sim" : "Não" %></p>
-        <p class="m-0 card-sub-title">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
+        <p class="m-0 card-sub-title-dashboard">Activo: <%= @program.active ? "Sim" : "Não" %></p>
+        <p class="m-0 card-sub-title-dashboard">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
       </div>
     </div>
   </div>

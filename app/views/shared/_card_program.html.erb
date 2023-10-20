@@ -8,10 +8,10 @@
             <%= image_tag "tag_badges_complete.svg", class: "some css class here" %>
           </div>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-title"><%= program.title %></p>
+            <p class="card-title-dashboard"><%= program.title %></p>
             <!-- You can add an icon or any additional item on the right side of the card title here. -->
           </div>
-          <p class="card-sub-title mb-3"><%= program.description %></p>
+          <p class="card-sub-title-dashboard mb-3"><%= program.description %></p>
           <ul class="list-unstyled d-flex gap-3 justify-content-center">
             <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4">
               <span>Data de inicio</span></br><%= program.begin_date.strftime('%d/%m/%Y') %>
