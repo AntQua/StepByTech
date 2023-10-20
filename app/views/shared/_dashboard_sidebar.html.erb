@@ -1,6 +1,8 @@
 <div class="sidebar" style="background-color: #101124; color: #E3E4E9">
   <div class="d-flex justify-content-center align-items-center mb-5">
-    <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>
+    <%= link_to root_path do %>
+      <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>
+    <% end %>
   </div>
   <div class="line-bottom">
     <%# sidebar_link is a helper %>
