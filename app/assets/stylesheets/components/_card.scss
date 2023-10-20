@@ -75,7 +75,8 @@
 .card-header {
   width: 350px;
   height: 25px;
-  border-radius: 12px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
   background-color: $light-purple;
 }
 
@@ -83,11 +84,11 @@
   margin-top: 20px;
   font-size: 18px;
   font-weight: 600;
-  color: $black;
+  color: $white;
 }
 
 .card-sub-title {
-  color: $dark-gray;
+  color: $light-purple;
   font-size: 14px;
   font-weight: 600;
   opacity: 50%;
