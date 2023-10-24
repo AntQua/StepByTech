@@ -57,7 +57,7 @@
 
 // Card Programas
 
-.cards-test {
+.cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-column-gap: 50px;
@@ -67,16 +67,15 @@
 
 .card-programs {
   width: 350px;
-  height: 500px;
+  min-height: 450px;
   border-radius: 12px;
   background-color: $medium-black;
 }
 
-.card-header {
+.card-h {
   width: 350px;
   height: 25px;
-  border-top-right-radius: 12px;
-  border-top-left-radius: 12px;
+  border-radius: 12px 12px 0 0;
   background-color: $light-purple;
 }
 
@@ -85,6 +84,9 @@
   font-size: 18px;
   font-weight: 600;
   color: $white;
+  span {
+    color: $light-purple;
+  }
 }
 
 .card-sub-title {

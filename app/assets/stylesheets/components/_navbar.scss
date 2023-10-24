@@ -25,6 +25,10 @@
   display: flex;
  }
 
+.nav-item .active{
+  color: aqua;
+}
+
 .navbar-stepbytech .navbar-center {
   display: flex;
 }
@@ -41,4 +45,3 @@
 .navbar-stepbytech .stepbytech-nav-logo {
   width: 100px;
 }
-
