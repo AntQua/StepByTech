@@ -1,5 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_program, except: [:index, :show]
   #layout "dashboard", only: [:index, :new, :show]
 
   # GET /programs
@@ -12,17 +13,21 @@ class ProgramsController < ApplicationController
     # end
 
     render 'programs_list', layout: 'dashboard'
-
   end
 
   # GET /programs/1
   def show
+    authorize @program
     render layout: 'dashboard'
   end
 
   # GET /programs/new
   def new
+
     @program = Program.new
+
+    # @programs = policy_scope(Program)
+    # authorize @programs
 
     # # Check if the request is AJAX
     # if request.xhr?
@@ -76,4 +81,12 @@ class ProgramsController < ApplicationController
   def program_params
     params.require(:program).permit(:title, :description, :registration_start_date, :registration_end_date, :begin_date, :end_date, :registration_limit, :active, :completed)
   end
+
+  def authorize_program
+    authorize @program || Program
+  end
+
+  # def pundit_policy_scoped?
+  #   true # ou substitua por lógica que indica quando o scoping deve ser realizado
+  # end
 end

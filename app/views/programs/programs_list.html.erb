@@ -7,6 +7,8 @@
 <%# Colocar isto dinamico %>
 <div class="d-flex justify-content-between align-items-center mb-4 bg-white rounded-4 p-4">
   <h4>Programas</h4>
-  <%= link_to 'Novo Programa', new_program_path, class: 'btn-edit-profile text-decoration-none' %>
+  <% if policy(Program).new? %>
+    <%= link_to 'Novo Programa', new_program_path, class: 'btn-edit-profile text-decoration-none' %>
+  <% end %>
 </div>
 <%= render "shared/card_program" %>
