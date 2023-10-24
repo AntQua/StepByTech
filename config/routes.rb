@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'events/index'
+  get 'events/show'
+  get 'events/new'
+  get 'events/edit'
+  get 'events/create'
+  get 'events/update'
+  get 'events/destroy'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,6 +18,8 @@ Rails.application.routes.draw do
     patch 'user/settings', to: 'users#update_settings'
 
     get 'dashboard', to: 'pages#dashboard'
+
+    resources :events
 
      # Temporary debugging route
     #post '/programs/:program_id/steps/:id', to: 'steps#update'
