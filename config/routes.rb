@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
     get 'dashboard', to: 'pages#dashboard'
 
+    resources :events
+
      # Temporary debugging route
     #post '/programs/:program_id/steps/:id', to: 'steps#update'
 
