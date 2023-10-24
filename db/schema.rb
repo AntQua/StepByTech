@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_145232) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_180209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_145232) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "program_id", null: false
+    t.bigint "step_id", null: false
+    t.index ["program_id"], name: "index_events_on_program_id"
+    t.index ["step_id"], name: "index_events_on_step_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -147,6 +151,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_145232) do
     t.index ["users_programs_step_id"], name: "index_upss_on_ups_id"
   end
 
+  add_foreign_key "events", "programs"
+  add_foreign_key "events", "steps"
   add_foreign_key "events", "users"
   add_foreign_key "notifications", "notifications_configs"
   add_foreign_key "notifications", "users"
