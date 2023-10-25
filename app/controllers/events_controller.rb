@@ -24,11 +24,22 @@ class EventsController < ApplicationController
       redirect_to events_path, notice: "Event created successfully!"
     else
       @programs = Program.where(active: true)
-      render :new
+      puts @event.errors.full_messages
+      render :new, status: :unprocessable_entity
     end
   end
 
 
+  #Adding Users to an Event: When a user decides to participate in an event
+  def participate
+    # Assuming you have passed the event_id as a parameter
+    @event = Event.find(params[:event_id])
+
+    # Associate the current user with the event
+    @event.users << current_user
+
+    redirect_to @event, notice: "You have successfully joined the event!"
+  end
 
 
   private
@@ -38,9 +49,11 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :date, :status, :type, :program_id, :step_id, :hour_start, :hour_finish)
+    params.require(:event).permit(:title, :description, :date, :status, :event_type, :program_id, :step_id, :hour_start, :hour_finish).tap do |whitelisted|
+      whitelisted[:program_id] = nil if whitelisted[:program_id].blank?
+      whitelisted[:step_id] = nil if whitelisted[:step_id].blank?
+    end
   end
-
 
   def ensure_admin
      redirect_to dashboard_path, alert: "Access denied!" unless current_user.is_admin?

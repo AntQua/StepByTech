@@ -25,15 +25,32 @@
             <!-- You can add an icon or any additional item on the right side of the card title here. -->
           </div>
           <p class="card-sub-title-dashboard mb-3"><%= event.description %></p>
-          <p><span>Data do Evento</span></br> <%= event.date.strftime('%d/%m/%Y') %></p>
-      <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
-      <div class="text-end m-2 pt-3">
-        <%= link_to event_path(event) do %>
-          <%= image_tag "arrow-right.svg" %>
-        <% end %>
+          <p>
+            <span>Data do Evento: </span> <%= event.date.strftime('%d/%m/%Y') %>
+            <br>
+            <% if event.hour_start && event.hour_finish %>
+              das <%= event.hour_start.strftime('%H:%M') %> ás <%= event.hour_finish.strftime('%H:%M') %>
+            <% end %>
+          </p>
+
+          <p><span class="ms-2">Formato: <%= event.event_type.capitalize %></span></p>
+
+          <!-- Display Program and Step Details -->
+          <% if event.program %>
+            <p><span>Programa Associado: </span><%= event.program.title %></p>
+          <% end %>
+          <% if event.step %>
+            <p><span>Step Associado: </span><%= event.step.name %></p>
+          <% end %>
+
+          <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
+          <div class="text-end m-2 pt-3">
+            <%= link_to event_path(event) do %>
+              <%= image_tag "arrow-right.svg" %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<% end %>
+  <% end %>
 </div>
