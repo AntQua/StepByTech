@@ -61,15 +61,12 @@ class StepsController < ApplicationController
     end
   end
 
-
-
-
-
   def destroy
     @step = @program.steps.find(params[:id])
     @step.destroy
     redirect_to program_path(@program), notice: "Step was successfully deleted."
   end
+
 
   private
 
