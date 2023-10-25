@@ -1,2 +1,39 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<div class="d-flex align-items-center gap-3 mb-5">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Eventos</p>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4 bg-white rounded-4 p-4">
+  <h4>Eventos</h4>
+  <% if policy(Event).new? %>
+    <%= link_to 'Novo Evento', new_event_path, class: 'btn-edit-profile text-decoration-none' %>
+  <% end %>
+</div>
+
+<div class="programs-list row">
+  <% @events.each do |event| %>
+    <div class="program-card col-md-4 mb-4">
+      <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
+        <div class="card-body flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <%= image_tag "logotype_web.png", class: "some css class here" %>
+            <%= image_tag "tag_badges_complete.svg", class: "some css class here" %>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-title-dashboard"><%= event.title %></p>
+            <!-- You can add an icon or any additional item on the right side of the card title here. -->
+          </div>
+          <p class="card-sub-title-dashboard mb-3"><%= event.description %></p>
+          <p><span>Data do Evento</span></br> <%= event.date.strftime('%d/%m/%Y') %></p>
+      <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
+      <div class="text-end m-2 pt-3">
+        <%= link_to event_path(event) do %>
+          <%= image_tag "arrow-right.svg" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>
