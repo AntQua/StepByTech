@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    # skip_before_action :authenticate_user!, only: [ :profile, :settings ]
+    before_action :authenticate_user!
     layout "dashboard"
 
     def profile

@@ -44,6 +44,8 @@
   <% end %>
 </div>
 <!-- Botão de cancelar programa -->
-<div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
-  <%= link_to "Excluir programa", program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
-</div>
+<% if policy(Program).new? %>
+  <div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
+    <%= link_to "Excluir programa", program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
+  </div>
+<% end %>

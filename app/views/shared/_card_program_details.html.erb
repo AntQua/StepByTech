@@ -16,7 +16,11 @@
         <h5><%= @program.title %></h5>
         <%= image_tag "tag_badges_complete.svg" %>
       </div>
-      <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
+      <% if policy(@program).update? %>
+        <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
+      <% else %>
+        <%= link_to "Candidatar", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
+      <% end %>
     </div>
     <p class="card-sub-title-dashboard mb-3"><%= @program.description %></p>
     <div class="d-flex col">
@@ -58,5 +62,7 @@
   <%= link_to programs_path do %>
     <%= image_tag "arrow_left.png" %>
   <% end %>
-  <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
+  <% if policy(Step).create?%>
+    <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
+  <% end %>
 </div>
