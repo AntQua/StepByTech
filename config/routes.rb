@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'pages#dashboard'
 
     resources :events
+    resources :faqs
 
      # Temporary debugging route
     #post '/programs/:program_id/steps/:id', to: 'steps#update'
