@@ -6,7 +6,11 @@ class ProgramPolicy < ApplicationPolicy
     def show?
       true # Todos os usuários podem ver detalhes de um programa
     end
-        #
+
+    def detail?
+      true
+    end
+        
     def new?
       user.is_admin? # Apenas administradores podem criar novos programas
     end
