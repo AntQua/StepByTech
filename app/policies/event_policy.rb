@@ -3,10 +3,10 @@ class EventPolicy < ApplicationPolicy
   #   true # Todos os usuários podem acessar a lista de programas
   # end
 
-  # def show?
-  #   true # Todos os usuários podem ver detalhes de um programa
-  # end
-      #
+  def show?
+    true # Todos os usuários podem ver detalhes de um programa
+  end
+
   def new?
     user.is_admin? # Apenas administradores podem criar novos programas
   end
