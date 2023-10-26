@@ -1,0 +1,18 @@
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <% @faqs.each do |faq| %>
+      <h2 class="accordion-header">
+        <button class="accordion-button accordion-color" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+        <%= faq.title %>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <p><%= faq.content %></p>
+          <%= link_to "Editar FAQ", edit_faq_path(faq.id), class:"btn-faq" %>
+          <%= link_to "Apagar FAQ", faq_path(faq.id), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende apagar este FAQ?" }, class:"btn-faq" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

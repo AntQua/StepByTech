@@ -3,10 +3,10 @@ class FaqPolicy < ApplicationPolicy
   #     true #
   # end
   #
-  # def show?
-  #   true #
-  # end
-      #
+  def show?
+    true
+  end
+
   def new?
     user.is_admin? # Apenas administradores podem criar novos faqs
   end
@@ -17,8 +17,7 @@ class FaqPolicy < ApplicationPolicy
   #
   def edit?
     user.is_admin? # Apenas administradores podem editar faqs
-
-   end
+  end
   #
   def update?
     edit? # Apenas administradores

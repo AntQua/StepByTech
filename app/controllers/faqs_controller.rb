@@ -1,6 +1,10 @@
 class FaqsController < ApplicationController
   before_action :set_faq, only: [:show, :edit, :update, :destroy]
 
+  before_action :authorize_faq, except: [:index]
+
+  layout "dashboard"
+
   def index
     @faqs = Faq.all
   end
@@ -14,18 +18,20 @@ class FaqsController < ApplicationController
 
   def create
     @faq = Faq.new(faq_params)
-    @faq.save
-
-    redirect_to faq_path(@faq)
+    if @faq.save
+      redirect_to faqs_path, notice: 'Faq was successfully created.'
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @faq = Faq.new(faq_params)
+    @faq.update(faq_params)
 
-    redirect_to faq_path(@faq)
+    redirect_to faqs_path
   end
 
   def destroy
@@ -41,5 +47,9 @@ class FaqsController < ApplicationController
 
   def set_faq
     @faq = Faq.find(params[:id])
+  end
+
+  def authorize_faq
+    authorize @faq || Faq
   end
 end
