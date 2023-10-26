@@ -14,7 +14,7 @@
 .section {
   min-height: calc(100vh - 136.3px);
   h2 {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
   }
 }
 
@@ -33,24 +33,29 @@
     bottom: 0;
     z-index: -1;
   }
+
   .home-content {
     position: relative;
     z-index: 1;
     padding: 365px 0 0 90px;
-    p {
-      max-width: 450px;
-    }
-    .home-patrocinio-img {
-      width: 15%;
-      padding-right: 10px;
-    }
   }
+
+  p {
+    max-width: 450px;
+  }
+
+  .home-patrocinio-img {
+    width: 15%;
+  }
+
 }
+
 
 #aboutus {
   margin-bottom: 200px;
   h6 {
     color: $blue;
+    margin-bottom: 20px;
   }
   p {
     color: $white;
@@ -64,12 +69,25 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
     gap: 100px;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 
   .stepbytech-context {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: stretch;
+    gap: 45px;
+    align-items: flex-start;
+  }
+
+  .stepbytech-topics-container {
+    display: grid;
+    margin-top: 50px;
+  }
+
+  .aboutus-patrocinio-img {
+    width: 100%;
+    border-radius: 10px;
   }
 }
 

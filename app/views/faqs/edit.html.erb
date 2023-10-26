@@ -1,0 +1,22 @@
+<div class="d-flex align-items-center gap-3 mb-5">
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">FAQs</p>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Editar FAQ</p>
+</div>
+<h3>Editar FAQ</h3>
+<div class="card-profile container mt-5">
+  <%= simple_form_for(@faq) do |f| %>
+    <div class="mb-3">
+      <%= f.input :title, label: "Pergunta", input_html: { class: 'form-control bg-white' } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :content, label: "Resposta", as: :text, input_html: { class: 'form-control bg-white' } %>
+    </div>
+    <div class="d-flex justify-content-between py-6 px-9">
+      <%= link_to 'Voltar para a listagem de FAQs', faqs_path, class: 'btn btn-secondary mt-3' %>
+      <%= f.button :submit, 'Editar FAQ', class: "btn-edit-profile" %>
+    </div>
+  <% end %>
+</div>

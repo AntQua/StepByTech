@@ -1,0 +1,26 @@
+<h1>teste</h1>
+<p>testando</p>
+<h1><%= @program.title %></h1>
+<%= @program.description %>
+<div><p>Data de Inicio: </p><%= @program.begin_date %> <p>Data de Fim</p><%= @program.end_date %></div>
+<div>
+  <p>Inscreve-te entre: </p><%= @program.registration_start_date %>
+  <%= @program.registration_end_date %>
+</div>
+
+<% if @program.completed? == true %>
+<p>Este programa já acabou. Fica atento ao próximo</p>
+<% end %>
+
+<% if @program.active? %>
+  <%= link_to "Inscreve-te aqui", programs_path, class:"btn btn-programs"%>
+<% end %>
+
+<h4>STEPS</h4>
+<%= @program.steps.name %>
+<%# name
+description
+dates
+formato
+%>
+<h4>GALERIA</h4>

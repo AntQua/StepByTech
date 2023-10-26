@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :set_program, only: [:show, :detail, :edit, :update, :destroy]
   before_action :authorize_program, except: [:index, :show]
   #layout "dashboard", only: [:index, :new, :show]
 
@@ -19,6 +19,10 @@ class ProgramsController < ApplicationController
   def show
     authorize @program
     render layout: 'dashboard'
+  end
+
+  def detail
+
   end
 
   # GET /programs/new

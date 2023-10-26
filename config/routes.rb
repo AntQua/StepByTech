@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+   get '/programsdetail/:id', to: 'programs#detail', as: 'programdetail'
+
+   get '/generalfaqs', to: 'faqs#general', as: 'generalfaqs' #nova rota para a faqs na homepage
+
   authenticate :user do
     get 'user/profile', to: 'users#profile'
     get 'user/settings', to: 'users#settings'
@@ -13,6 +18,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'pages#dashboard'
 
     resources :events
+    resources :faqs
 
      # Temporary debugging route
     #post '/programs/:program_id/steps/:id', to: 'steps#update'
