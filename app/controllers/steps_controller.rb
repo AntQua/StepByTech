@@ -2,6 +2,8 @@ class StepsController < ApplicationController
   before_action :set_program
   layout "dashboard"
 
+  before_action :authorize_step
+
   def new
     @step = @program.steps.build
     render layout: 'dashboard'
@@ -61,15 +63,12 @@ class StepsController < ApplicationController
     end
   end
 
-
-
-
-
   def destroy
     @step = @program.steps.find(params[:id])
     @step.destroy
     redirect_to program_path(@program), notice: "Step was successfully deleted."
   end
+
 
   private
 
@@ -80,4 +79,9 @@ class StepsController < ApplicationController
   def step_params
     params.require(:step).permit(:name, :step_order, :submission, :active, :description, :format, :hour_start, :hour_finish, {dates: []})
   end
+
+  def authorize_step
+    authorize @step || Step
+  end
+
 end

@@ -1,4 +1,4 @@
-class StepPolicy < ApplicationPolicy
+class FaqPolicy < ApplicationPolicy
   # def index?
   #     true #
   # end
@@ -27,4 +27,3 @@ class StepPolicy < ApplicationPolicy
    user.is_admin? # Apenas administradores podem excluir faqs
   end
 end
-

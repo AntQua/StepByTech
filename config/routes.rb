@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
-  get 'events/index'
-  get 'events/show'
-  get 'events/new'
-  get 'events/edit'
-  get 'events/create'
-  get 'events/update'
-  get 'events/destroy'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+   get '/programsdetail/:id', to: 'programs#detail', as: 'programdetail'
+
+   get '/generalfaqs', to: 'faqs#general', as: 'generalfaqs' #nova rota para a faqs na homepage
+
   authenticate :user do
     get 'user/profile', to: 'users#profile'
     get 'user/settings', to: 'users#settings'
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'pages#dashboard'
 
     resources :events
+    resources :faqs
 
      # Temporary debugging route
     #post '/programs/:program_id/steps/:id', to: 'steps#update'
