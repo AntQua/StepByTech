@@ -1,0 +1,55 @@
+<div class="card-profile container mt-5" data-controller="datepicker">
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= simple_form_for @event do |f| %>
+
+    <div class="mb-3">
+      <%= f.input :title, label: "Titulo do Evento", input_html: { class: 'form-control bg-white' } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.input :description, label: "Descrição do Evento", as: :text, input_html: { class: 'form-control bg-white' } %>
+    </div>
+
+    <%= f.input :date, as: :string, label: "Data do Evento", input_html: { data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data do evento" } %>
+
+    <div class="row mb-3">
+      <div class="col">
+        <%= f.input :hour_start, label: "Hora de inicio do evento", as: :time, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <div class="col">
+        <%= f.input :hour_finish, label: "Hora de fim do evento", as: :time, input_html: { class: 'form-control bg-white' } %>
+      </div>
+    </div>
+
+    <%= f.input :status, label: "Status", collection: [['Agendado', 'agendado'], ['Terminado', 'terminado']], prompt: "Selecione um status", input_html: { class: 'form-control bg-white' } %>
+
+    <%= f.input :event_type, label: "Formato", collection: [['Online', 'online'], ['Presencial', 'presencial']], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
+
+    <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)" %>
+
+    <%= f.association :step,
+    collection: @programs.map(&:steps).flatten,
+    label_method: :name_with_order,
+    value_method: :id,
+    prompt: "Nenhum (Sem associação a um Step)",
+    group_method: :program %>
+
+
+    <div class="d-flex justify-content-between py-6 px-9">
+      <%= link_to 'Voltar para a listagem dos Eventos', events_path, class: 'btn btn-secondary mt-3' %>
+      <%= f.button :submit, @event.new_record? ? 'Criar Evento' : 'Atualizar Evento', class: "btn-edit-profile" %>
+    </div>
+
+  <% end %>
+</div>
