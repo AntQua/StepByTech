@@ -33,6 +33,28 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @event
+    @programs = Program.where(active: true)
+  end
+
+  def update
+    authorize @event
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event was successfully updated.'
+    else
+      @programs = Program.where(active: true)
+      puts @event.errors.full_messages
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    authorize @event
+    @event.destroy
+    redirect_to events_path, notice: "Event deleted successfully!"
+  end
+
 
   #Adding Users to an Event: When a user decides to participate in an event
   def participate

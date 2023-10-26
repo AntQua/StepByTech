@@ -14,16 +14,16 @@ class EventPolicy < ApplicationPolicy
   def create?
     new?
   end
-  # #
-  # def edit?
-  #   user.is_admin? # Apenas administradores podem editar programas
-  #  end
-  # #
-  # def update?
-  #   edit? # Apenas administradores
-  # end
-  # #
-  # def destroy?
-  #  user.is_admin? # Apenas administradores podem excluir programas
-  # end
+
+  def edit?
+     user.is_admin? # Apenas administradores podem editar programas
+  end
+
+  def update?
+    edit? # Apenas administradores
+  end
+
+  def destroy?
+    user.is_admin? # Apenas administradores podem excluir programas
+   end
 end
