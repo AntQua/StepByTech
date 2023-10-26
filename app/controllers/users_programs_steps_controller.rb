@@ -1,5 +1,10 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program]
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply]
+  layout "dashboard"
+
+  def apply
+    @program = Program.find(params[:program_id])
+  end
 
   def apply_to_program
     ups = UsersProgramsStep.new(user: current_user, program: @program, step: @program.steps.first)

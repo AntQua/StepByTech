@@ -27,3 +27,4 @@ class StepPolicy < ApplicationPolicy
    user.is_admin? # Apenas administradores podem excluir faqs
   end
 end
+

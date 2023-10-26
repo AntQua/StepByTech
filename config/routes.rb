@@ -26,8 +26,11 @@ Rails.application.routes.draw do
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
       resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
     end
-
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
+    get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
+
+    get 'program_attributes/:program_id/table_data', to: 'program_attributes#table_data', as: 'table_data_attributes'
+    patch 'program_attributes/save', to: 'program_attributes#save', as: 'save_attribute'
   end
 end

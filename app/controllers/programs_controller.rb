@@ -1,4 +1,5 @@
 class ProgramsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_program, only: [:show, :detail, :edit, :update, :destroy]
   before_action :authorize_program, except: [:index, :show]
   #layout "dashboard", only: [:index, :new, :show]
@@ -17,7 +18,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1
   def show
-    authorize @program
+    authorize Program
     render layout: 'dashboard'
   end
 
@@ -27,7 +28,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/new
   def new
-
+    authorize Program
     @program = Program.new
 
     # @programs = policy_scope(Program)
