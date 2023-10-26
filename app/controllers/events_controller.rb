@@ -10,6 +10,10 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
+  def show
+    authorize @event
+  end
+
   def new
     @event = Event.new
     authorize @event # Add this line
