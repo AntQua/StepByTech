@@ -1,1 +1,25 @@
-OLAAAAAA
+<strong><p>Esta página é para você se candidatar a um programa =)</p></strong>
+<%= render "shared/card_program_details" %>
+
+<%# FORMULÁRIO PARA USUÁRIO SE CANDIDATAR %>
+<h3>Formulário de incrição</h3>
+<div class="card-profile container mt-5" data-controller="datepicker">
+  <%= simple_form_for(@program) do |f| %>
+    <div class="mb-3">
+      <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :description, label: "Motivações", as: :text, input_html: { class: 'form-control bg-white' } %>
+    </div>
+    <div class="mb-3">
+      <%= f.input :description, label: "Objetivos", as: :text, input_html: { class: 'form-control bg-white' } %>
+    </div>
+    <!-- Group the registration dates -->
+    <div class="row mb-3">
+    </div>
+    <div class="d-flex justify-content-between py-6 px-9">
+      <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
+      <%= f.button :submit, 'Aplicar para o Programa', class: "btn-edit-profile" %>
+    </div>
+  <% end %>
+</div>

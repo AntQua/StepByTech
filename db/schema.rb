@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_180209) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_25_204315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,9 +50,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_180209) do
   create_table "program_attributes", force: :cascade do |t|
     t.integer "weight"
     t.bigint "program_id", null: false
-    t.integer "type"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["program_id"], name: "index_program_attributes_on_program_id"
   end
 
