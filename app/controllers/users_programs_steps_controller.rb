@@ -7,11 +7,29 @@ class UsersProgramsStepsController < ApplicationController
   end
 
   def apply_to_program
-    ups = UsersProgramsStep.new(user: current_user, program: @program, step: @program.steps.first)
-    if ups.save
-      redirect_to program_path(@program), notice: 'Successfully applied to the program!'
-    else
-      redirect_to program_path(@program), alert: 'Failed to apply!'
+    user = User.find(current_user.id)
+
+    answers = []
+    params[:checked].each do |check|
+      answer = user.user_attributes.build({
+        :program_attribute_id => check
+      })
+      answers.push(answer)
+    end
+
+    begin
+      success = []
+      UserAttribute.transaction do
+        success = answers.map(&:save)
+        raise ActiveRecord::Rollback unless success.all?
+      end
+      if success.all?
+        redirect_to apply_path(@program), notice: 'Candidatura realizada com sucesso!'
+      else
+        redirect_to apply_path(@program), alert: 'Não foi possivel realizar sua candidatura!'
+      end
+    rescue
+      redirect_to apply_path(@program), alert: 'Não foi possível realizar sua candidatura!'
     end
   end
 

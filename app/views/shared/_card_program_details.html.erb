@@ -17,9 +17,9 @@
           <h5><%= @program.title %></h5>
           <%= image_tag "tag_badges_complete.svg" %>
         </div>
-        <% if policy(@program).update? %>
+        <% if policy(@program).update?%>
           <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none" %>
-        <% else %>
+        <% elsif current_page?(apply_path(@program)) == false %>
           <%= link_to "Candidatar", apply_path(@program.id), class: "btn-edit-profile text-decoration-none" %>
         <% end %>
       </div>
@@ -59,22 +59,24 @@
       </div>
     </div>
   </div>
-  <div>
-    <ul class="nav nav-tabs">
-      <%# <li class="nav-item">
+  <% if policy(@program).update? %>
+    <div>
+      <ul class="nav nav-tabs">
+        <%# <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="#">Overview</a>
       </li> %>
-      <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attributes">Atributos</a>
-      </li>
-      <%# <li class="nav-item">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attributes">Atributos</a>
+        </li>
+        <%# <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li> %>
-    </ul>
-  </div>
+      </ul>
+    </div>
+  <% end %>
 </div>
 <div class="d-flex justify-content-between align-items-center">
   <%= link_to programs_path do %>

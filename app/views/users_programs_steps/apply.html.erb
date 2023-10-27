@@ -1,25 +1,34 @@
-<strong><p>Esta página é para você se candidatar a um programa =)</p></strong>
 <%= render "shared/card_program_details" %>
-
 <%# FORMULÁRIO PARA USUÁRIO SE CANDIDATAR %>
-<h3>Formulário de incrição</h3>
-<div class="card-profile container mt-5" data-controller="datepicker">
-  <%= simple_form_for(@program) do |f| %>
-    <div class="mb-3">
-      <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :description, label: "Motivações", as: :text, input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :description, label: "Objetivos", as: :text, input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <!-- Group the registration dates -->
-    <div class="row mb-3">
-    </div>
-    <div class="d-flex justify-content-between py-6 px-9">
-      <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
-      <%= f.button :submit, 'Aplicar para o Programa', class: "btn-edit-profile" %>
-    </div>
-  <% end %>
-</div>
+<% if current_user.user_attributes.any? { |attribute| attribute.program_attribute.program_id == @program.id } %>
+  <div class="card-profile container px-3 d-flex justify-content-center">
+    <strong>
+      <p class="m-0">Você já submeteu sua candidatura. Por favor, aguarde até o final do período de inscrição do programa para saber os resultados.</p>
+    </strong>
+  </div>
+<% else %>
+  <h3>Formulário de inscrição</h3>
+  <div class="card-profile container mt-5">
+    <%= simple_form_for(@program, url: apply_to_program_path(@program), html: { method: :post }) do |f| %>
+      <!-- attr with questions -->
+      <% @program.program_attributes.group_by{ |attribute| attribute.question }.each do |question| %>
+        <div class="mb-3">
+          <p><strong><%= question[0] %></strong></p>
+          <% question[1].each do |attribute| %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="<%= attribute.id %>" name="checked[]">
+              <label class="form-check-label" for="checked[]">
+                <%= attribute.name %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <!-- attr with questions -->
+      <div class="d-flex justify-content-between py-6 px-9">
+        <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
+        <%= f.button :submit, 'Aplicar para o Programa', class: "btn-edit-profile" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
