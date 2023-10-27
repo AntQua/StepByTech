@@ -8,9 +8,14 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body><%= render "shared/navbar" %>
+  <body>
+    <% unless controller_name == 'registrations' || controller_name == 'sessions' || controller_name == 'passwords' %>
+      <%= render "shared/navbar" %>
+    <% end %>
     <%= render "shared/flashes" %>
     <%= yield %>
-    <%= render "shared/footer" %>
+    <% unless controller_name == 'registrations' || controller_name == 'sessions' || controller_name == 'passwords' %>
+      <%= render "shared/footer" %>
+    <% end %>
   </body>
 </html>
