@@ -23,7 +23,6 @@ class ProgramsController < ApplicationController
   end
 
   def detail
-
   end
 
   # GET /programs/new

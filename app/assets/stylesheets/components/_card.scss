@@ -81,7 +81,6 @@
 
 .card-title {
   margin-top: 20px;
-  font-size: 18px;
   font-weight: 600;
   color: $white;
   span {
@@ -136,4 +135,21 @@
   font-size: 14px;
   font-weight: 600;
   opacity: 50%;
+}
+
+// Card Program Details
+
+.card-detail {
+  text-align: center;
+  color: $white;
+  width: 350px;
+  border-radius: 12px;
+  background-color: $medium-black;
+  h5 {
+    margin-top: 0;
+  }
+  span {
+    color: $light-purple;
+    font-weight: bold;
+  }
 }

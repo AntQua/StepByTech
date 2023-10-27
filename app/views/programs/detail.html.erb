@@ -1,26 +1,37 @@
-<h1>teste</h1>
-<p>testando</p>
-<h1><%= @program.title %></h1>
-<%= @program.description %>
-<div><p>Data de Inicio: </p><%= @program.begin_date %> <p>Data de Fim</p><%= @program.end_date %></div>
-<div>
-  <p>Inscreve-te entre: </p><%= @program.registration_start_date %>
-  <%= @program.registration_end_date %>
+<div class="detail-container">
+  <% if @program.completed? == true %>
+    <p>Este programa já acabou. Fica atento ao próximo</p>
+  <% end %>
+  <div class="detail-title">
+    <div class="d-flex flex-grow-1 align-items-center">
+      <h1>&lt; / &gt; &nbsp;<%= @program.title %></h1>
+      <% if @program.active? %>
+        <p class="active-area">Active</p>
+      <% end %>
+    </div>
+    <% if @program.active? %>
+      <%= link_to "Inscreve-te aqui", programs_path, class:"btn btn-programs"%>
+    <% end %>
+  </div>
+  <%= @program.description %>
+  <div class="d-flex">
+    <p>Inscreve-te entre: </p><%= @program.registration_start_date %>
+    <%= @program.registration_end_date %>
+  </div>
+  <h4>Steps</h4>
+  <div class="steps-container">
+    <% @program.steps.each do |step|  %>
+      <div class="card card-detail">
+        <div class="card-h"></div>
+        <div class="card-body">
+          <h5 class="card-title"><span>&lt; / &gt; &nbsp;</span><%= step.name %></h5>
+          <span><p>Formato: <%= step.format %></p></span>
+          <p class="card-text"><%= step.description %></p>
+          <p><i class="fa-solid fa-calendar-days"></i>&nbsp;<%= step.dates %></p>
+          <i class="fa-solid fa-clock"></i>&nbsp;<%= step.hour_start%> - <%= step.hour_finish%></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <h4>Galeria</h4>
 </div>
-
-<% if @program.completed? == true %>
-<p>Este programa já acabou. Fica atento ao próximo</p>
-<% end %>
-
-<% if @program.active? %>
-  <%= link_to "Inscreve-te aqui", programs_path, class:"btn btn-programs"%>
-<% end %>
-
-<h4>STEPS</h4>
-<%= @program.steps.name %>
-<%# name
-description
-dates
-formato
-%>
-<h4>GALERIA</h4>
