@@ -3,13 +3,17 @@ class FaqsController < ApplicationController
 
   before_action :authorize_faq, except: [:index]
 
-  layout "dashboard"
+  layout "dashboard", except: [:general]
 
   def index
     @faqs = Faq.all
   end
 
   def show
+  end
+
+  def general
+    @faqs = Faq.all
   end
 
   def new

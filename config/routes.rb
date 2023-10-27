@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
    get '/programsdetail/:id', to: 'programs#detail', as: 'programdetail'
 
-   get '/generalfaqs', to: 'faqs#general', as: 'generalfaqs' #nova rota para a faqs na homepage
+   get '/generalfaqs', to: 'faqs#general', as: 'generalfaqs'
 
   authenticate :user do
     get 'user/profile', to: 'users#profile'

@@ -1,0 +1,9 @@
+<div class="faqs-container">
+<h1>PERGUNTAS FREQUENTES FAQs</h1>
+  <% @faqs.each do |faq| %>
+    <div>
+      <h5><%= faq.title %></h5>
+      <p><%= faq.content %></p>
+    </div>
+  <% end %>
+</div>
