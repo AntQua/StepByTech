@@ -1,0 +1,35 @@
+.detail-container {
+  margin: 0 170px;
+  margin-top: 69.9px;
+  margin-bottom: 66.4px;
+  height: calc(100vh - 136.3px);
+  overflow-y: scroll;
+}
+
+.detail-container::-webkit-scrollbar{
+  display: none;
+}
+
+.detail-title {
+  margin: 100px 0 30px 0;
+  display: flex;
+  align-items: center;
+  h1 {
+    margin: 5px;
+    font-weight: bold;
+  }
+  .active-area {
+    margin: 0 0 0 15px;
+    border-radius: 5px;
+    background-color: #E8FFF3;
+    color: #50CD89;
+    padding: 0 15px 0 15px;
+    text-align: center;
+  }
+}
+
+.steps-container {
+  margin: 20px 0 30px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}

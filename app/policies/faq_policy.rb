@@ -7,6 +7,10 @@ class FaqPolicy < ApplicationPolicy
     true
   end
 
+  def general?
+    true
+  end
+
   def new?
     user.is_admin? # Apenas administradores podem criar novos faqs
   end
