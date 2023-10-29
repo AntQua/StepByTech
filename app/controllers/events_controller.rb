@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   include Pundit
 
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participate, :unregister]
   before_action :ensure_admin, only: [:new, :create, :edit, :update, :destroy]
   layout "dashboard"
 
@@ -58,14 +58,31 @@ class EventsController < ApplicationController
 
   #Adding Users to an Event: When a user decides to participate in an event
   def participate
-    # Assuming you have passed the event_id as a parameter
-    @event = Event.find(params[:event_id])
+    # Check if the user is already registered
+    unless @event.users.include?(current_user)
+      # Associate the current user with the event
+      @event.users << current_user
+      message = "You have successfully joined the event!"
+    else
+      message = "You are already registered for this event!"
+    end
 
-    # Associate the current user with the event
-    @event.users << current_user
-
-    redirect_to @event, notice: "You have successfully joined the event!"
+    redirect_to @event, notice: message
   end
+
+  def unregister
+    if @event.users.include?(current_user)
+      # Disassociate the current user from the event
+      @event.users.delete(current_user)
+      message = "You have successfully unregistered from the event!"
+    else
+      message = "You are not registered for this event!"
+    end
+
+    redirect_to @event, notice: message
+  end
+
+
 
 
   private
