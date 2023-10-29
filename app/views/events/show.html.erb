@@ -68,7 +68,7 @@
   <% end %>
   <div>
     <% unless @event.users.include?(current_user) %>
-      <%= link_to 'Participar neste evento', participate_event_path(@event), method: :post, class: "btn-edit-profile text-decoration-none" %>
+      <%= button_to 'Participar neste evento', participate_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
     <% else %>
       <p>You are already registered for this event!</p>
     <% end %>
@@ -80,7 +80,6 @@
 
   <!-- This is the container that holds the list of registered users. It's initially hidden -->
   <div data-toggle-registered-users-target="list" class="hidden">
-    <p>teste</p>
     <% @event.users.each do |user| %>
       <p><%= user.name %></p>
     <% end %>
