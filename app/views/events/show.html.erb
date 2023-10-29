@@ -66,4 +66,11 @@
   <%= link_to events_path do %>
     <%= image_tag "arrow_left.png" %>
   <% end %>
+  <div>
+    <% unless @event.users.include?(current_user) %>
+      <%= link_to 'Participar neste evento', participate_event_path(@event), method: :post, class: "btn-edit-profile text-decoration-none" %>
+    <% else %>
+      <p>You are already registered for this event!</p>
+    <% end %>
+  </div>
 </div>
