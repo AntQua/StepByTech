@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   include Pundit
 
   before_action :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :participate]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participate, :unregister]
   before_action :ensure_admin, only: [:new, :create, :edit, :update, :destroy]
   layout "dashboard"
 
@@ -69,6 +69,19 @@ class EventsController < ApplicationController
 
     redirect_to @event, notice: message
   end
+
+  def unregister
+    if @event.users.include?(current_user)
+      # Disassociate the current user from the event
+      @event.users.delete(current_user)
+      message = "You have successfully unregistered from the event!"
+    else
+      message = "You are not registered for this event!"
+    end
+
+    redirect_to @event, notice: message
+  end
+
 
 
 
