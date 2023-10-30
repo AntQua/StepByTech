@@ -79,10 +79,16 @@
 
 <% if policy(@event).edit? %> <!-- Use the `edit?` policy check to determine if the user is an admin -->
   <div data-controller="toggle-hidden">
-    <button class="mt-3" data-action="toggle-hidden#toggle">Mostrar inscritos no evento</button>
+    <button class="btn btn-edit-profile position-relative mt-3" data-action="toggle-hidden#toggle">
+      Mostrar inscritos no evento
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        <%= @event.users.count %>
+        <span class="visually-hidden">inscritos no evento</span>
+      </span>
+    </button>
 
     <!-- This is the container that holds the list of registered users. It's initially hidden -->
-    <div data-toggle-hidden-target="element" class="hidden">
+    <div data-toggle-hidden-target="element" class="hidden mt-2">
       <% @event.users.each do |user| %>
         <p><%= user.name %></p>
       <% end %>
