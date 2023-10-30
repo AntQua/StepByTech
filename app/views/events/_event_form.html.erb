@@ -51,16 +51,24 @@
     <%# <%= f.input :event_type, label: "Formato", collection: [['Online', 'online'], ['Presencial', 'presencial']], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
 
     <div class="mb-3">
-      <%= f.label :event_type, "Formato do Evento" %>
+        <%= f.label :event_type, "Formato do Evento" %>
 
-      <div>
-        <%= f.collection_radio_buttons :event_type, [['Online', 'online'], ['Presencial', 'presencial']], :last, :first, item_wrapper_tag: false do |b| %>
-          <div class="form-check form-check-inline">
-            <%= b.radio_button class: "form-check-input" %>
-            <%= b.label class: "form-check-label" %>
+        <div data-controller="toggle-hidden" data-toggle-hidden-selected-value="online">
+          <%= f.collection_radio_buttons :event_type, [['Online', 'online'], ['Presencial', 'presencial']], :last, :first, item_wrapper_tag: false do |b| %>
+            <div class="form-check form-check-inline">
+              <%= b.radio_button class: "form-check-input", data: { action: "change->toggle-hidden#handleEventChange" } %>
+              <%= b.label class: "form-check-label" %>
+            </div>
+          <% end %>
+
+          <div data-toggle-hidden-target="element" class="hidden mt-2">
+            <%= f.input :event_link, label: "Link do Evento", input_html: { class: 'form-control bg-white' } %>
           </div>
-        <% end %>
-      </div>
+
+          <div data-toggle-hidden-target="element" class="hidden mt-2">
+            <%= f.input :event_location, label: "Localização do Evento", input_html: { class: 'form-control bg-white' } %>
+          </div>
+        </div>
     </div>
 
 

@@ -92,7 +92,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :date, :status, :event_type, :program_id, :step_id, :hour_start, :hour_finish).tap do |whitelisted|
+    params.require(:event).permit(:title, :description, :date, :status, :event_type, :program_id, :step_id, :hour_start, :hour_finish, :event_link, :event_location).tap do |whitelisted|
       whitelisted[:program_id] = nil if whitelisted[:program_id].blank?
       whitelisted[:step_id] = nil if whitelisted[:step_id].blank?
     end
