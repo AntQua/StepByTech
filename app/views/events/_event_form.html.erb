@@ -48,9 +48,21 @@
     </div>
 
 
+    <%# <%= f.input :event_type, label: "Formato", collection: [['Online', 'online'], ['Presencial', 'presencial']], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
 
+    <div class="mb-3">
+      <%= f.label :event_type, "Formato do Evento" %>
 
-    <%= f.input :event_type, label: "Formato", collection: [['Online', 'online'], ['Presencial', 'presencial']], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
+      <div>
+        <%= f.collection_radio_buttons :event_type, [['Online', 'online'], ['Presencial', 'presencial']], :last, :first, item_wrapper_tag: false do |b| %>
+          <div class="form-check form-check-inline">
+            <%= b.radio_button class: "form-check-input" %>
+            <%= b.label class: "form-check-label" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
 
     <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)" %>
 
