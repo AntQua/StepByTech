@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_26_180335) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_193012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_26_180335) do
     t.bigint "step_id"
     t.time "hour_start"
     t.time "hour_finish"
+    t.string "event_link"
+    t.string "event_location"
     t.index ["program_id"], name: "index_events_on_program_id"
     t.index ["step_id"], name: "index_events_on_step_id"
     t.index ["user_id"], name: "index_events_on_user_id"
