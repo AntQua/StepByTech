@@ -18,7 +18,13 @@
         <div class="card-body flex-grow-1">
           <div class="d-flex justify-content-between">
             <%= image_tag "logotype_web.png", class: "some css class here" %>
-            <%= image_tag "tag_badges_complete.svg", class: "some css class here" %>
+            <div>
+              <% if event.status == "agendado" %>
+                <span class="badge bg-success">Agendado</span>
+              <% elsif event.status == "terminado" %>
+                <span class="badge bg-danger">Terminado</span>
+              <% end %>
+            </div>
           </div>
           <div class="d-flex justify-content-between align-items-center">
             <p class="card-title-dashboard"><%= event.title %></p>
