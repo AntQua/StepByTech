@@ -15,15 +15,26 @@
 
   <div class="flex-grow-1">
     <div class="d-flex justify-content-between gap-3">
-      <div class="d-flex col align-items-center gap-2">
-        <h5><%= @event.title %></h5>
-        <%= image_tag "tag_badges_complete.svg" %>
+      <div class="d-flex align-items-center justify-content-start gap-4">
+        <h5 class="mb-0">
+          <%= @event.title %>
+        </h5>
+        <div class="align-self-start">
+          <% if @event.status == "agendado" %>
+            <span class="badge bg-success">Agendado</span>
+          <% elsif @event.status == "terminado" %>
+            <span class="badge bg-danger">Terminado</span>
+          <% end %>
+        </div>
       </div>
-      <%= link_to "Editar Evento", edit_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
-      <%= link_to "Excluir Evento", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?" }, class: "btn-cancel" %>
+
+      <% if policy(@event).edit? %>
+        <%= link_to "Editar Evento", edit_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
+        <%= link_to "Excluir Evento", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?" }, class: "btn-cancel" %>
+      <% end %>
     </div>
 
-    <p class="card-sub-title-dashboard mb-3"><%= @event.description %></p>
+    <p class="card-sub-title-dashboard mt-3 mb-3"><%= @event.description %></p>
 
     <div class="d-flex col mb-4">
       <div class="d-flex col gap-2">
@@ -43,17 +54,15 @@
       </div>
     </div>
 
-    <p><strong>Formato:</strong> <%= @event.event_type.capitalize %></p>
-
-    <p><strong>Status:</strong> <%= @event.status.capitalize %></p>
+    <p><strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= @event.event_type.capitalize %></span></p>
 
     <% if @event.program || @event.step %>
       <div>
         <% if @event.program %>
-          <p><strong>Programa associado:</strong> <%= @event.program.title %></p>
+          <p><strong>Programa associado:</strong> <span class="card-sub-title-dashboard"><%= @event.program.title %></span> </p>
         <% end %>
         <% if @event.step %>
-          <p><strong>Step associado:</strong> <%= @event.step.name %></p>
+          <p><strong>Step associado:</strong> <span class="card-sub-title-dashboard"><%= @event.step.name %></span> </p>
         <% end %>
       </div>
     <% end %>
