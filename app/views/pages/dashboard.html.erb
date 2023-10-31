@@ -1,1 +1,16 @@
-<h1>AINDA NÃO HÁ FIGMA</h1>
+<div class="d-flex align-items-center gap-3 mb-5">
+    <i class="fa-solid fa-house"></i>
+    <i class="fa-solid fa-chevron-right"></i>
+    <p class="m-0">Dashboard</p>
+</div>
+
+<% if (program = current_user.user_attributes.find { |attribute| attribute.program_attribute.present? }&.program_attribute&.program) %>
+  <div class="card-profile container px-3 d-flex justify-content-center">
+    <strong>
+      <p class="m-0">Você já submeteu sua candidatura para o programa <span class="text-purple"><%= program.title %></span>. Por favor, aguarde até o final do período de inscrição para saber os resultados.</p>
+    </strong>
+  </div>
+<% end %>
+
+
+

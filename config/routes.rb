@@ -34,8 +34,9 @@ Rails.application.routes.draw do
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
+    get 'programs/:program_id/candidates_table_data', to: 'programs#candidates_table_data', as: 'candidates_table_data'
 
-    get 'program_attributes/:program_id/table_data', to: 'program_attributes#table_data', as: 'table_data_attributes'
+    get 'program_attributes/:program_id/table_data', to: 'program_attributes#table_data', as: 'attributes_table_data'
     patch 'program_attributes/save', to: 'program_attributes#save', as: 'save_attribute'
   end
 end
