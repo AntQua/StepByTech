@@ -19,8 +19,11 @@
         <h5><%= @event.title %></h5>
         <%= image_tag "tag_badges_complete.svg" %>
       </div>
-      <%= link_to "Editar Evento", edit_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
-      <%= link_to "Excluir Evento", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?" }, class: "btn-cancel" %>
+
+      <% if policy(@event).edit? %>
+        <%= link_to "Editar Evento", edit_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
+        <%= link_to "Excluir Evento", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?" }, class: "btn-cancel" %>
+      <% end %>
     </div>
 
     <p class="card-sub-title-dashboard mb-3"><%= @event.description %></p>
