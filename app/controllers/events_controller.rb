@@ -12,6 +12,7 @@ class EventsController < ApplicationController
 
   def show
     authorize @event
+    @programs = Program.where(active: true)
   end
 
   def new
