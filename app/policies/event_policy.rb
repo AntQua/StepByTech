@@ -26,4 +26,8 @@ class EventPolicy < ApplicationPolicy
   def destroy?
     user.is_admin? # Apenas administradores podem excluir programas
    end
+
+  def participate?
+    !user.is_admin?
+  end
 end

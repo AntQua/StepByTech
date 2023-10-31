@@ -83,7 +83,13 @@
 
 
     <div class="d-flex justify-content-between py-6 px-9">
-      <%= link_to 'Voltar para a listagem dos Eventos', events_path, class: 'btn btn-secondary mt-3' %>
+
+      <div class="text-end m-2 pt-3">
+        <%= link_to event_path(@event) do %>
+          <%= image_tag "arrow-left.svg" %>
+        <% end %>
+      </div>
+
       <%= f.button :submit, @event.new_record? ? 'Criar Evento' : 'Atualizar Evento', class: "btn-edit-profile" %>
     </div>
 
