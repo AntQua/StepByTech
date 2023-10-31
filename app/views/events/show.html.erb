@@ -54,17 +54,15 @@
       </div>
     </div>
 
-    <p><strong>Formato:</strong> <%= @event.event_type.capitalize %></p>
-
-    <p><strong>Status:</strong> <%= @event.status.capitalize %></p>
+    <p><strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= @event.event_type.capitalize %></span></p>
 
     <% if @event.program || @event.step %>
       <div>
         <% if @event.program %>
-          <p><strong>Programa associado:</strong> <%= @event.program.title %></p>
+          <p><strong>Programa associado:</strong> <span class="card-sub-title-dashboard"><%= @event.program.title %></span> </p>
         <% end %>
         <% if @event.step %>
-          <p><strong>Step associado:</strong> <%= @event.step.name %></p>
+          <p><strong>Step associado:</strong> <span class="card-sub-title-dashboard"><%= @event.step.name %></span> </p>
         <% end %>
       </div>
     <% end %>
