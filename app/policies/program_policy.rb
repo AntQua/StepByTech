@@ -30,4 +30,8 @@ class ProgramPolicy < ApplicationPolicy
     def destroy?
      user.is_admin? # Apenas administradores podem excluir programas
     end
+
+    def candidates_table_data?
+      user.is_admin?
+    end
 end

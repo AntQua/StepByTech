@@ -24,6 +24,16 @@ class UsersProgramsStepsController < ApplicationController
         raise ActiveRecord::Rollback unless success.all?
       end
       if success.all?
+        initial_step = @program.steps.where(step_order: 0).first
+        if initial_step != nil
+          user_program_step = current_user.users_programs_steps.build({
+                                                                        program_id: @program.id,
+                                                                        step_id: initial_step.id,
+                                                                        registration_date: DateTime.now,
+                                                                        status: 0
+                                                                      })
+          current_user.save!
+        end
         redirect_to apply_path(@program), notice: 'Candidatura realizada com sucesso!'
       else
         redirect_to apply_path(@program), alert: 'Não foi possivel realizar sua candidatura!'

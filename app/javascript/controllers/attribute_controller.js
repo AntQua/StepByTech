@@ -11,7 +11,8 @@ export default class extends Controller {
 
   setup() {
     this.attributesTabulator = new Tabulator(this.attributeTableTarget, {
-      layout: "fitDataFill",
+      layout: "fitColumns",
+      responsiveLayout:true,
       paginationMode: "remote",
       pagination: true, //fit columns to width of table (optional)
       paginationSize: 10,
@@ -27,17 +28,20 @@ export default class extends Controller {
         {
           title:"Id",
           field: "id",
+          width: 100,
         },
         {
           title: "Nome da Opção",
           field: "name",
           editor: "input",
           validator: "required",
+          widthGrow: 3
         },
         {
           title: "Questão",
           field: "question",
           editor: "list",
+          widthGrow: 2,
           editorParams: {
             autocomplete: "true",
             allowEmpty: true,
