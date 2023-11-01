@@ -1,9 +1,21 @@
 <div class="faqs-container">
-<h1>PERGUNTAS FREQUENTES FAQs</h1>
-  <% @faqs.each do |faq| %>
-    <div>
-      <h5><%= faq.title %></h5>
-      <p><%= faq.content %></p>
+  <div class="faqs-content">
+    <h1>&lt; / &gt; &nbsp;FAQs / Saber +</h1>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+    <% @faqs.each_with_index do |faq, index| %>
+      <div class="accordion-item accordion-item-color">
+        <h2 class="accordion-header">
+          <button class="accordion-button accordion-general-color" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse<%= index %>" aria-expanded="false" aria-controls="faqCollapse<%= index %>">
+            <p class="faq-title"><%= faq.title %></p>
+          </button>
+        </h2>
+        <div id="faqCollapse<%= index %>" class="accordion-collapse collapse">
+          <div class="accordion-general-body">
+            <p><%= faq.content %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

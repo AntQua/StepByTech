@@ -1,7 +1,6 @@
 .accordion-color {
-  border-radius: 5px;
-  color: $dark-purple;
-  border-bottom: 2px solid $dark-purple;
+  color: $light-purple;
+  background-color: $white;
 }
 
 .accordion-color:not(.collapsed) {
@@ -11,10 +10,58 @@
   border-bottom: none;
 }
 
-.accordion-button.accordion-color::after {
-  color: aquamarine;
-}
-
 .accordion-body {
   margin-bottom: 15px;
+}
+
+//
+
+.faqs-container {
+  margin-top: 69.9px;
+  margin-bottom: 66.4px;
+  height: calc(100vh - 136.3px);
+  overflow-y: scroll;
+}
+
+.faqs-container::-webkit-scrollbar{
+  display: none;
+}
+
+.faqs-content {
+  margin: 100px 170px 100px 170px;
+  h1 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+.accordion-general-color {
+  color: $dark-purple;
+  background-color: $light-purple;
+  .accordion-button:not(.collapsed)::after {
+    color: $white;
+  }
+}
+
+.accordion-general-color:not(.collapsed) {
+  border-radius: 5px;
+  color: $dark-purple;
+  background-color: $light-purple;
+  border-bottom: none;
+}
+
+.accordion-item-color {
+  background-color: $dark-purple;
+  .faq-title {
+    font-weight: bold;
+    margin: 0;
+  }
+  p {
+    color: $white;
+    margin: 0;
+  }
+}
+
+.accordion-general-body {
+  padding: 20px;
 }
