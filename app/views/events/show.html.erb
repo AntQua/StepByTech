@@ -97,7 +97,7 @@
   <% end %>
 </div>
 
-<% if policy(@event).participate? %>
+<% if policy(@event).participate? && @event.agendado?%>
   <div class="d-flex justify-content-end">
     <div>
       <% if @event.users.include?(current_user) %>
