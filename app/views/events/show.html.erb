@@ -73,7 +73,6 @@
         </div>
       <% end %>
     </div>
-
   </div>
 
   <% if policy(@event).edit? %>
@@ -87,7 +86,7 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link position-relative active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
                 Inscritos no evento
-                <span class="badge rounded-pill bg-danger position-absolute" style="top: 0; right: 0; transform: translate(50%, -50%);">
+                <span class="badge rounded-pill bg-success position-absolute" style="top: 1; right: 1; transform: translate(20%, -20%);">
                   <%= @event.users.count %>
                   <span class="visually-hidden">inscritos no evento</span>
                 </span>
@@ -125,5 +124,3 @@
     </div>
   </div>
 <% end %>
-
-
