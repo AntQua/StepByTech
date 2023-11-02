@@ -4,5 +4,6 @@ class UsersProgramsStep < ApplicationRecord
   belongs_to :step # , optional: true  # Since step_id can be NULL ???
   has_many :users_programs_steps_submissions
 
-  enum status: { applied: 0, under_review: 1, accepted: 2, rejected: 3 }
+  enum status: { "Registrado": 0, "Pré-aprovado": 1, "Approvado": 2, "Desaprovado": 3, "Desabilitado": 4 }
+  # enum status: { "Registered": 0, "Pre-Approved": 1, "Approved": 2, "Disapproved": 3, "Disabled": 4 }
 end

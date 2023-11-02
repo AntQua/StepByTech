@@ -34,4 +34,18 @@ class ProgramPolicy < ApplicationPolicy
     def candidates_table_data?
       user.is_admin?
     end
+
+    def update_step_candidate?
+      user.is_admin?
+    end
+
+    def table_data?
+      user.is_admin?
+    end
+    def apply?
+      true
+    end
+    def apply_to_program?
+      true
+    end
 end

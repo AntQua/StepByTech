@@ -7,6 +7,9 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @candidate_programs = current_user
+                            .users_programs_steps
+                            .where.not(status: 4) # Status 4 - Desabilitado
   end
 
   def program_params

@@ -67,7 +67,7 @@ export default class extends Controller {
 
     this.attributesTabulator.on("cellEdited", (cell) => {
       const rowValid = cell.getRow().validate();
-      if (rowValid == true) {
+      if (rowValid === true) {
         const data = cell.getRow().getData();
         this.saveAttribute(data);
       }
@@ -75,7 +75,7 @@ export default class extends Controller {
   }
 
   saveAttribute(data) {
-    fetch(`/program_attributes/save`, {
+    fetch(this.attributeTableTarget.dataset.saveAttributeUrl, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

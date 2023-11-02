@@ -26,5 +26,9 @@ class StepPolicy < ApplicationPolicy
   def destroy?
    user.is_admin? # Apenas administradores podem excluir faqs
   end
+
+  def table_data?
+    user.is_admin?
+  end
 end
 

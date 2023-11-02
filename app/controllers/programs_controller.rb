@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_program, only: [:show, :detail, :edit, :update, :destroy, :candidates_table_data]
+  before_action :set_program, only: [:show, :detail, :edit, :update, :destroy]
   before_action :authorize_program, except: [:index, :show]
   # layout "dashboard", only: [:index, :new, :show]
 
@@ -84,30 +84,13 @@ class ProgramsController < ApplicationController
     redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
 
-  def candidates_table_data
-    authorize @program
 
-    candidates = @program.users_programs_steps.sort_by(&:id).map do |user_program_step| {
-      user_id: user_program_step.user.id,
-      user_name: user_program_step.user.name,
-      user_email: user_program_step.user.email,
-      step_name: "#{user_program_step.step.step_order} - #{user_program_step.step.name}",
-      registration_date: user_program_step.registration_date.strftime('%d/%m/%Y'),
-      total_points: user_program_step.user.user_attributes.sum { |user_attribute| user_attribute.program_attribute.weight }
-    }
-    end
-
-    respond_to do |format|
-      format.js
-      format.json { render json: { data: candidates } }
-    end
-  end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_program
-    @program = Program.find(params[:id] || params[:program_id])
+    @program = Program.find(params[:program_id] || params[:id])
   end
 
   # Only allow a list of trusted parameters through.

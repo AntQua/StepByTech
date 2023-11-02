@@ -1,9 +1,9 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply]
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data]
+  before_action :authorize_program
   layout "dashboard"
 
   def apply
-    @program = Program.find(params[:program_id])
   end
 
   def apply_to_program
@@ -11,9 +11,7 @@ class UsersProgramsStepsController < ApplicationController
 
     answers = []
     params[:checked].each do |check|
-      answer = user.user_attributes.build({
-        :program_attribute_id => check
-      })
+      answer = user.user_attributes.build({ :program_attribute_id => check })
       answers.push(answer)
     end
 
@@ -30,7 +28,7 @@ class UsersProgramsStepsController < ApplicationController
                                                                         program_id: @program.id,
                                                                         step_id: initial_step.id,
                                                                         registration_date: DateTime.now,
-                                                                        status: 0
+                                                                        status: 0 # Registrado
                                                                       })
           current_user.save!
         end
@@ -58,10 +56,46 @@ class UsersProgramsStepsController < ApplicationController
     end
   end
 
+  def table_data
+    candidates = @program.users_programs_steps.sort_by(&:id).map do |user_program_step|
+      {
+        id: user_program_step.id,
+        status: user_program_step.status,
+        user_id: user_program_step.user.id,
+        user_name: user_program_step.user.name,
+        user_gender: user_program_step.user.gender,
+        user_email: user_program_step.user.email,
+        step_id: user_program_step.step.id,
+        step_name: user_program_step.step.name,
+        registration_date: user_program_step.registration_date.strftime('%d/%m/%Y'),
+        total_points: user_program_step.user.user_attributes.sum { |user_attribute| user_attribute.program_attribute.weight }
+      }
+    end
+
+    respond_to do |format|
+      format.js
+      format.json { render json: { data: candidates } }
+    end
+  end
+
+  def update_step_candidate
+    user_program_step = @program.users_programs_steps.find(params[:id])
+    if user_program_step != nil
+      user_program_step.step_id = params[:step_id]
+      user_program_step.save
+    end
+
+    render json: { data: user_program_step }, status: :ok
+  end
+
   private
 
   def set_program_and_step
     @program = Program.find(params[:program_id])
-    @step = Step.find(params[:id]) if params[:id]
+    @user_program_step = UsersProgramsStep.find(params[:id]) if params[:id]
+  end
+
+  def authorize_program
+    authorize @program || Program
   end
 end

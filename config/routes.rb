@@ -33,10 +33,18 @@ Rails.application.routes.draw do
 
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
-    get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
-    get 'programs/:program_id/candidates_table_data', to: 'programs#candidates_table_data', as: 'candidates_table_data'
 
+     #Apply to Program
+    get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
+     #Tabulator selector steps  response
+    get 'steps/:program_id/table_data', to: 'steps#table_data', as: 'steps_table_data'
+     #Tabulator candidates response
+    get 'users_programs_steps/:program_id/table_data', to: 'users_programs_steps#table_data', as: 'candidates_table_data'
+     #Tabulator attributes response
     get 'program_attributes/:program_id/table_data', to: 'program_attributes#table_data', as: 'attributes_table_data'
-    patch 'program_attributes/save', to: 'program_attributes#save', as: 'save_attribute'
+     #Tabulator save attributes
+    patch 'program_attributes/:program_id/save', to: 'program_attributes#save', as: 'save_attribute'
+     #Tabulator update step candidate
+    patch 'users_programs_steps/:program_id/update', to: 'users_programs_steps#update_step_candidate', as: 'update_step_candidate'
   end
 end
