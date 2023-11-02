@@ -1,5 +1,10 @@
 <div class="card-profile d-flex align-items-center gap-3">
-  <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-square-s", alt: "dropdown menu" %>
+  <% if @user && @user.avatar.attached? %>
+    <%= image_tag @user.avatar, class: "avatar-square-s", alt: "avatar profile" %>
+  <% else %>
+    <%= image_tag "default_avatar.png", class: "avatar-square-s", alt: "default avatar" %>
+  <% end %>
+
   <div class="d-flex row gap-1">
     <p class="m-0"><strong><%= current_user.name %></strong></p>
     <div class="d-flex justify-content-between">
@@ -18,10 +23,5 @@
         </div>
       </div>
     </div>
-  </div>
-  <div>
-    <button class="btn-profile">
-      <i class="fa-solid fa-ellipsis fa-lg"></i>
-    </button>
-  </div>
+  </div>  
 </div>

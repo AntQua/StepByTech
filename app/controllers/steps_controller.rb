@@ -69,6 +69,13 @@ class StepsController < ApplicationController
     redirect_to program_path(@program), notice: "Step was successfully deleted."
   end
 
+  def table_data
+    steps = @program.steps.order(:step_order).map { |step| { value: step.id, label: step.name } }
+    respond_to do |format|
+      format.html { render json: steps }
+      format.json { render json: steps }
+    end
+  end
 
   private
 

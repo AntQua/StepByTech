@@ -6,7 +6,6 @@ class Step < ApplicationRecord
   # before_validation :clean_dates
   validate :dates_must_be_present_and_valid
 
-
   def name_with_order
     "Step #{step_order} - #{name}"
   end

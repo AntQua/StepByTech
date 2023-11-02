@@ -1,9 +1,8 @@
 <%= render "shared/card_program_details" %>
 <div class="tab-content">
-  <%# deafult tab %>
   <div class="row tab-pane fade show active" role="tabpanel" id="tab-steps">
     <div class="d-flex justify-content-end">
-      <% if policy(Step).create?%>
+      <% if policy(Step).create? %>
         <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
       <% end %>
     </div>
@@ -24,21 +23,24 @@
               <% if step.dates.present? %>
                 <% grouped_dates = step.dates.compact.group_by { |date| date.strftime('%B') } %>
                 <% sessions_strings = grouped_dates.map do |month, dates|
-              days = dates.map { |date| date.day }.compact.uniq.sort
-              next if days.empty?
-              formatted_days = if days.length == 1
-                days.first.to_s
-              else
-                days[0...-1].join(', ') + " e #{days.last}"
-              end
 
-              "🗓️ #{formatted_days} de #{t(month.downcase, locale: :pt)}"
-            end.reject(&:nil?).join('<br>').html_safe %>
+                  days = dates.map { |date| date.day }.compact.uniq.sort
+                  next if days.empty?
+                  formatted_days = if days.length == 1
+                                     days.first.to_s
+                                   else
+                                     days[0...-1].join(', ') + " e #{days.last}"
+                                   end
+
+                  "🗓️ #{formatted_days} de #{t(month.downcase, locale: :pt)}"
+                end.reject(&:nil?).join('<br>').html_safe %>
+
                 <%= sessions_strings %>
               <% end %>
               <div class="d-flex gap-2 mt-2">
                 <%= image_tag "time.png", class: "" %>
-                <p class="m-0"><strong>Início:</strong> <%= step.hour_start.strftime('%H:%M') if step.hour_start %> <strong>| Fim:</strong> <%= step.hour_finish.strftime('%H:%M') if step.hour_finish %></p>
+                <p class="m-0"><strong>Início:</strong> <%= step.hour_start.strftime('%H:%M') if step.hour_start %>
+                  <strong>| Fim:</strong> <%= step.hour_finish.strftime('%H:%M') if step.hour_finish %></p>
               </div>
             </div>
             <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
@@ -53,26 +55,41 @@
     </div>
   </div>
   <%# next tab %>
-  <div class="row tab-pane fade" role="tabpanel" id="tab-attributes" data-controller="attribute">
+  <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-attributes" data-controller="attribute">
     <div class="d-flex justify-content-end">
-      <% if policy(Step).create?%>
-        <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3">Adicionar Atributo</button>
+      <% if policy(Step).create? %>
+        <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Adicionar
+          Atributo
+        </button>
       <% end %>
     </div>
     <div class="d-flex row m-0 p-0">
-      <div data-attribute-target="attributeTable" data-program-id='<%= @program.id %>' data-source-url='<%= attributes_table_data_path(@program.id) %>'></div>
+      <div data-attribute-target="attributeTable" data-program-id='<%= @program.id %>'
+           data-source-url='<%= attributes_table_data_path(@program.id) %>'
+           data-save-attribute-url='<%= save_attribute_path(@program.id) %>'>
+      </div>
     </div>
   </div>
   <%# next tab candidates %>
-  <div class="row tab-pane fade" role="tabpanel" id="tab-candidates" data-controller="candidate">
-    <div class="d-flex row m-0 p-0">
-      <div data-candidate-target="candidateTable" data-program-id='<%= @program.id %>' data-source-url='<%= candidates_table_data_path(@program.id) %>'></div>
+  <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">
+    <div class="d-flex justify-content-end">
+      <% if policy(Step).create? %>
+        <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Configuração</button>
+      <% end %>
+    </div>
+    <div class="d-flex row m-0 p-0 ">
+      <div data-candidate-target="candidateTable"
+           data-program-id='<%= @program.id %>'
+           data-source-url='<%= candidates_table_data_path(@program.id) %>'
+           data-steps-url='<%= steps_table_data_path(@program.id) %>'
+           data-update-step-url='<%= update_step_candidate_path(@program.id) %>'
+      ></div>
     </div>
   </div>
 </div>
 <!-- Botão de cancelar programa -->
 <% if policy(Program).new? %>
   <div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
-    <%= link_to "Excluir programa", program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
+    <%= link_to "Excluir programa", program_path(@program), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
   </div>
 <% end %>

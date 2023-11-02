@@ -1,16 +1,50 @@
 <div class="d-flex align-items-center gap-3 mb-5">
-    <i class="fa-solid fa-house"></i>
-    <i class="fa-solid fa-chevron-right"></i>
-    <p class="m-0">Dashboard</p>
+  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-chevron-right"></i>
+  <p class="m-0">Dashboard</p>
 </div>
 
-<% if (program = current_user.user_attributes.find { |attribute| attribute.program_attribute.present? }&.program_attribute&.program) %>
-  <div class="card-profile container px-3 d-flex justify-content-center">
-    <strong>
-      <p class="m-0">Você já submeteu sua candidatura para o programa <span class="text-purple"><%= program.title %></span>. Por favor, aguarde até o final do período de inscrição para saber os resultados.</p>
-    </strong>
-  </div>
-<% end %>
+<div class="d-flex gap-3">
+  <% @candidate_programs.each do |program_step| %>
+    <div class="program-card col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
+        <div class="card-body flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <%= image_tag "logotype_web.png", class: "some css class here" %>
+            <div class="badge text-bg-primary" style="height: 20px"><%= program_step.status %></div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-title-dashboard"><%= program_step.program.title %></p>
+            <div class="badge text-bg-primary" style="height: 20px"><%= program_step.step.name %></div>
+            <!-- You can add an icon or any additional item on the right side of the card title here. -->
+          </div>
+          <p class="card-sub-title-dashboard mb-3"><%= program_step.program.description %></p>
+          <ul class="list-unstyled d-flex gap-3 justify-content-center column flex-md-row flex-sm-column m-2">
+            <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
+              <p class="m-0"><span>Data inicial<br><span><%= program_step.program.begin_date.strftime('%d/%m/%Y') %></p>
+            </li>
+            <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
+              <p class="m-0"><span>Data final<br><span><%= program_step.program.end_date.strftime('%d/%m/%Y') %></p>
+            </li>
+          </ul>
+          <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
+          <div class="text-end m-2 pt-3">
+            <%= link_to program_path(program_step.program) do %>
+              <%= image_tag "arrow-right.svg" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%# if (program = current_user.user_attributes.find { |attribute| attribute.program_attribute.present? }&.program_attribute&.program) %>
+<!--  <div class="card-profile container px-3 d-flex justify-content-center">-->
+<!--    <strong>-->
+<!--      <p class="m-0">Você já submeteu sua candidatura para o programa <span class="text-purple"><%#= program.title %></span>. Por favor, aguarde até o final do período de inscrição para saber os resultados.</p>-->
+<!--    </strong>-->
+<!--  </div>-->
+<%# end %>
 
 
 

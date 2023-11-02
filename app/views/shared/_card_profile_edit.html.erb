@@ -2,7 +2,15 @@
   <div class="d-flex align-items-center justify-content-between line-bottom">
     <p class="m-0 fw-bold mb-4">Perfil - Detalhes</p>
   </div>
-  <%= simple_form_for @user, url: user_settings_path, local: true, method: :patch do |f| %>
+  <%= simple_form_for @user, url: user_settings_path, local: true, method: :patch, html: { enctype: 'multipart/form-data' }  do |f| %>
+    <!-- Upload de Foto -->
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <%= f.label :avatar, 'Foto do Perfil' %>
+        <%= f.file_field :avatar, class: 'form-control' %>
+      </div>
+    </div>
+    
     <!-- Nome -->
     <div class="row">
       <div class="col-md-12">
