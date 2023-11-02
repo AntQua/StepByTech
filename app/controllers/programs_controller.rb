@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:detail] 
   before_action :set_program, only: [:show, :detail, :edit, :update, :destroy]
   before_action :authorize_program, except: [:index, :show]
   # layout "dashboard", only: [:index, :new, :show]
