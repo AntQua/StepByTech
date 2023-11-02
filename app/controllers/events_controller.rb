@@ -7,11 +7,14 @@ class EventsController < ApplicationController
   layout "dashboard"
 
   def index
-    @events = Event.all
+    @agendados_events = Event.where(status: "agendado")
+    @terminados_events = Event.where(status: "terminado")
   end
+
 
   def show
     authorize @event
+    @programs = Program.where(active: true)
   end
 
   def new
