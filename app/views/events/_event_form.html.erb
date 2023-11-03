@@ -14,6 +14,14 @@
   <%= simple_form_for @event do |f| %>
 
     <div class="mb-3">
+      <%= f.input :image, as: :file, label: "Adicionar Imagem ao Evento", input_html: { class: 'form-control bg-white' } %>
+      <% if @event.image.attached? %>
+        <p>Imagem Actual:</p>
+        <%= image_tag @event.image, class: 'img-preview' %>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
       <%= f.input :title, label: "Titulo do Evento", input_html: { class: 'form-control bg-white' } %>
     </div>
 

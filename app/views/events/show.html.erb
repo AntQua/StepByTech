@@ -12,7 +12,7 @@
   <div class="d-flex gap-5">
 
     <div class="d-flex flex-column justify-content-between">
-        <%= image_tag "image_web_details.png", class: "some css class here" %>
+        <%= image_tag @event.image.attached? ? url_for(@event.image) : "image_web_details.png", class: "img-fluid rounded-4 event-image" %>
         <div class="text-start m-2 pt-3">
           <%= link_to program_path(@event.program) do %>
             <%= image_tag "arrow-left.svg" %>
