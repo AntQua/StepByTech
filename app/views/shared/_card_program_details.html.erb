@@ -64,25 +64,29 @@
       </div>
     </div>
   </div>
-  <% if policy(@program).update? %>
-    <div>
-      <ul class="nav nav-tabs">
-        <%# <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Overview</a>
-      </li> %>
-        <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
-        </li>
+
+  <div>
+    <ul class="nav nav-tabs">
+      <!-- All users can see the Steps tab -->
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
+      </li>
+
+      <!-- Only admin users or users with update policy can see the Atributos tab -->
+      <% if policy(@program).update? %>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attributes">Atributos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-candidates">Candidatos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
-        </li>
-      </ul>
-    </div>
-  <% end %>
+      <% end %>
+
+      <!-- All users can see the Eventos tab -->
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
+      </li>
+    </ul>
+  </div>
+
 </div>
