@@ -108,7 +108,7 @@
                     <% end %>
                   </div>
 
-                  <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description %></p>
+                  <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(20) %></p>
 
                 <div class="d-flex gap-2 align-items-center">
                   <%= image_tag "date_range.png" %>
