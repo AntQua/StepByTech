@@ -86,6 +86,52 @@
       ></div>
     </div>
   </div>
+  <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-events" data-controller="event">
+
+     <div class="programs-list row">
+        <% if @program_events.any? %>
+          <% @program_events.each do |event| %>
+            <!-- Event Card Start -->
+            <div class="program-card col-md-4 mb-4">
+              <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
+                <div class="card-body flex-grow-1">
+                  <div class="d-flex align-items-center">
+                    <%= image_tag "logotype_web.png", class: "align-self-start mr-auto" %>
+                    <h3 class="mx-auto"><%= event.title %></h3>
+                  </div>
+
+                  <div class="mt-3 d-flex justify-content-center">
+                    <% if event.status == "agendado" %>
+                      <span class="badge bg-success">Agendado</span>
+                    <% elsif event.status == "terminado" %>
+                      <span class="badge bg-danger">Terminado</span>
+                    <% end %>
+                  </div>
+
+                  <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(20) %></p>
+
+                <div class="d-flex gap-2 align-items-center">
+                  <%= image_tag "date_range.png" %>
+                  <p class="m-0 card-sub-title-dashboard"><strong>Data do Evento:</strong> <%= event.date.strftime('%d/%m/%Y') %></p>
+                </div>
+
+                  <p class="mt-3"><strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= event.event_type.capitalize %></span></p>
+
+                  <div class="text-end m-2 pt-3">
+                    <%= link_to event_path(event) do %>
+                      <%= image_tag "arrow-right.svg" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Event Card End -->
+          <% end %>
+        <% else %>
+          <p class="text-center">Não há eventos agendados.</p>
+        <% end %>
+      </div>
+  </div>
 </div>
 <!-- Botão de cancelar programa -->
 <% if policy(Program).new? %>

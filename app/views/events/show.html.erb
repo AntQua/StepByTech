@@ -8,13 +8,13 @@
 
 <h3 class="mb-5">Evento</h3>
 
-<div class="bg-white rounded-4 p-3 mb-4">
+<div class="bg-white rounded-4 p-3 mb-2">
   <div class="d-flex gap-5">
 
     <div class="d-flex flex-column justify-content-between">
         <%= image_tag "image_web_details.png", class: "some css class here" %>
         <div class="text-start m-2 pt-3">
-          <%= link_to events_path do %>
+          <%= link_to program_path(@event.program) do %>
             <%= image_tag "arrow-left.svg" %>
           <% end %>
         </div>
@@ -109,6 +109,12 @@
     </div>
   </div>
 <% end %>
+
+<div class="text-start mt-2 mb-3 pt-3">
+  <%= link_to events_path do %>
+    <%= image_tag "arrow_left.png" %>
+  <% end %>
+</div>
 
 <% if policy(@event).edit? %>
   <div class="tab-content bg-white rounded-4 p-3 mb-4>" id="myTabContent">
