@@ -95,20 +95,21 @@
             <div class="program-card col-md-4 mb-4">
               <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
                 <div class="card-body flex-grow-1">
-                  <div class="d-flex align-items-center">
-                    <%= image_tag "logotype_web.png", class: "align-self-start mr-auto" %>
-                    <h3 class="mx-auto"><%= event.title %></h3>
+                  <div class="text-center">
+                    <%= image_tag event.image.attached? ? url_for(event.image) : "logotype_web.png", class: "align-self-start mr-auto event-logo" %>
+                    <div>
+                      <div class="text-center mt-2">
+                        <% if event.status == "agendado" %>
+                          <span class="badge bg-success">Agendado</span>
+                        <% elsif event.status == "terminado" %>
+                          <span class="badge bg-danger">Terminado</span>
+                        <% end %>
+                      </div>
+                      <h3 class="mx-auto mt-2"><%= event.title %></h3>
+                    </div>
                   </div>
 
-                  <div class="mt-3 d-flex justify-content-center">
-                    <% if event.status == "agendado" %>
-                      <span class="badge bg-success">Agendado</span>
-                    <% elsif event.status == "terminado" %>
-                      <span class="badge bg-danger">Terminado</span>
-                    <% end %>
-                  </div>
-
-                  <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(20) %></p>
+                <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(50) %></p>
 
                 <div class="d-flex gap-2 align-items-center">
                   <%= image_tag "date_range.png" %>

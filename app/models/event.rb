@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   has_many :users, through: :users_events
   belongs_to :program, optional: true
   belongs_to :step, optional: true
+  has_one_attached :image
 
   enum status: { agendado: 0, terminado: 1 }
   enum event_type: { online: 0, presencial: 1 }
