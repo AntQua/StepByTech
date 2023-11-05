@@ -12,6 +12,10 @@ class PagesController < ApplicationController
                             .where.not(status: 4) # Status 4 - Desabilitado
   end
 
+  def contacts
+    # any setup needed for the contact view
+  end
+
   def program_params
     params.require(:program).permit(:title, :description, :registration_start_date, :registration_end_date, :begin_date, :end_date, :registration_limit, :active, :completed)
   end
