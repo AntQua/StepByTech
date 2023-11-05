@@ -6,6 +6,10 @@ class PostPolicy
     @post = post
   end
 
+  def general?
+    true
+  end
+
   def index?
     true
   end

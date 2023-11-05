@@ -3,12 +3,11 @@ Rails.application.routes.draw do
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
    get '/programsdetail/:id', to: 'programs#detail', as: 'programdetail'
 
    get '/generalfaqs', to: 'faqs#general', as: 'generalfaqs'
+
+   get '/general_galeria', to: 'posts#general', as: 'general_galeria'
 
   authenticate :user do
     get 'user/profile', to: 'users#profile'
@@ -19,8 +18,7 @@ Rails.application.routes.draw do
 
     resources :faqs
 
-     # Temporary debugging route
-    #post '/programs/:program_id/steps/:id', to: 'steps#update'
+    resources :posts
 
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
       resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]

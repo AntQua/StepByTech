@@ -1,11 +1,18 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:general]
   before_action :check_admin, only: [:create, :edit, :update, :destroy]
+  layout "dashboard", except: [:general]
+
 
   # GET /posts
   def index
     @posts = Post.all
+  end
+
+  def general
+    @posts = Post.all
+    authorize @posts, :general?
   end
 
   # GET /posts/1
