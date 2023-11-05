@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_31_181557) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_100936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_181557) do
     t.integer "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "program_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "step_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_posts_on_event_id"
+    t.index ["program_id"], name: "index_posts_on_program_id"
+    t.index ["step_id"], name: "index_posts_on_step_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "program_attributes", force: :cascade do |t|
@@ -198,6 +213,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_181557) do
   add_foreign_key "events", "users"
   add_foreign_key "notifications", "notifications_configs"
   add_foreign_key "notifications", "users"
+  add_foreign_key "posts", "events"
+  add_foreign_key "posts", "programs"
+  add_foreign_key "posts", "steps"
+  add_foreign_key "posts", "users"
   add_foreign_key "program_attributes", "programs"
   add_foreign_key "steps", "programs"
   add_foreign_key "user_attributes", "program_attributes"
