@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
    get '/general_galeria', to: 'posts#general', as: 'general_galeria'
 
+   get '/contactos', to: 'pages#contacts', as: 'contacts'
+
+
   authenticate :user do
     get 'user/profile', to: 'users#profile'
     get 'user/settings', to: 'users#settings'

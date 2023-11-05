@@ -8,25 +8,25 @@
       <ul class="navbar-nav">
         <div class="navbar-center">
           <li class="nav-item active">
-            <%= link_to "Home", "#home", class: "nav-link"%>
+            <%= link_to "Home", root_path(anchor: "home"), class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Sobre Nós", "#aboutus", class: "nav-link"%>
+            <%= link_to "Sobre Nós", root_path(anchor: "aboutus"), class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Programas", "#programs", class: "nav-link" %>
+            <%= link_to "Programas", root_path(anchor: "programs"), class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Galeria", general_galeria_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Patrocinadores", "#patrocinadores", class: "nav-link"%>
+            <%= link_to "Patrocinadores", root_path(anchor: "patrocinadores"), class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "FAQ", generalfaqs_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Contactos", "#contactos", class: "nav-link" %>
+            <%= link_to "Contactos", contacts_path, class: "nav-link" %>
           </li>
         </div>
       </ul>
