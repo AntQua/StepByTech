@@ -3,9 +3,38 @@
   <i class="fa-solid fa-chevron-right"></i>
   <p class="m-0">Galeria</p>
 </div>
+
 <div class="d-flex justify-content-between align-items-center mb-4 bg-white rounded-4 p-4">
   <h4>Galeria</h4>
   <%= link_to 'Criar Publicação', new_post_path, class: 'btn-edit-profile text-decoration-none' %>
 </div>
 
-<%# posts lists here %>
+<div class="posts-list">
+  <% @posts.each do |post| %>
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="post-title"><%= post.title %></h5>
+        <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger' do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <p class="post-text"><%= post.body %></p>
+      </div>
+      <% if post.media_contents.attached? %>
+        <div class="card-body">
+          <% post.media_contents.each do |media_content| %>
+            <% if media_content.content_type.start_with?('image/') %>
+              <%= image_tag(media_content, width: 150, height: 150, class: 'img-thumbnail me-2') %>
+            <% elsif media_content.content_type.start_with?('video/') %>
+              <video width="320" height="240" controls class="me-2">
+                <source src="<%= url_for(media_content) %>" type="<%= media_content.content_type %>">
+                Your browser does not support the video tag.
+              </video>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

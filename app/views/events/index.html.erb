@@ -97,7 +97,7 @@
               <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
                 <div class="card-body flex-grow-1">
                   <div class="d-flex align-items-center">
-                    <%= image_tag event.image.attached? ? url_for(event.image) : "logotype_web.png", class: "align-self-start mr-auto" %>
+                    <%= image_tag event.image.attached? ? url_for(event.image) : "logotype_web.png", class: "align-self-start mr-auto event-logo" %>
                     <h3 class="mx-auto"><%= event.title %></h3>
                   </div>
 
