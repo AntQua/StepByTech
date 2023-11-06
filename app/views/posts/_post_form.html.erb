@@ -1,10 +1,32 @@
 <div class="card-profile container mt-3">
-  <%= simple_form_for(@post) do |f| %>
+  <%= simple_form_for(@post, html: { multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
       <%= f.input :title, label: "Titulo", required: true %>
       <%= f.input :body, as: :text, label: "Descrição", required: true %>
+
+      <%# Existing media contents with option to remove %>
+      <% if @post.media_contents.attached? %>
+        <div class="existing-media-contents">
+          <% @post.media_contents.each do |media_content| %>
+            <div class="mb-3">
+              <% if media_content.content_type.start_with?('image/') %>
+                <%= image_tag(media_content, class: 'img-preview') %>
+              <% elsif media_content.content_type.start_with?('video/') %>
+                <video width="320" height="240" controls class="video-preview">
+                  <source src="<%= url_for(media_content) %>" type="<%= media_content.content_type %>">
+                  Your browser does not support the video tag.
+                </video>
+              <% end %>
+              <%= label_tag "remove_media_content_#{media_content.id}" do %>
+                Remove file
+                <%= check_box_tag "remove_media_contents[]", media_content.signed_id %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
       <%= f.input :media_contents, as: :file, label: "Escolher ficheiros de media (Imagens e/ou Videos)", input_html: { multiple: true, accept: 'image/*,video/*' }, direct_upload: true %>
 
