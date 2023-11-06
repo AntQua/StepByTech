@@ -49,8 +49,20 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+    # Remove selected media contents if any are marked for deletion
+    if params[:remove_media_contents].present?
+      params[:remove_media_contents].each do |signed_id|
+        blob = ActiveStorage::Blob.find_signed(signed_id)
+        @post.media_contents.find_by(blob_id: blob.id).purge_later if blob
+      end
+    end
+
+    # Handle the addition of new media contents
+    handle_media_contents if params[:post][:media_contents].present?
+
+    # Update the post with the other attributes
+    if @post.update(post_params.except(:media_contents, :remove_media_contents))
+      redirect_to posts_path, notice: 'Post was successfully updated.'
     else
       render :edit
     end
@@ -63,19 +75,37 @@ class PostsController < ApplicationController
   end
 
   private
+
     def set_post
       @post = Post.find(params[:id])
     end
 
+    # This method processes the media_contents
+    def handle_media_contents
+      # Check if there are any new files to attach
+      if params[:post][:media_contents].present?
+        # Append new files without deleting the old ones
+        @post.media_contents.attach(params[:post][:media_contents])
+      end
+    end
+
     def post_params
-      params.require(:post).permit(:title, :body, :user_id, :program_id, :step_id, :event_id, media_contents: []).transform_values{|v| v == "" ? nil : v}
+      params.require(:post).permit(
+        :title,
+        :body,
+        :user_id,
+        :program_id,
+        :step_id,
+        :event_id,
+        media_contents: [],
+        remove_media_contents: []
+      )
     end
 
     def check_admin
       redirect_to(root_url) unless current_user.is_admin?
     end
 
-      # Set collections for the form selections
     def set_select_collections
       @events = Event.where(status: 'terminado').includes(:program)
       @programs = Program.all
