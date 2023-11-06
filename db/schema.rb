@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_05_100936) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_222740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_100936) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "step_question_options", force: :cascade do |t|
+    t.bigint "step_question_id", null: false
+    t.string "title"
+    t.integer "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_question_id"], name: "index_step_question_options_on_step_question_id"
+  end
+
+  create_table "step_questions", force: :cascade do |t|
+    t.integer "step_id"
+    t.string "title"
+    t.integer "limit"
+    t.integer "question_type", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "steps", force: :cascade do |t|
     t.bigint "program_id", null: false
     t.string "name"
@@ -218,6 +236,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_100936) do
   add_foreign_key "posts", "steps"
   add_foreign_key "posts", "users"
   add_foreign_key "program_attributes", "programs"
+  add_foreign_key "step_question_options", "step_questions"
   add_foreign_key "steps", "programs"
   add_foreign_key "user_attributes", "program_attributes"
   add_foreign_key "user_attributes", "users"

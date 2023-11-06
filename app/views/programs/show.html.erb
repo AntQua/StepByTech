@@ -55,20 +55,47 @@
     </div>
   </div>
   <%# next tab %>
-  <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-attributes" data-controller="attribute">
-    <div class="d-flex justify-content-end">
-      <% if policy(Step).create? %>
-        <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Adicionar
-          Atributo
-        </button>
-      <% end %>
-    </div>
-    <div class="d-flex row m-0 p-0">
-      <div data-attribute-target="attributeTable" data-program-id='<%= @program.id %>'
-           data-source-url='<%= attributes_table_data_path(@program.id) %>'
-           data-save-attribute-url='<%= save_attribute_path(@program.id) %>'>
+  <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-questions">
+    <div data-controller="question">
+      <div class="d-flex justify-content-end">
+        <% if policy(Step).create? %>
+          <button type="button" data-action="question#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Nova Questão</button>
+        <% end %>
+      </div>
+      <div class="d-flex row m-0 p-0">
+        <div data-question-target="questionsTable" data-program-id='<%= @program.id %>'
+             data-source-url='<%= step_questions_table_data_path(@program.id) %>'
+             data-save-question-url='<%= save_step_questions_path(@program.id) %>'>
+        </div>
       </div>
     </div>
+    <div data-controller="question-option">
+      <div class="d-flex justify-content-end">
+        <% if policy(Step).create? %>
+          <button type="button" data-action="question-option#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Nova Opção</button>
+        <% end %>
+      </div>
+      <div class="d-flex row m-0 p-0">
+        <div data-question-option-target="questionsOptionsTable" data-program-id='<%= @program.id %>'
+             data-source-url='<%= step_question_options_table_data_path(@program.id) %>'
+             data-save-question-option-url='<%= save_step_question_options_path(@program.id) %>'>
+        </div>
+      </div>
+    </div>
+<!--    <div data-controller="attribute">-->
+<!--      <div class="d-flex justify-content-end">-->
+        <%# if policy(Step).create? %>
+<!--          <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Nova Opção</button>-->
+        <%# end %>
+<!--      </div>-->
+<!--      <div class="d-flex row m-0 p-0">-->
+<!--        <div data-attribute-target="attributeTable" data-program-id='<%#= @program.id %>'-->
+<!--             data-source-url='<%#= attributes_table_data_path(@program.id) %>'-->
+<!--             data-save-attribute-url='<%#= save_attribute_path(@program.id) %>'>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
   </div>
   <%# next tab candidates %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">

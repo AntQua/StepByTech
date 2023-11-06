@@ -2,61 +2,73 @@
   <div class="auth-left-content">
     <%= image_tag "stepbytech-astro2.png", class: "auth-image" %>
   </div>
+
   <div class="auth-right-content">
     <%= link_to root_path do %>
       <%= image_tag "stepbytech-title-p-500.png", class: "auth-title" %>
     <% end %>
-
-    <p class="mt-5">Create your account</p>
-
+    <p class="mt-5">Crie sua conta</p>
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <div class="auth-form">
-          <div class="input-group">
-            <%= content_tag(:i, nil, class: "fa-solid fa-user auth-icon") %>
-            <%= f.error_notification %>
-            <%= f.input :name,
+        <div class="input-group">
+          <%= content_tag(:i, nil, class: "fa-solid fa-user auth-icon") %>
+          <%= f.error_notification %>
+          <%= f.input :name,
                         label: false,
                         required: true,
                         autofocus: true,
-                        placeholder: "Username",
+                        placeholder: "Nome Completo",
                         input_html: { autocomplete: "email" }
             %>
-          </div>
-          <div class="input-group">
-            <%= content_tag(:i, nil, class: "fa-solid fa-envelope auth-icon") %>
-            <%= f.input :email,
-                        label: false,
-                        required: true,
-                        placeholder: "Email",
-                        # hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                        input_html: { autocomplete: "new-password" } %>
-          </div>
-          <div class="input-group">
-            <%= content_tag(:i, nil, class: "fa-solid fa-lock auth-icon") %>
-            <%= f.input :password,
+        </div>
+
+        <div class="input-group">
+          <%= content_tag(:i, nil, class: "fas fa-person-half-dress fa-lg auth-icon") %>
+          <%= f.error_notification %>
+          <%= f.input :gender, as: :select,
+                      collection: ['Masculino', 'Feminino'],
+                      label: false,
+                      required: true,
+                      placeholder: "Gênero",
+                      input_html: { class: 'form-control' }
+          %>
+        </div>
+
+        <div class="input-group">
+          <%= content_tag(:i, nil, class: "fa-solid fa-envelope auth-icon") %>
+          <%= f.input :email,
+                      label: false,
+                      required: true,
+                      placeholder: "Email",
+                      # hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                      input_html: { autocomplete: "new-password" } %>
+        </div>
+
+        <div class="input-group">
+          <%= content_tag(:i, nil, class: "fa-solid fa-lock auth-icon") %>
+          <%= f.input :password,
+                required: true,
+                label: false,
+                placeholder: "Senha",
+                # hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                input_html: { autocomplete: "new-password" } %>
+        </div>
+
+        <div class="input-group">
+          <%= content_tag(:i, nil, class: "fa-solid fa-lock auth-icon") %>
+          <%= f.input :password_confirmation,
                   required: true,
                   label: false,
-                  placeholder: "Password",
-                  # hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  placeholder: "Confirmação de senha",
                   input_html: { autocomplete: "new-password" } %>
-          </div>
-          <div class="input-group">
-            <%= content_tag(:i, nil, class: "fa-solid fa-lock auth-icon") %>
-            <%= f.input :password_confirmation,
-                    required: true,
-                    label: false,
-                    placeholder: "Password confirmation",
-                    input_html: { autocomplete: "new-password" } %>
-          </div>
         </div>
+
         <div class="form-actions">
-          <%= f.button :submit, "Register", class: "primary-button mt-4"  %>
+          <%= f.button :submit, "Registrar", class: "primary-button mt-4"  %>
         </div>
-        <p style="font-size: 12px" class="text-center mt-3">Already have an account? <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>
+
+        <p style="font-size: 12px" class="text-center mt-3">Já possui uma conta?  <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>
       </div>
-
-  </div>
     <% end %>
-
-</div>
+  </div>
 </div>
