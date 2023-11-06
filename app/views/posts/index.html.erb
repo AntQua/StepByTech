@@ -11,8 +11,8 @@
 
 <div class="posts-list">
   <% @posts.each do |post| %>
-    <div class="card mb-3">
-      <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card bg-white rounded-4 mb-3 p-3">
+      <div class="card-header d-flex justify-content-between align-items-center bg-white">
         <h5 class="post-title"><%= post.title %></h5>
         <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger' do %>
           <i class="fa-solid fa-trash"></i>
