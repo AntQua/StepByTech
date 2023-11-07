@@ -31,12 +31,24 @@
       <%= f.input :media_contents, as: :file, label: "Escolher ficheiros de media (Imagens e/ou Videos)", input_html: { multiple: true, accept: 'image/*,video/*' }, direct_upload: true %>
 
       <!-- Association type selection -->
-      <div class="form-group">
-        <label>Association</label>
-        <%= f.radio_button :association_type, 'none', checked: true, data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationNone" } %> No Association
-        <%= f.radio_button :association_type, 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" } %> Event
-        <%= f.radio_button :association_type, 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" } %> Program
-        <%= f.radio_button :association_type, 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" } %> Step
+      <div class="form-group mb-4">
+        <label class="mb-2">Associações:</label>
+        <div class="form-check">
+          <%= f.radio_button :association_type, 'none', checked: true, data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationNone" }, class: "form-check-input" %>
+          <label class="form-check-label">Sem Associações</label>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :association_type, 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" }, class: "form-check-input" %>
+          <label class="form-check-label">Eventos</label>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :association_type, 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" }, class: "form-check-input" %>
+          <label class="form-check-label">Programas</label>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :association_type, 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" }, class: "form-check-input" %>
+          <label class="form-check-label">Steps</label>
+        </div>
       </div>
 
       <!-- Render the association-specific fields based on the selected radio button -->
