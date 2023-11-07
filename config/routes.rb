@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
       resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
+      # Custom route to fetch steps via AJAX
+      get 'steps_data', on: :member, to: 'programs#steps_data', as: 'steps_data'
     end
 
     resources :events do
@@ -34,6 +36,9 @@ Rails.application.routes.draw do
 
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
+
+    #  fetching steps for a given program
+    get '/programs/:program_id/steps', to: 'programs#steps', as: 'fetch_program_steps'
 
      #Apply to Program
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'

@@ -1,0 +1,5 @@
+<!-- Event dropdown -->
+<div class="form-group">
+  <%= f.label :event_id %>
+  <%= f.collection_select(:event_id, Event.where(status: :terminado), :id, :title, prompt: "Choose an Event") %>
+</div>

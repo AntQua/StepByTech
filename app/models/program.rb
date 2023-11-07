@@ -6,4 +6,7 @@ class Program < ApplicationRecord
   has_many :events
   has_many :posts
   validates :registration_limit, numericality: { only_integer: true }
+
+  # Scopes
+  scope :active, -> { where(active: true) }
 end
