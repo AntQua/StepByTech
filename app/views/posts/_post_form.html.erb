@@ -1,5 +1,5 @@
 <div class="card-profile container mt-3">
-  <%= simple_form_for(@post, html: { multipart: true }) do |f| %>
+  <%= simple_form_for(@post, html: { multipart: true, data: { controller: "post-form" } }) do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
@@ -30,13 +30,31 @@
 
       <%= f.input :media_contents, as: :file, label: "Escolher ficheiros de media (Imagens e/ou Videos)", input_html: { multiple: true, accept: 'image/*,video/*' }, direct_upload: true %>
 
-      <%# Event association %>
-      <%= f.association :event, collection: Event.where(status: :terminado), prompt: "Publicação não está relacionada com um evento", include_blank: true %>
-
-      <%# Dynamic Program and Step association based on the event selection %>
-      <div id="program_and_steps_container">
-        <%# This will be populated with AJAX calls based on event selection %>
+      <!-- Association type selection -->
+      <div class="form-group">
+        <label>Association</label>
+        <%= f.radio_button :association_type, 'none', checked: true, data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationNone" } %> No Association
+        <%= f.radio_button :association_type, 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" } %> Event
+        <%= f.radio_button :association_type, 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" } %> Program
+        <%= f.radio_button :association_type, 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" } %> Step
       </div>
+
+      <!-- Event dropdown, initially hidden -->
+      <div class="form-group" data-post-form-target="eventSelect" style="display: none;">
+        <%= f.association :event, collection: Event.where(status: :terminated), prompt: "Choose an Event", include_blank: true %>
+      </div>
+
+      <!-- Program dropdown, initially hidden -->
+      <div class="form-group" data-post-form-target="programSelect" style="display: none;">
+        <%= f.select :program_id, Program.active.collect { |p| [p.title, p.id] }, include_blank: "Select a Program" %>
+      </div>
+
+      <!-- Steps dropdown, initially hidden -->
+      <div class="form-group" data-post-form-target="stepsSelect" style="display: none;">
+        <!-- This will be populated based on the selected program via Stimulus -->
+        <%= f.select :step_id, [], include_blank: "Select a Step" %>
+      </div>
+
     </div>
 
     <div class="d-flex justify-content-between py-6 px-9">

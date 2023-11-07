@@ -85,7 +85,14 @@ class ProgramsController < ApplicationController
     redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
 
+  # Action to handle AJAX request for steps
+  def steps_data
+    program = Program.find(params[:id])
+    steps = program.steps # Assuming program `has_many :steps`
 
+    # Respond with a partial that has the steps dropdown
+    render partial: 'steps_dropdown', locals: { steps: steps }
+  end
 
   private
 

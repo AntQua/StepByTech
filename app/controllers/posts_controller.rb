@@ -40,6 +40,8 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
+    handle_associations(@post, params[:post][:association_type])
+
     if @post.save
       redirect_to posts_path, notice: "Post created successfully!"
     else
@@ -62,6 +64,15 @@ class PostsController < ApplicationController
 
     # Update the post with the other attributes
     if @post.update(post_params.except(:media_contents, :remove_media_contents))
+      redirect_to posts_path, notice: 'Post was successfully updated.'
+    else
+      render :edit
+    end
+
+    handle_associations(@post, params[:post][:association_type])
+
+    # Update the post with the other attributes, excluding :association_type
+    if @post.update(post_params.except(:association_type))
       redirect_to posts_path, notice: 'Post was successfully updated.'
     else
       render :edit
@@ -97,6 +108,7 @@ class PostsController < ApplicationController
         :program_id,
         :step_id,
         :event_id,
+        :association_type, # Include the virtual attribute
         media_contents: [],
         remove_media_contents: []
       )
@@ -110,5 +122,25 @@ class PostsController < ApplicationController
       @events = Event.where(status: 'terminado').includes(:program)
       @programs = Program.all
       @steps = Step.all
+    end
+
+    def handle_associations(post, association_type)
+      # Resets the associations based on the association type
+      post.program_id = post.event_id = post.step_id = nil if association_type == 'none'
+
+      case association_type
+      when 'event'
+        post.program_id = post.step_id = nil
+        post.event_id = post_params[:event_id]
+      when 'program'
+        post.event_id = post.step_id = nil
+        post.program_id = post_params[:program_id]
+      when 'step'
+        post.event_id = nil
+        # Ensure that step_id corresponds to the correct program_id
+        post.step_id = post_params[:step_id]
+        # Optionally set program_id to the program associated with the step
+        post.program_id = Step.find(post.step_id).program_id if post.step_id.present?
+      end
     end
 end

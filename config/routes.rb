@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
       resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
+      # Custom route to fetch steps via AJAX
+      get 'steps_data', on: :member, to: 'programs#steps_data', as: 'steps_data'
     end
 
     resources :events do

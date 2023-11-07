@@ -10,6 +10,9 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
+  # Virtual attribute for handling the association type in form
+  attr_accessor :association_type
+
   # Scopes
   scope :for_programs, -> { where.not(program_id: nil) }
   scope :for_steps, -> { where.not(step_id: nil) }
