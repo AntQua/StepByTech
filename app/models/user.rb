@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_many :program_attributes, through: :user_attributes
   
   has_one_attached :avatar  # This is for the Active Storage association for the user's avatar.
+
+  enum gender: { Masculino: 0, Feminino: 1 }
+  enum country: { Portugal: 0 }
+  enum city: { Lisboa: 0 }
 end

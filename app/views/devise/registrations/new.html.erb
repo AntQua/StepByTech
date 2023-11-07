@@ -26,7 +26,7 @@
           <%= content_tag(:i, nil, class: "fas fa-person-half-dress fa-lg auth-icon") %>
           <%= f.error_notification %>
           <%= f.input :gender, as: :select,
-                      collection: ['Masculino', 'Feminino'],
+                      collection: User.genders.keys,
                       label: false,
                       required: true,
                       placeholder: "Gênero",

@@ -21,7 +21,7 @@
     <div class="profile-floating">
       <div>
         <a href="#" class="" id="navbarDropdown" data-bs-toggle="dropdown">
-          <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-square", alt: "dropdown menu" %>
+          <%= image_tag current_user.avatar, class: "avatar-square", alt: "avatar profile" %>
         </a>
         <span>
           <p class="m-0"><%= current_user.name %></p>
@@ -65,7 +65,7 @@
       </div>
     </div>
     <%# Profile details menu end%>
-    <%= image_tag "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80", class: "avatar-profile", alt: "dropdown menu" %>
+    <%= image_tag current_user.avatar, class: "avatar-profile", alt: "avatar profile" %>
     <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none" do %>
       <div class="dash-button">
         <i class="fa-solid fa-arrow-right-to-bracket"></i>
