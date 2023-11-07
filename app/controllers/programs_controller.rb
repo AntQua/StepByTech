@@ -94,6 +94,28 @@ class ProgramsController < ApplicationController
     render partial: 'steps_dropdown', locals: { steps: steps }
   end
 
+  def steps
+    # Find the program by the ID
+    @program = Program.find(params[:program_id])
+    # Get the steps for the program
+    @steps = @program.steps.active # You can modify this if you have some other condition for 'active' steps.
+
+    # Respond with a partial that contains the steps options for the select input
+    respond_to do |format|
+      format.js { render partial: 'steps_select_options', locals: { steps: @steps } }
+    end
+  end
+
+  # GET /posts/steps_for_program
+  def steps_for_program
+    program = Program.find(params[:program_id])
+    steps = program.steps.active # Adjust this to get active steps based on your criteria
+
+    # Respond with a JSON array of steps
+    render json: steps
+  end
+
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

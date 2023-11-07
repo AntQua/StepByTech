@@ -85,6 +85,16 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
+  # Add this action to fetch steps for a selected program via AJAX
+  def steps_for_program
+    program = Program.find(params[:program_id])
+    steps = program.steps.active # Adjust this to get active steps based on your criteria
+
+    # Respond with a JSON array of steps
+    render json: steps
+  end
+
+
   private
 
     def set_post

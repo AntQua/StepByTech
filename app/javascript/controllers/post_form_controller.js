@@ -6,13 +6,19 @@ export default class extends Controller {
 
   connect() {
     console.log("Post form controller connected");
+
+    // Add an event listener to the program select dropdown to update steps
+    this.programSelectTarget.addEventListener('change', this.updateSteps.bind(this));
   }
 
+  // Handle radio button change event
   handleAssociationChange(event) {
+    // Hide all association-specific fields initially
     this.eventSelectTarget.style.display = 'none';
     this.programSelectTarget.style.display = 'none';
     this.stepsSelectTarget.style.display = 'none';
 
+    // Show the appropriate association-specific field based on the selected radio button
     switch (event.target.value) {
       case 'event':
         this.eventSelectTarget.style.display = 'block';
@@ -22,37 +28,50 @@ export default class extends Controller {
         break;
       case 'step':
         this.programSelectTarget.style.display = 'block';
-        // Since steps are dependent on programs, you might need additional logic to handle this case.
+        // Additional logic may be needed here to handle steps based on programs.
         break;
       case 'none':
       default:
-        // No association, so nothing else to do.
+        // No association selected, so nothing else to do.
         break;
     }
   }
 
+  // Fetch and update steps dropdown based on the selected program
   updateSteps() {
     const programId = this.programSelectTarget.value;
 
-    // Make sure you have a valid programId before attempting the AJAX request
     if (programId) {
-      const url = `/programs/${programId}/steps_data`;
+      const url = `/posts/steps_for_program?program_id=${programId}`;
 
-      Rails.ajax({
-        type: "GET",
-        url: url,
-        success: (data) => {
-          // The assumption here is that the server returns a partial
-          // with options for the steps select dropdown
-          this.stepsSelectTarget.innerHTML = data.body.innerHTML;
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          this.updateStepsDropdown(data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     } else {
-      // Clear the steps select if no program is selected
-      this.stepsSelectTarget.innerHTML = '';
+      // If no program is selected, clear the steps dropdown
+      this.updateStepsDropdown([]);
+    }
+  }
+
+  // Update the steps dropdown with the provided steps data
+  updateStepsDropdown(steps) {
+    const stepsSelect = this.stepsSelectTarget;
+    stepsSelect.innerHTML = ""; // Clear previous options
+
+    // Add the new options
+    if (steps.length > 0) {
+      steps.forEach(step => {
+        const option = document.createElement("option");
+        option.value = step.id;
+        option.textContent = step.name_with_order;
+        stepsSelect.appendChild(option);
+      });
     }
   }
 }
+

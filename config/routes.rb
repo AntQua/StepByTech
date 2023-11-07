@@ -37,6 +37,9 @@ Rails.application.routes.draw do
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
 
+    #  fetching steps for a given program
+    get '/programs/:program_id/steps', to: 'programs#steps', as: 'fetch_program_steps'
+
      #Apply to Program
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
      #Tabulator selector steps  response
