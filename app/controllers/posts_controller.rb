@@ -49,35 +49,30 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  def update
-    # Remove selected media contents if any are marked for deletion
-    if params[:remove_media_contents].present?
-      params[:remove_media_contents].each do |signed_id|
-        blob = ActiveStorage::Blob.find_signed(signed_id)
-        @post.media_contents.find_by(blob_id: blob.id).purge_later if blob
-      end
-    end
-
-    # Handle the addition of new media contents
-    handle_media_contents if params[:post][:media_contents].present?
-
-    # Update the post with the other attributes
-    if @post.update(post_params.except(:media_contents, :remove_media_contents))
-      redirect_to posts_path, notice: 'Post was successfully updated.'
-    else
-      render :edit
-    end
-
-    handle_associations(@post, params[:post][:association_type])
-
-    # Update the post with the other attributes, excluding :association_type
-    if @post.update(post_params.except(:association_type))
-      redirect_to posts_path, notice: 'Post was successfully updated.'
-    else
-      render :edit
+# PATCH/PUT /posts/1
+def update
+  # Remove selected media contents if any are marked for deletion
+  if params[:remove_media_contents].present?
+    params[:remove_media_contents].each do |signed_id|
+      blob = ActiveStorage::Blob.find_signed(signed_id)
+      @post.media_contents.find_by(blob_id: blob.id).purge_later if blob
     end
   end
+
+  # Handle the addition of new media contents
+  handle_media_contents if params[:post][:media_contents].present?
+
+  # Handle associations based on the association type
+  handle_associations(@post, params[:post][:association_type])
+
+  # Update the post with the other attributes, excluding :association_type
+  if @post.update(post_params.except(:association_type))
+    redirect_to posts_path, notice: 'Post was successfully updated.'
+  else
+    render :edit
+  end
+end
+
 
   # DELETE /posts/1
   def destroy
