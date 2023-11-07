@@ -12,6 +12,8 @@ class Post < ApplicationRecord
 
   # Virtual attribute for handling the association type in form
   attr_accessor :association_type
+  # Virtual attribute for program_id when associating with a step
+  attr_accessor :program_id_for_step
 
   # Scopes
   scope :for_association_type, ->(association_type) {

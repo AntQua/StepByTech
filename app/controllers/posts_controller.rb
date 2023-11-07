@@ -85,15 +85,14 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
-  # Add this action to fetch steps for a selected program via AJAX
-  def steps_for_program
+  # Add this action to fetch steps for a selected program for steps via AJAX
+  def steps_for_program_for_step
     program = Program.find(params[:program_id])
     steps = program.steps.active # Adjust this to get active steps based on your criteria
 
     # Respond with a JSON array of steps
     render json: steps
   end
-
 
   private
 
@@ -118,7 +117,8 @@ class PostsController < ApplicationController
         :program_id,
         :step_id,
         :event_id,
-        :association_type, # Include the virtual attribute
+        :association_type,
+        :program_id_for_step, # Include the virtual attribute
         media_contents: [],
         remove_media_contents: []
       )
@@ -147,10 +147,8 @@ class PostsController < ApplicationController
         post.program_id = post_params[:program_id]
       when 'step'
         post.event_id = nil
-        # Ensure that step_id corresponds to the correct program_id
-        post.step_id = post_params[:step_id]
-        # Optionally set program_id to the program associated with the step
-        post.program_id = Step.find(post.step_id).program_id if post.step_id.present?
+        post.program_id = post_params[:program_id_for_step] # Use program_id_for_step for program association
+        post.step_id = post_params[:step_id] # Use step_id for step association
       end
     end
 end

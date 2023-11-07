@@ -1,5 +1,5 @@
-<div class="card-profile container mt-3">
-  <%= simple_form_for(@post, html: { multipart: true, data: { controller: "post-form" } }) do |f| %>
+<div class="card-profile container mt-3" data-controller="post-form">
+  <%= simple_form_for(@post, html: { multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
@@ -40,9 +40,18 @@
       </div>
 
       <!-- Render the association-specific fields based on the selected radio button -->
-      <%= render partial: "posts/event_fields", locals: { f: f } %>
-      <%= render partial: "posts/program_fields", locals: { f: f } %>
-      <%= render partial: "posts/step_fields", locals: { f: f } %>
+      <div class="mt-2">
+        <div data-target="post-form.eventFields" style="display: none;">
+          <%= render partial: "posts/event_fields", locals: { f: f } %>
+        </div>
+        <div data-target="post-form.programFields" style="display: none;">
+          <%= render partial: "posts/program_fields", locals: { f: f } %>
+        </div>
+        <div data-target="post-form.stepFields" style="display: none;">
+          <%= render partial: "posts/step_fields", locals: { f: f } %>
+        </div>
+      </div>
+
     </div>
 
     <div class="d-flex justify-content-between py-6 px-9">
