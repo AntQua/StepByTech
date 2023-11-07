@@ -26,6 +26,22 @@
       <div class="card-body">
         <p class="post-text"><%= post.body %></p>
       </div>
+
+      <%# render associations here %>
+      <div class="card-body">
+        <% if post.event.present? %>
+          <p>Event: <%= post.event.title %></p>
+        <% end %>
+
+        <% if post.program.present? %>
+          <p>Program: <%= post.program.title %></p>
+        <% end %>
+
+        <% if post.step.present? %>
+          <p>Step: <%= post.step.title %></p>
+        <% end %>
+      </div>
+
       <% if post.media_contents.attached? %>
         <div class="card-body">
           <% post.media_contents.each do |media_content| %>

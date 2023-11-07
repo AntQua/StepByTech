@@ -49,35 +49,30 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  def update
-    # Remove selected media contents if any are marked for deletion
-    if params[:remove_media_contents].present?
-      params[:remove_media_contents].each do |signed_id|
-        blob = ActiveStorage::Blob.find_signed(signed_id)
-        @post.media_contents.find_by(blob_id: blob.id).purge_later if blob
-      end
-    end
-
-    # Handle the addition of new media contents
-    handle_media_contents if params[:post][:media_contents].present?
-
-    # Update the post with the other attributes
-    if @post.update(post_params.except(:media_contents, :remove_media_contents))
-      redirect_to posts_path, notice: 'Post was successfully updated.'
-    else
-      render :edit
-    end
-
-    handle_associations(@post, params[:post][:association_type])
-
-    # Update the post with the other attributes, excluding :association_type
-    if @post.update(post_params.except(:association_type))
-      redirect_to posts_path, notice: 'Post was successfully updated.'
-    else
-      render :edit
+# PATCH/PUT /posts/1
+def update
+  # Remove selected media contents if any are marked for deletion
+  if params[:remove_media_contents].present?
+    params[:remove_media_contents].each do |signed_id|
+      blob = ActiveStorage::Blob.find_signed(signed_id)
+      @post.media_contents.find_by(blob_id: blob.id).purge_later if blob
     end
   end
+
+  # Handle the addition of new media contents
+  handle_media_contents if params[:post][:media_contents].present?
+
+  # Handle associations based on the association type
+  handle_associations(@post, params[:post][:association_type])
+
+  # Update the post with the other attributes, excluding :association_type
+  if @post.update(post_params.except(:association_type))
+    redirect_to posts_path, notice: 'Post was successfully updated.'
+  else
+    render :edit
+  end
+end
+
 
   # DELETE /posts/1
   def destroy
@@ -85,15 +80,14 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
-  # Add this action to fetch steps for a selected program via AJAX
-  def steps_for_program
+  # Add this action to fetch steps for a selected program for steps via AJAX
+  def steps_for_program_for_step
     program = Program.find(params[:program_id])
     steps = program.steps.active # Adjust this to get active steps based on your criteria
 
     # Respond with a JSON array of steps
     render json: steps
   end
-
 
   private
 
@@ -118,7 +112,8 @@ class PostsController < ApplicationController
         :program_id,
         :step_id,
         :event_id,
-        :association_type, # Include the virtual attribute
+        :association_type,
+        :program_id_for_step, # Include the virtual attribute
         media_contents: [],
         remove_media_contents: []
       )
@@ -147,10 +142,8 @@ class PostsController < ApplicationController
         post.program_id = post_params[:program_id]
       when 'step'
         post.event_id = nil
-        # Ensure that step_id corresponds to the correct program_id
-        post.step_id = post_params[:step_id]
-        # Optionally set program_id to the program associated with the step
-        post.program_id = Step.find(post.step_id).program_id if post.step_id.present?
+        post.program_id = post_params[:program_id_for_step] # Use program_id_for_step for program association
+        post.step_id = post_params[:step_id] # Use step_id for step association
       end
     end
 end
