@@ -8,4 +8,6 @@ class Program < ApplicationRecord
   has_many :step_questions, through: :steps
   has_many :step_question_options, through: :step_questions
   validates :registration_limit, numericality: { only_integer: true }
+
+  has_one_attached :image  # This is for the Active Storage association for the user's avatar.
 end

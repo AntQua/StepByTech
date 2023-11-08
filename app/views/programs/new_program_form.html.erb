@@ -10,9 +10,18 @@
 <h3>Novo Programa</h3>
 <div class="card-profile container mt-5" data-controller="datepicker">
   <%= simple_form_for(@program) do |f| %>
+    <!-- Upload's photo -->
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <%= f.label :image, 'Imagem do Programa' %>
+        <%= f.file_field :image, label: false, class: 'form-control' %>
+      </div>
+    </div>
+    <!-- Name's program -->
     <div class="mb-3">
       <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
     </div>
+    <!-- Description -->
     <div class="mb-3">
       <%= f.input :description, label: "Descrição", as: :text, input_html: { class: 'form-control bg-white' } %>
     </div>
