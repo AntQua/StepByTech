@@ -1,5 +1,13 @@
 <!-- Event dropdown -->
-<div class="form-group">
+<%# <div class="form-group">
   <%= f.label :event_id, "Eventos: "%>
-  <%= f.collection_select(:event_id, Event.where(status: :terminado), :id, :title, prompt: "Seleccione um Evento", class: "form-select") %>
+  <%# <%= f.collection_select(:event_id, Event.where(status: :terminado), :id, :title, prompt: "Seleccione um Evento", class: "form-select") %>
+<%# </div> %>
+
+<div class="form-group">
+  <%= f.label :event_id, "Eventos: " %>
+  <%= f.select :event_id,
+                @events.map { |e| [e.title, e.id] },
+                { include_blank: "Seleccione um Evento" },
+                  class: "form-select" %>
 </div>

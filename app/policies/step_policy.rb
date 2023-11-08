@@ -1,8 +1,8 @@
 class StepPolicy < ApplicationPolicy
-  # def index?
-  #     true #
-  # end
-  #
+  def index?
+    true 
+  end
+
   def show?
     true
   end
@@ -31,4 +31,3 @@ class StepPolicy < ApplicationPolicy
     user.is_admin?
   end
 end
-

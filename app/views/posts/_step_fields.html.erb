@@ -1,10 +1,15 @@
-<!-- Program dropdown for steps -->
 <div class="form-group">
-  <%= f.label :program_id_for_step, "Steps: " %>
-  <%= f.select :program_id_for_step, Program.active.collect { |p| [p.title, p.id] }, include_blank: "Seleccione um Programa para o Step", data: { controller: "post-form", target: "post-form.programSelectForStep" }, class: "form-select" %>
+  <%= f.label :program_id, "Programas: " %>
+  <%= f.select :program_id,
+              @programs.map { |p| [p.title, p.id] },
+              { include_blank: "Seleccione um Programa" },
+              class: "form-select",
+              data: { post_form_target: "program", action: "change->post-form#updateSteps" } %>
 </div>
 
-<!-- Steps dropdown, initially hidden -->
-<div class="form-group" data-post-form-target="stepsSelectForStep" style="display: none;" data-turbo-frame="post-form-steps-select-for-step">
-  <%= f.select :step_id, [], include_blank: "Select a Step", data: { controller: "post-form", target: "post-form.stepsSelectForStep" }, class: "form-select" %>
+<div class="form-group mb-5">
+  <%= f.label :step_id, "Steps: " %>
+  <%= f.select :step_id, [],
+               { include_blank: "Seleccione um Step" },
+               class: "form-select", id: "post_step_id" %>
 </div>

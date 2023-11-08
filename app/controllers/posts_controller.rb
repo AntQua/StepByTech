@@ -80,14 +80,6 @@ end
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
-  # Add this action to fetch steps for a selected program for steps via AJAX
-  def steps_for_program_for_step
-    program = Program.find(params[:program_id])
-    steps = program.steps.active # Adjust this to get active steps based on your criteria
-
-    # Respond with a JSON array of steps
-    render json: steps
-  end
 
   private
 
@@ -113,7 +105,6 @@ end
         :step_id,
         :event_id,
         :association_type,
-        :program_id_for_step, # Include the virtual attribute
         media_contents: [],
         remove_media_contents: []
       )
@@ -124,7 +115,7 @@ end
     end
 
     def set_select_collections
-      @events = Event.where(status: 'terminado').includes(:program)
+      @events = Event.all
       @programs = Program.all
       @steps = Step.all
     end
