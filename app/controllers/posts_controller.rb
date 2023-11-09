@@ -57,7 +57,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    Rails.logger.info params.inspect
+    #Rails.logger.info params.inspect
 
    # If 'none' is selected, clear the association ids before anything else
     if params[:post][:association_type] == 'none'
