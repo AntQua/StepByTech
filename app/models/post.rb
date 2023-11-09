@@ -24,7 +24,7 @@ class Post < ApplicationRecord
       where.not(program_id: nil)
     when 'step'
       where.not(step_id: nil)
-    else
+    when 'none'
       where(event_id: nil, program_id: nil, step_id: nil)
     end
   }
