@@ -1,6 +1,16 @@
 <div class="card-profile container mt-3" data-controller="post-form">
   <%= simple_form_for(@post, html: { multipart: true }) do |f| %>
-    <%= f.error_notification %>
+    <% if @post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+        <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
 
     <div class="form-inputs">
       <%= f.input :title, label: "Titulo", required: true %>
@@ -34,35 +44,32 @@
       <div class="form-group mb-4">
         <label class="mb-2">Associações:</label>
         <div class="form-check">
-          <%= f.radio_button :association_type, 'none', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationNone" }, class: "form-check-input" %>
+          <%= f.radio_button :association_type, 'none', checked: @post.association_type == 'none', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationNone" }, class: "form-check-input" %>
           <label class="form-check-label">Sem Associações</label>
         </div>
         <div class="form-check">
-          <%= f.radio_button :association_type, 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" }, class: "form-check-input" %>
+          <%= f.radio_button :association_type, 'event', checked: @post.association_type == 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" }, class: "form-check-input" %>
           <label class="form-check-label">Eventos</label>
+          <div data-post-form-target="eventFields" style="display: none;">
+            <%= render partial: "posts/event_fields", locals: { f: f } %>
+          </div>
         </div>
         <div class="form-check">
-          <%= f.radio_button :association_type, 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" }, class: "form-check-input" %>
+          <%= f.radio_button :association_type, 'program', checked: @post.association_type == 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" }, class: "form-check-input" %>
           <label class="form-check-label">Programas</label>
+          <div data-post-form-target="programFields" style="display: none;">
+            <%= render partial: "posts/program_fields", locals: { f: f } %>
+          </div>
         </div>
         <div class="form-check">
-          <%= f.radio_button :association_type, 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" }, class: "form-check-input" %>
+          <%= f.radio_button :association_type, 'step', checked: @post.association_type == 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" }, class: "form-check-input" %>
           <label class="form-check-label">Steps</label>
+          <div data-post-form-target="stepFields" style="display: none;">
+            <%= render partial: "posts/step_fields", locals: { f: f } %>
+          </div>
         </div>
       </div>
 
-      <!-- Render the association-specific fields based on the selected radio button -->
-      <div class="mt-2">
-        <div data-post-form-target="eventFields" style="display: none;">
-          <%= render partial: "posts/event_fields", locals: { f: f } %>
-        </div>
-        <div data-post-form-target="programFields" style="display: none;">
-          <%= render partial: "posts/program_fields", locals: { f: f } %>
-        </div>
-        <div data-post-form-target="stepFields" style="display: none;">
-          <%= render partial: "posts/step_fields", locals: { f: f } %>
-        </div>
-      </div>
 
     </div>
 
