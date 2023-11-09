@@ -2,6 +2,26 @@ class StepQuestionsController < ApplicationController
   before_action :set_step_question, only: [:save]
   before_action :authorize_step_questions
 
+
+  def new
+    @question = StepQuestion.new
+    @steps = Step.where(program_id: params[:program_id])
+    if @steps.present?
+      @steps = @steps.map { |step| [step[:name], step[:id]]} # [Label, Value]
+    end
+  end
+
+  def create
+    @question = StepQuestion.new(step_question_params)
+    if @question.save
+      flash[:notice] = "Questão cadastrada com sucesso!"
+      head :ok
+    else
+      flash[:alert] = "Falha ao salvar a questão"
+      render json: @question.errors, status: :unprocessable_entity
+    end
+  end
+
   def table_data
     @program = Program.find(params[:program_id])
     @questions = @program.step_questions.sort_by { |sq| sq.step.step_order }.map do |sq|{
@@ -15,7 +35,7 @@ class StepQuestionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.js
+      format.html { render json: { data: @questions } }
       format.json { render json: { data: @questions } }
     end
   end

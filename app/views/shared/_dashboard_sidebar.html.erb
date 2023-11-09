@@ -1,3 +1,7 @@
+<div class="sidebar-toggle">
+  <i class="fa-solid fa-bars fa-lg"></i>
+</div>
+
 <div class="sidebar" style="background-color: #101124; color: #E3E4E9">
   <div class="d-flex justify-content-center align-items-center mb-5">
     <%= link_to root_path do %>
@@ -8,11 +12,11 @@
     <%# sidebar_link is a helper %>
     <%= sidebar_link('fa-table-list', 'Dashboard', dashboard_path) %>
     <%# <%= sidebar_link('fa-tv', 'Programs', programs_path, data: { remote: true, turbo: "false" }) %>
-    <%= sidebar_link('fa-tv', 'Programas', programs_path) %>
-    <%= sidebar_link('fa-calendar', 'Eventos', events_path) %>
-    <%= sidebar_link('fa-folder', 'Recursos') %>
-    <%= sidebar_link('fa-folder', 'FAQs', faqs_path) %>
-    <%= sidebar_link('fa-folder', 'Galeria', posts_path) %>
+    <%= sidebar_link('fa-laptop', 'Programas', programs_path) %>
+    <%= sidebar_link('fa-ticket-simple', 'Eventos', events_path) %>
+    <%= sidebar_link('fa-folder-open', 'Recursos') %>
+    <%= sidebar_link('fa-comment', 'FAQs', faqs_path) %>
+    <%= sidebar_link('fa-image', 'Galeria', posts_path) %>
   </div>
   <%# Profile default begin%>
   <%# <div class="user-menu"> %>

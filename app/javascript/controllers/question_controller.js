@@ -1,20 +1,23 @@
 import {Controller} from "@hotwired/stimulus";
 import {getMetaValue, loadStepsOptions} from "./helper";
 
-export default class extends Controller {
+export default class QuestionController extends Controller {
     static targets = ["questionsTable"];
 
     async connect() {
         await this.setup();
     }
 
+    get questionController() {
+        return this.application.getControllerForElementAndIdentifier(this.element, "questionTable");
+    }
     async setup() {
 
         this.programId = this.questionsTableTarget.dataset.programId;
         const typesEnumOptions = [{value: 0, label: "Texto Livre"}, {value: 1, label: "Multipla Escolha"}];
         const stepsOptions = await loadStepsOptions(this.programId);
 
-        this.questionsTabulator = new Tabulator(this.questionsTableTarget, {
+        window.questionsTabulator = this.questionsTabulator = new Tabulator(this.questionsTableTarget, {
             layout: "fitColumns",
             responsiveLayout: true,
             paginationMode: "remote",

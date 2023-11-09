@@ -1,11 +1,13 @@
 <div class="d-flex align-items-center gap-3 mb-3">
-  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-house txt-opac"></i>
+  <i class="fa-solid fa-chevron-right txt-opac"></i>
+  <%= link_to "Programas", programs_path, class:"txt-links-disabled" %>
+  <i class="fa-solid fa-chevron-right txt-links-disabled"></i>
+  <%= link_to "Detalhes do programa", program_path(@program.id), class:"txt-links-disabled" %>
+  <i class="fa-solid fa-chevron-right txt-opac"></i>
+  <%= link_to "Detalhes do step", program_step_path, class:"txt-links-disabled" %>
   <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Programas</p>
-  <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Step</p>
-  <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Editar</p>
+  <p class="m-0 txt-links-actived">Editar</p>
 </div>
 <h2>Alterar <%= @step.name %></h2>
 <div class="card-profile container mt-5">

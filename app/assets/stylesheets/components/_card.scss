@@ -172,10 +172,23 @@
   color: $dark-gray;  /* Text color */
   padding: 10px 20px;  /* Space inside each tab */
   margin-right: 10px;  /* Space between tabs */
+  border-radius: 0 0 0 20px;
+  margin-bottom: 4px;
+  cursor: pointer;
 }
 
 /* Active Tab Styling */
 .nav-tabs .nav-link.active {
   background-color: $white;
   color: $light-purple;  /* Text color for active tab */
+}
+
+.two-line-container {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;
+  min-height: 32px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

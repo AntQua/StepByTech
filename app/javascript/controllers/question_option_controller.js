@@ -11,7 +11,10 @@ export default class extends Controller {
     async setup() {
 
         this.programId = this.questionsOptionsTableTarget.dataset.programId;
-        const questionsOptions = await loadQuestionsOptions(this.programId);
+        let questionsOptions = await loadQuestionsOptions(this.programId);
+        questionsOptions = questionsOptions.data.map((question) => {
+           return { value: question.id, label: question.title };
+        });
 
         this.questionsOptionsTabulator = new Tabulator(this.questionsOptionsTableTarget, {
             layout: "fitColumns",
@@ -32,13 +35,6 @@ export default class extends Controller {
                     field: "id",
                     width: 100,
                 },
-                {
-                    title: "Opção",
-                    field: "title",
-                    editor: "input",
-                    validator: "required",
-                    widthGrow: 3
-                },
                 { title: "Questão", field: "step_question_title", visible: false },
                 {
                     title: "Questão", field: "step_question_id", resizable: false, validator: "required", editor: 'select',
@@ -50,7 +46,15 @@ export default class extends Controller {
                             return questionsOptions.find(obj => obj.value === cell.getValue()).label;
                         }
                         return "";
-                    }
+                    },
+                    widthGrow: 3
+                },
+                {
+                    title: "Opção",
+                    field: "title",
+                    editor: "input",
+                    validator: "required",
+                    widthGrow: 3
                 },
                 {
                     title: "Peso",
@@ -73,7 +77,7 @@ export default class extends Controller {
     }
 
     saveQuestionOption(data) {
-        fetch(this.questionsOptionsTableTarget.dataset.saveQuestionOptionsUrl, {
+        fetch(this.questionsOptionsTableTarget.dataset.saveQuestionOptionUrl, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

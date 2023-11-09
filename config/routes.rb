@@ -55,5 +55,11 @@ Rails.application.routes.draw do
     patch 'program_attributes/:program_id/save', to: 'program_attributes#save', as: 'save_attribute'
      #Tabulator update step candidate
     patch 'users_programs_steps/:program_id/update', to: 'users_programs_steps#update_step_candidate', as: 'update_step_candidate'
+
+
+
+    get 'step_questions/:program_id/new', to: 'step_questions#new', as: 'new_step_question'
+    post 'step_questions', to: 'step_questions#create', as: 'step_questions'
+    # post 'step_questions/new', to: 'step_questions#'
   end
 end

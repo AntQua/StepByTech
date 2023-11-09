@@ -1,12 +1,12 @@
 <%# Colocar isto dinamico %>
 <div class="d-flex align-items-center gap-3 mb-5">
-  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-house txt-opac"></i>
   <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Programas</p>
+  <p class="m-0 txt-links-actived">Programas</p>
 </div>
 <%# Colocar isto dinamico %>
 <div class="d-flex justify-content-between align-items-center mb-4 bg-white rounded-4 p-4">
-  <h4>Programas</h4>
+  <h4 class="m-0">Programas</h4>
   <% if policy(Program).new? %>
     <%= link_to 'Novo Programa', new_program_path, class: 'btn-edit-profile text-decoration-none' %>
   <% end %>
