@@ -1,7 +1,9 @@
 <div class="form-group">
-  <%# <%= f.label :program_id, "Programas: " %>
   <%= f.select :program_id,
                @programs.map { |p| [p.title, p.id] },
-                { include_blank: "Seleccione um Programa " },
-                class: "form-select" %>
+               { include_blank: "Select a Program" },
+               class: "form-select",
+               data: { post_form_target: "programSelect" } %>
 </div>
+
+

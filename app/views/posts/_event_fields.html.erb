@@ -1,7 +1,8 @@
 <div class="form-group">
-  <%# <%= f.label :event_id, "Eventos: " %>
   <%= f.select :event_id,
-                @events.map { |e| [e.title, e.id] },
-                { include_blank: "Seleccione um Evento" },
-                  class: "form-select" %>
+               @events.map { |e| [e.title, e.id] },
+               { include_blank: "Select an Event" },
+               class: "form-select",
+               data: { post_form_target: "eventSelect" } %>
 </div>
+

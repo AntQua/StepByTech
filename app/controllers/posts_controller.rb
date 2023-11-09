@@ -57,29 +57,18 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    Rails.logger.info params.inspect
-
-   # If 'none' is selected, clear the association ids before anything else
-    if params[:post][:association_type] == 'none'
-      @post.program_id = nil
-      @post.event_id = nil
-      @post.step_id = nil
-    else
-      # Only call handle_associations if an association is being made
-      handle_associations(@post, params[:post][:association_type])
-    end
-
+    #Rails.logger.info params.inspect
     handle_media_contents(@post, params[:remove_media_contents])
 
-    # Ensure that we're updating the post with the correct parameters,
-    # including resetting the association ids if 'none' is selected.
-    if @post.update(post_params.except(:remove_media_contents, :media_contents, :association_type))
+    # Only call handle_associations if an association is being made
+    if @post.update(post_params.except(:remove_media_contents, :media_contents))
       @post.media_contents.attach(post_params[:media_contents]) if post_params[:media_contents].present?
       redirect_to posts_path, notice: 'Post was successfully updated.'
     else
       set_select_collections
       render :edit, status: :unprocessable_entity
     end
+
   end
 
 
@@ -128,29 +117,5 @@ class PostsController < ApplicationController
       @events = Event.all
       @programs = Program.all
       @steps = Step.all
-    end
-
-    def handle_associations(post, association_type)
-      # Ensure that when none is selected, association ids are set to nil
-      case association_type
-      when 'none'
-        post.program_id = nil
-        post.event_id = nil
-        post.step_id = nil
-        return
-      when 'event'
-        post.program_id = nil
-        post.step_id = nil
-        post.event_id = post_params[:event_id]
-      when 'program'
-        post.event_id = nil
-        post.step_id = nil
-        post.program_id = post_params[:program_id]
-      when 'step'
-        post.event_id = nil
-        #post.program_id = nil # Here you might want to decide if this should be set to nil or not.
-        post.program_id = post_params[:program_id_for_step]
-        post.step_id = post_params[:step_id]
-      end
     end
 end
