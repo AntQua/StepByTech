@@ -1,14 +1,41 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class PostFormController extends Controller {
-  static targets = ["associationNone", "associationEvent", "associationProgram", "associationStep", "eventFields", "programFields", "stepFields", "program", "step"];
+  static targets = ["programId", "eventId", "stepId", "associationNone", "associationEvent", "associationProgram", "associationStep", "eventFields", "programFields", "stepFields", "program", "step"]
 
   connect() {
     console.log("Post form controller connected");
     this.setInitialAssociationDisplay();
   }
 
-  // Handle radio button change event
+  // Reset the hidden fields based on the selected association type
+  resetHiddenFields(associationType) {
+    // Initially set all to empty
+    this.programIdTarget.value = '';
+    this.eventIdTarget.value = '';
+    this.stepIdTarget.value = '';
+
+    // Now set the value for the selected association, if applicable
+    switch (associationType) {
+      case 'event':
+        this.eventIdTarget.value = this.getSelectValue('event');
+        break;
+      case 'program':
+        this.programIdTarget.value = this.getSelectValue('program');
+        break;
+      case 'step':
+        this.programIdTarget.value = this.getSelectValue('programForStep');
+        this.stepIdTarget.value = this.getSelectValue('step');
+        break;
+    }
+  }
+
+  // Get the value of the select based on the association type
+  getSelectValue(association) {
+    const selectElement = this.element.querySelector(`[data-post-form-target="${association}Select"]`);
+    return selectElement ? selectElement.value : '';
+  }
+
   handleAssociationChange(event) {
     // Hide all association-specific fields initially
     this.eventFieldsTarget.style.display = 'none';
@@ -31,6 +58,9 @@ export default class PostFormController extends Controller {
         // No association selected, so nothing else to do.
         break;
     }
+
+    // Reset hidden fields based on selection
+    this.resetHiddenFields(event.target.value);
   }
 
   setInitialAssociationDisplay() {
