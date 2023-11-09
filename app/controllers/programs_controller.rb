@@ -8,11 +8,6 @@ class ProgramsController < ApplicationController
   def index
     @programs = Program.all
 
-    # Check if the request is AJAX
-    # if request.xhr?
-    #   render partial: 'programs_list', locals: { programs: @programs }
-    # end
-
     render 'programs_list', layout: 'dashboard'
   end
 
@@ -84,37 +79,6 @@ class ProgramsController < ApplicationController
     @program.destroy
     redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
-
-  # Action to handle AJAX request for steps
-  def steps_data
-    program = Program.find(params[:id])
-    steps = program.steps # Assuming program `has_many :steps`
-
-    # Respond with a partial that has the steps dropdown
-    render partial: 'steps_dropdown', locals: { steps: steps }
-  end
-
-  def steps
-    # Find the program by the ID
-    @program = Program.find(params[:program_id])
-    # Get the steps for the program
-    @steps = @program.steps.active # You can modify this if you have some other condition for 'active' steps.
-
-    # Respond with a partial that contains the steps options for the select input
-    respond_to do |format|
-      format.js { render partial: 'steps_select_options', locals: { steps: @steps } }
-    end
-  end
-
-  # GET /posts/steps_for_program
-  def steps_for_program
-    program = Program.find(params[:program_id])
-    steps = program.steps.active # Adjust this to get active steps based on your criteria
-
-    # Respond with a JSON array of steps
-    render json: steps
-  end
-
 
   private
 

@@ -47,7 +47,6 @@ class EventsController < ApplicationController
       redirect_to @event, notice: 'Event was successfully updated.'
     else
       @programs = Program.where(active: true)
-      puts @event.errors.full_messages
       render :edit, status: :unprocessable_entity
     end
   end

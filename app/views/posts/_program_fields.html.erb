@@ -1,5 +1,7 @@
-<!-- Program dropdown -->
 <div class="form-group">
-  <%= f.label :program_id, "Programas: " %>
-  <%= f.select :program_id, Program.active.collect { |p| [p.title, p.id] }, include_blank: "Seleccione um Programa", data: { action: "change->post-form#updateSteps" }, class: "form-select" %>
+  <%# <%= f.label :program_id, "Programas: " %>
+  <%= f.select :program_id,
+               @programs.map { |p| [p.title, p.id] },
+                { include_blank: "Seleccione um Programa " },
+                class: "form-select" %>
 </div>
