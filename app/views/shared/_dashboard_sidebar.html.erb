@@ -1,82 +1,83 @@
-<div class="sidebar-toggle">
-  <i class="fa-solid fa-bars fa-lg"></i>
-</div>
-
-<div class="sidebar" style="background-color: #101124; color: #E3E4E9">
-  <div class="d-flex justify-content-center align-items-center mb-5">
-    <%= link_to root_path do %>
-      <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>
-    <% end %>
+<div data-controller="sidebar">
+  <div class="sidebar-toggle" >
+    <button data-action="click->sidebar#toggleSidebar" class="btn-sidebar"><i class="fa-solid fa-bars fa-lg"></i></button>
   </div>
-  <div class="line-bottom">
-    <%# sidebar_link is a helper %>
-    <%= sidebar_link('fa-table-list', 'Dashboard', dashboard_path) %>
-    <%# <%= sidebar_link('fa-tv', 'Programs', programs_path, data: { remote: true, turbo: "false" }) %>
-    <%= sidebar_link('fa-laptop', 'Programas', programs_path) %>
-    <%= sidebar_link('fa-ticket-simple', 'Eventos', events_path) %>
-    <%= sidebar_link('fa-folder-open', 'Recursos') %>
-    <%= sidebar_link('fa-comment', 'FAQs', faqs_path) %>
-    <%= sidebar_link('fa-image', 'Galeria', posts_path) %>
-  </div>
-  <%# Profile default begin%>
-  <%# <div class="user-menu"> %>
-  <div class="user-menu">
-    <%# Profile details menu begin%>
-    <div class="profile-floating">
-      <div>
-        <a href="#" class="" id="navbarDropdown" data-bs-toggle="dropdown">
-          <%= image_tag current_user.avatar, class: "avatar-square", alt: "avatar profile" %>
-        </a>
-        <span>
-          <p class="m-0"><%= current_user.name %></p>
-          <%= current_user.email %>
-        </span>
-      </div>
-      <div class="d-flex row g-3 pt-5">
-        <%= link_to user_profile_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
-          <p class="m-0">Meu Perfil</p>
-          <i class="fa-solid fa-user" style="color: #5e6278;"></i>
-        <% end %>
-        <%= link_to user_settings_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
-          <p class="m-0">Configurações</p>
-          <i class="fa-solid fa-gear" style="color: #5e6278;"></i>
-        <% end %>
-        <!--begin::Menu language item-->
-        <div class="p-0">
-          <div class="d-flex align-items-center justify-content-between menu-item">
-            <p class="m-0">Linguagem</p>
-            <span class="">Portuguese
-              <img class="flag" src="assets/flags/portugal.svg" alt="" />
-            </span>
-          </div>
-          <div class="d-none">
-            <p class="m-0">English</p>
-            <span class="">
-              <img class="flag" src="assets/flags/united-states.svg" alt="" />
-            </span>
-          </div>
-        </div>
-        <!--end::Menu language item-->
-        <div class="d-flex align-items-center justify-content-between menu-item">
-          <p class="m-0">Modo</p>
-          <div>
-            <label class="switch mx-3">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-      </div>
+  <div class="sidebar" data-sidebar-target="sidebar" style="background-color: #101124; color: #E3E4E9">
+    <div class="d-flex justify-content-center align-items-center mb-5">
+      <%= link_to root_path do %>
+        <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>
+      <% end %>
     </div>
-    <%# Profile details menu end%>
-    <%= image_tag current_user.avatar, class: "avatar-profile", alt: "avatar profile" %>
-    <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none" do %>
-      <div class="dash-button">
-        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-        <p class="m-0">Logout</p>
+    <div class="line-bottom">
+      <%# sidebar_link is a helper %>
+      <%= sidebar_link('fa-table-list', 'Dashboard', dashboard_path) %>
+      <%# <%= sidebar_link('fa-tv', 'Programs', programs_path, data: { remote: true, turbo: "false" }) %>
+      <%= sidebar_link('fa-laptop', 'Programas', programs_path) %>
+      <%= sidebar_link('fa-ticket-simple', 'Eventos', events_path) %>
+      <%= sidebar_link('fa-folder-open', 'Recursos') %>
+      <%= sidebar_link('fa-comment', 'FAQs', faqs_path) %>
+      <%= sidebar_link('fa-image', 'Galeria', posts_path) %>
+    </div>
+    <%# Profile default begin%>
+    <%# <div class="user-menu"> %>
+    <div class="user-menu">
+      <%# Profile details menu begin%>
+      <div class="profile-floating">
+        <div>
+          <a href="#" class="" id="navbarDropdown" data-bs-toggle="dropdown">
+            <%= image_tag current_user.avatar, class: "avatar-square", alt: "avatar profile" %>
+          </a>
+          <span>
+            <p class="m-0"><%= current_user.name %></p>
+            <%= current_user.email %>
+          </span>
+        </div>
+        <div class="d-flex row g-3 pt-5">
+          <%= link_to user_profile_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
+            <p class="m-0">Meu Perfil</p>
+            <i class="fa-solid fa-user" style="color: #5e6278;"></i>
+          <% end %>
+          <%= link_to user_settings_path, class:"text-decoration-none d-flex align-items-center justify-content-between menu-item" do %>
+            <p class="m-0">Configurações</p>
+            <i class="fa-solid fa-gear" style="color: #5e6278;"></i>
+          <% end %>
+          <!--begin::Menu language item-->
+          <div class="p-0">
+            <div class="d-flex align-items-center justify-content-between menu-item">
+              <p class="m-0">Linguagem</p>
+              <span class="">Portuguese
+                <img class="flag" src="assets/flags/portugal.svg" alt="" />
+              </span>
+            </div>
+            <div class="d-none">
+              <p class="m-0">English</p>
+              <span class="">
+                <img class="flag" src="assets/flags/united-states.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <!--end::Menu language item-->
+          <div class="d-flex align-items-center justify-content-between menu-item">
+            <p class="m-0">Modo</p>
+            <div>
+              <label class="switch mx-3">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
-    <% end %>
+      <%# Profile details menu end%>
+      <%= image_tag current_user.avatar, class: "avatar-profile", alt: "avatar profile" %>
+      <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "text-decoration-none" do %>
+        <div class="dash-button">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <p class="m-0">Logout</p>
+        </div>
+      <% end %>
+    </div>
+    <%# </div> %>
+    <%# Profile default end%>
   </div>
-  <%# </div> %>
-  <%# Profile default end%>
 </div>

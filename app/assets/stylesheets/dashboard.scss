@@ -36,6 +36,15 @@ main {
     right: 50px;
 }
 
+.btn-sidebar {
+    border: none;
+    background: none;
+}
+
+.sidebar.show-sidebar {
+    display: block;
+}
+
 @media screen and (max-width: 768px) {
     body {
         grid-template-columns: 1fr;
@@ -49,6 +58,10 @@ main {
     .sidebar-toggle {
         display: block; /* Mostra o ícone de menu */
     }
+
+    // .sidebar .show-sidebar {
+    //     display: block;
+    // }
 }
 
 

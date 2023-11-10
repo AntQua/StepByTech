@@ -5,6 +5,7 @@ class StepQuestionsController < ApplicationController
 
   def new
     @question = StepQuestion.new
+    @program = Program.find(params[:program_id])
     @steps = Step.where(program_id: params[:program_id])
     if @steps.present?
       @steps = @steps.map { |step| [step[:name], step[:id]]} # [Label, Value]
@@ -14,6 +15,12 @@ class StepQuestionsController < ApplicationController
   def create
     @question = StepQuestion.new(step_question_params)
     if @question.save
+      if params[:options].present?
+        params[:options].each do |option|
+          question_option = @question.step_question_options.build({ title: option[:title], weight: option[:weight].to_i })
+          question_option.save
+        end
+      end
       flash[:notice] = "Questão cadastrada com sucesso!"
       head :ok
     else

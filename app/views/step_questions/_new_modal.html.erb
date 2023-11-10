@@ -19,28 +19,68 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-4">
                 <div class="form-group">
                   <%= form.label :question_type, 'Tipo' %>
                   <%= form.input :question_type, as: :select, collection: StepQuestion.question_types.keys, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-4">
                 <div class="form-group">
                   <%= form.label :step_id, 'Step' %>
                   <%= form.input :step_id, as: :select, collection: @steps, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-4">
                 <div class="form-group">
-                  <%= form.label :limit, 'Máximo de Caracteres/Respostas' %>
+                  <%= form.label :limit, 'Limite', title: 'Limite de respostas/caracteres' %>
                   <%= form.input :limit, required: true, label: false, input_html: { type: 'number', class: 'form-control bg-white' } %>
                 </div>
               </div>
+            </div>
+            <div data-controller="question-option" class="container table-responsive">
+              <hr/>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <label for="option-title">Titulo</label>
+                  <input type="text" id="option-title" data-question-option-target="optionTitle" data-action="keydown.enter->question-option#addNewOptionModal" class="form-control bg-white"/>
+                </div>
+                <div class="col-md-4">
+                  <label for="option-weight">Peso</label>
+                  <input type="number" id="option-weight" data-question-option-target="optionWeight" data-action="keydown.enter->question-option#addNewOptionModal" class="form-control bg-white"/>
+                </div>
+                <div class="col-md-2 align-self-end">
+                  <button type="button" class="btn btn-primary" data-action="question-option#addNewOptionModal" id="add-option">Adicionar</button>
+                </div>
+              </div>
+              <template data-question-option-target="optionRowTemplate">
+                <tr>
+                  <td>
+                    <input type="hidden" name="options[][title]">
+                  </td>
+                  <td>
+                    <input type="hidden" name="options[][weight]">
+                  </td>
+                  <td class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-option" title="Remover a opção">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </template>
+              <table class="table table-striped table-hover border-primary">
+                <thead>
+                  <tr>
+                    <th scope="col">Opção</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Ações</th>
+                  </tr>
+                </thead>
+                <tbody data-question-option-target="optionsTableBody">
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="modal-footer">
