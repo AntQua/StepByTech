@@ -9,6 +9,8 @@ class EventsController < ApplicationController
   def index
     @agendados_events = Event.where(status: "agendado")
     @terminados_events = Event.where(status: "terminado")
+    # Fetch posts associated with events
+    @event_posts = Post.includes(:event).where.not(event_id: nil).order(created_at: :desc)
   end
 
 
@@ -83,9 +85,6 @@ class EventsController < ApplicationController
 
     redirect_to @event, notice: message
   end
-
-
-
 
   private
 
