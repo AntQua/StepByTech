@@ -30,15 +30,19 @@
       <%# render associations here %>
       <div class="card-body">
         <% if post.event.present? %>
-          <p>Event: <%= post.event.title %></p>
+          <p>Evento: <%= post.event.title %></p>
         <% end %>
 
         <% if post.program.present? %>
-          <p>Program: <%= post.program.title %></p>
+          <p>Programa: <%= post.program.title %></p>
         <% end %>
 
+
         <% if post.step.present? %>
-          <p>Step: <%= post.step.name %></p>
+          <% if post.step.program.present? %>
+            <p>Programa associado ao Step: <%= post.step.program.title %></p>
+          <% end %>
+          <p>Step <%= post.step.step_order %>: <%= post.step.name %></p>
         <% end %>
       </div>
 
