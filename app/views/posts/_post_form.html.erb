@@ -11,9 +11,9 @@
       </div>
     <% end %>
 
-    <%= f.hidden_field :program_id, data: { post_form_target: "programId" } %>
-    <%= f.hidden_field :event_id, data: { post_form_target: "eventId" } %>
-    <%= f.hidden_field :step_id, data: { post_form_target: "stepId" } %>
+    <%# <%= f.hidden_field :program_id, data: { post_form_target: "programId" } %>
+    <%# <%= f.hidden_field :event_id, data: { post_form_target: "eventId" } %>
+    <%# <%= f.hidden_field :step_id, data: { post_form_target: "stepId" } %> 
 
     <div class="form-inputs">
       <%= f.input :title, label: "Titulo", required: true %>
@@ -53,21 +53,21 @@
         <div class="form-check">
           <%= f.radio_button :association_type, 'event', checked: @post.association_type == 'event', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationEvent" }, class: "form-check-input" %>
           <label class="form-check-label">Eventos</label>
-          <div data-post-form-target="eventFields" style="display: none;">
+          <div data-post-form-target="eventFields">
             <%= render partial: "posts/event_fields", locals: { f: f } %>
           </div>
         </div>
         <div class="form-check">
           <%= f.radio_button :association_type, 'program', checked: @post.association_type == 'program', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationProgram" }, class: "form-check-input" %>
           <label class="form-check-label">Programas</label>
-          <div data-post-form-target="programFields" style="display: none;">
+          <div data-post-form-target="programFields">
             <%= render partial: "posts/program_fields", locals: { f: f } %>
           </div>
         </div>
         <div class="form-check">
           <%= f.radio_button :association_type, 'step', checked: @post.association_type == 'step', data: { action: "change->post-form#handleAssociationChange", post_form_target: "associationStep" }, class: "form-check-input" %>
           <label class="form-check-label">Steps</label>
-          <div data-post-form-target="stepFields" style="display: none;">
+          <div data-post-form-target="stepFields">
             <%= render partial: "posts/step_fields", locals: { f: f } %>
           </div>
         </div>
