@@ -18,6 +18,10 @@ class PostPolicy
     true
   end
 
+  def new?
+    user.is_admin?
+  end
+
   def create?
     user.is_admin?
   end
