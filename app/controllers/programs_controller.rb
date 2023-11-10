@@ -15,6 +15,11 @@ class ProgramsController < ApplicationController
   def show
     authorize Program
     @program_events = @program.events.where(status: "agendado")
+
+    # Fetch posts related to the program and its steps
+    @program_posts = Post.where(program_id: @program.id)
+    @step_posts = Post.where(step_id: @program.steps.ids)
+
     render layout: 'dashboard'
   end
 
@@ -25,17 +30,6 @@ class ProgramsController < ApplicationController
   def new
     authorize Program
     @program = Program.new
-
-    # @programs = policy_scope(Program)
-    # authorize @programs
-
-    # # Check if the request is AJAX
-    # if request.xhr?
-    #   render partial: 'new_program_form', locals: { program: @program }
-    # else
-    #   # You can handle non-ajax requests if needed
-    #   render :new
-    # end
     render 'new_program_form', layout: 'dashboard'
   end
 
