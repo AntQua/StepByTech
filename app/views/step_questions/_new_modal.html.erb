@@ -3,7 +3,7 @@
        data-controller="bs-modal"
        data-action="turbo:submit-end->bs-modal#close">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content bg-white rounded-4">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Questão</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -38,7 +38,7 @@
                 </div>
               </div>
             </div>
-            <div data-controller="question-option" class="container table-responsive">
+            <div data-controller="question-option" class="container table-responsive p-0">
               <hr/>
               <div class="row mb-2">
                 <div class="col-md-6">
@@ -50,7 +50,7 @@
                   <input type="number" id="option-weight" data-question-option-target="optionWeight" data-action="keydown.enter->question-option#addNewOptionModal" class="form-control bg-white"/>
                 </div>
                 <div class="col-md-2 align-self-end">
-                  <button type="button" class="btn btn-primary" data-action="question-option#addNewOptionModal" id="add-option">Adicionar</button>
+                  <button type="button" class="dash-button" data-action="question-option#addNewOptionModal" id="add-option">Adicionar</button>
                 </div>
               </div>
               <template data-question-option-target="optionRowTemplate">
@@ -84,8 +84,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <%= form.submit 'Salvar', class: "btn btn-primary" %> <!-- data: { action: 'click->bs-modal#submitEnd' } -->
+            <button type="button" class="btn-dark-purple" data-bs-dismiss="modal">Fechar</button>
+            <%= form.submit 'Salvar', class: "btn-edit-profile" %> <!-- data: { action: 'click->bs-modal#submitEnd' } -->
           </div>
         <% end %>
       </div>

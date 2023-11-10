@@ -6,7 +6,7 @@
   <p class="m-0 txt-links-actived">Detalhes do programa</p>
 </div>
 <div class="d-flex gap-4 align-items-center mb-5">
-<h3 class="m-0">Programa</h3>
+  <h3 class="m-0">Programa</h3>
 </div>
 <div class= "bg-white rounded-4">
   <div class="p-3 mb-4 d-flex gap-3">
@@ -31,48 +31,42 @@
       </div>
       <p class="card-sub-title-dashboard mb-4"><%= @program.description %></p>
       <div class="d-flex col">
-        <div class="d-flex row gap-2">
-          <div class="d-flex gap-2 align-items-center">
+        <div class="d-flex col">
+          <div class="d-flex gap-2 align-items-center col-6">
             <%= image_tag "date_range.png" %>
-            <p class="m-0 card-sub-title-dashboard">Data inicial da inscrição : <%= @program.registration_start_date.strftime('%d/%m/%Y %T') %></p>
+            <p class="m-0 card-sub-title-dashboard">
+              Data da inscrição : 
+              <%= @program.registration_start_date.strftime('%d/%m/%Y') %> até <%= @program.registration_end_date.strftime('%d/%m/%Y') %>
+            </p>
           </div>
-          <div class="d-flex gap-2 align-items-center">
+          <div class="d-flex gap-2 align-items-center col-6">
             <%= image_tag "date_range.png" %>
-            <p class="m-0 card-sub-title-dashboard">Data final da inscrição : <%= @program.registration_end_date.strftime('%d/%m/%Y') %></p>
-          </div>
-        </div>
-        <div class="d-flex row">
-          <div class="d-flex gap-2 align-items-center">
-            <%= image_tag "date_range.png" %>
-            <p class="m-0 card-sub-title-dashboard">Data inicial do programa : <%= @program.begin_date.strftime('%d/%m/%Y') %></p>
-          </div>
-          <div class="d-flex gap-2 align-items-center">
-            <%= image_tag "date_range.png" %>
-            <p class="m-0 card-sub-title-dashboard">Data final do programa: <%= @program.end_date.strftime('%d/%m/%Y') %></p>
+            <p class="m-0 card-sub-title-dashboard">
+              Data do programa : 
+              <%= @program.begin_date.strftime('%d/%m/%Y') %> até <%= @program.end_date.strftime('%d/%m/%Y') %>
+            </p>
           </div>
         </div>
       </div>
-      <div class="d-flex gap-2 align-items-center mt-3 gap-5">
-        <div class="d-flex gap-2 align-items-center justify-content-between">
+      <div class="d-flex gap-2 align-items-center mt-3">
+        <div class="d-flex gap-2 align-items-center col-6">
           <%= image_tag "user_alt_fill.png" %>
           <p class="m-0 card-sub-title-dashboard">Número máximo de candidatos: <%= @program.registration_limit %></p>
         </div>
         <%# ter certeza que isto abaixo é necessário... %>
-        <div class="d-flex gap-2 align-items-center">
+        <div class="d-flex gap-5 align-items-center col-6">
           <p class="m-0 card-sub-title-dashboard">Activo: <%= @program.active ? "Sim" : "Não" %></p>
           <p class="m-0 card-sub-title-dashboard">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
         </div>
       </div>
     </div>
   </div>
-
   <div>
     <ul class="nav nav-tabs">
       <!-- All users can see the Steps tab -->
       <li class="nav-item">
         <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
       </li>
-
       <!-- Only admin users or users with update policy can see the Atributos tab -->
       <% if policy(@program).update? %>
         <li class="nav-item">
@@ -82,12 +76,10 @@
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-candidates">Candidatos</a>
         </li>
       <% end %>
-
       <!-- All users can see the Eventos tab -->
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
       </li>
     </ul>
   </div>
-
 </div>
