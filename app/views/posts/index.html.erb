@@ -5,8 +5,10 @@
 </div>
 
 <div class="d-flex justify-content-between align-items-center mb-4 bg-white rounded-4 p-4">
-  <h4>Galeria</h4>
-  <%= link_to 'Criar Publicação', new_post_path, class: 'btn-edit-profile text-decoration-none' %>
+  <h4>Galeria de Publlicações</h4>
+  <% if policy(Post).new? %>
+    <%= link_to 'Criar Publicação', new_post_path, class: 'btn-edit-profile text-decoration-none' %>
+  <% end %>
 </div>
 
 <div class="posts-list">
@@ -15,16 +17,18 @@
       <div class="card-header bg-white">
         <div class= "d-flex justify-content-between align-items-center bg-white">
           <h5 class="post-title"><%= post.title %></h5>
-          <div>
-            <%= link_to edit_post_path(post), class: 'text-primary text-decoration-none me-2' do %>
-              <i class="fa-regular fa-pen-to-square"></i>
+            <% if policy(Post).update? %>
+              <div>
+                <%= link_to edit_post_path(post), class: 'text-primary text-decoration-none me-2' do %>
+                  <i class="fa-regular fa-pen-to-square"></i>
+                <% end %>
+                <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              </div>
             <% end %>
-            <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
-              <i class="fa-solid fa-trash"></i>
-            <% end %>
-          </div>
+          <p class="text-muted"><%= post.created_at.strftime("%d %b %Y") %></p>
         </div>
-        <p class="text-muted"><%= post.created_at.strftime("%d %b %Y") %></p>
       </div>
       <div class="card-body">
         <p class="post-text"><%= post.body %></p>
