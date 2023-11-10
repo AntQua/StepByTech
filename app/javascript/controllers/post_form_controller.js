@@ -1,7 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class PostFormController extends Controller {
-  static targets = ["programId", "eventId", "stepId", "associationNone", "associationEvent", "associationProgram", "associationStep", "eventFields", "programFields", "stepFields", "program", "step"]
+
+    static targets = [
+      "programId", "eventId", "stepId",
+      "associationNone", "associationEvent", "associationProgram", "associationStep",
+      "eventFields", "programFields", "stepFields",
+      "eventSelect", "programSelect", "stepSelect",
+      "programForStepSelect"
+    ]
 
   connect() {
     console.log("Post form controller connected");
@@ -82,10 +89,10 @@ export default class PostFormController extends Controller {
   }
 
   updateSteps() {
-    const programId = this.programTarget.value;
-    const stepSelect = document.getElementById('post_step_id');
+    const programId = this.programForStepSelectTarget.value;
+    const stepSelect = this.stepSelectTarget;
 
-    // Clear current options in steps select
+    // Clear current options in step select
     stepSelect.innerHTML = '';
 
     // Fetch the steps based on the selected program
