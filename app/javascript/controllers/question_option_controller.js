@@ -22,7 +22,6 @@ export default class extends Controller {
             tds[0].innerHTML += title;
             tds[1].querySelector("input").value = weight;
             tds[1].innerHTML += weight;
-            tds[2].querySelector("button.remove-option").addEventListener("click", this.removeOption);
             this.optionsTableBodyTarget.appendChild(clone);
             this.optionTitleTarget.value = "";
             this.optionWeightTarget.value = "";

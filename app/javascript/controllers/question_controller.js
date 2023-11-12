@@ -29,48 +29,88 @@ export default class QuestionController extends Controller {
                 size: "length",
             },
             ajaxURL: this.questionsTableTarget.dataset.sourceUrl,
+            // groupHeader:function(value, count, data, group){
+            //     //value - the value all members of this group share
+            //     //count - the number of rows in this group
+            //     //data - an array of all the row data objects in this group
+            //     //group - the group component for the group
+            //
+            //     const content = document.createElement('div');
+            //     content.classList.add('d-flex');
+            //     content.classList.add('w-80');
+            //     content.classList.add('justify-content-between');
+            //
+            //     const infoSpan = document.createElement('span');
+            //     infoSpan.textContent = `${value} (${count} item(s))`;
+            //     content.appendChild(infoSpan);
+            //
+            //     const previewButton = document.createElement('a');
+            //     previewButton.textContent = "Pré-visualizar";
+            //     content.appendChild(previewButton);
+            //
+            //     return content;
+            // },
             columns: [
                 { formatter:"rowSelection", titleFormatter:"rowSelection", width: 50, resizable: false, headerSort: false, cellClick: function(e, cell){ cell.getRow().toggleSelect(); } },
                 {
                     title: "Id",
                     field: "id",
                     width: 100,
+                    visible: false
+                },
+                {
+                    field: "program_id",
+                    visible: false
                 },
                 {
                     title: "Questão",
                     field: "title",
-                    editor: "input",
+                    // editor: "input",
                     validator: "required",
                     widthGrow: 3
                 },
                 {
-                    title: "Tipo", field: "question_type", resizable: false, validator: "required", editor: 'select',
-                    editorParams: {
-                        values: typesEnumOptions
-                    },
-                    formatter: function (cell, formatterParams, onRendered) {
-                        return typesEnumOptions.find(obj => obj.value === cell.getValue()).label;
-                    }
+                    title: "Tipo", field: "question_type", resizable: false, validator: "required",
                 },
                 { title: "Step", field: "step_name", visible: false },
-                {
-                    title: "Step", field: "step_id", resizable: false, editor: 'select',
-                    editorParams: {
-                        values: stepsOptions
-                    },
-                    formatter: function (cell, formatterParams, onRendered) {
-                        if (cell.getValue() > 0) {
-                            return stepsOptions.find(obj => obj.value === cell.getValue()).label;
-                        }
-                        return "";
-                    }
-                },
                 {
                     title: "Limite",
                     headerTooltip: "Se o tipo for Texto Livre esse campo será um limite de caracteres caso contrário vai ser limite de respostas",
                     field: "limit",
-                    editor: "input",
+                    // editor: "input",
                     validator: "required",
+                },
+                {
+                    title:"Ações",
+                    formatter: (cell, formatterParams, onRendered) => {
+                        const data = cell.getData();
+                        const editIcon = document.getElementById('editIcon').content.cloneNode(true);
+                        const editButton = document.createElement('a');
+                        editButton.classList.add('btn');
+                        editButton.classList.add('btn-secondary');
+                        editButton.classList.add('mx-1');
+                        editButton.setAttribute('data-controller', 'question-modal');
+                        editButton.setAttribute('data-action', 'click->question-modal#showEditModal');
+                        editButton.href = `/step_questions/${data.program_id}/edit/${data.id}`;
+
+                        editButton.appendChild(editIcon);
+
+                        const deleteIcon = document.getElementById('deleteIcon').content.cloneNode(true);
+                        const deleteButton = document.createElement('a');
+                        deleteButton.classList.add('btn');
+                        deleteButton.classList.add('btn-danger');
+                        deleteButton.setAttribute('data-step-question-id', data.id);
+                        deleteButton.setAttribute('data-controller', 'question-modal');
+                        deleteButton.setAttribute('data-target-table', '');
+                        deleteButton.setAttribute('data-action', 'click->question-modal#showAlertDeleteConfirmation');
+                        deleteButton.appendChild(deleteIcon);
+
+                        const div = document.createElement('div');
+                        div.appendChild(editButton);
+                        div.appendChild(deleteButton);
+
+                        return div;
+                    }
                 }
             ],
         });

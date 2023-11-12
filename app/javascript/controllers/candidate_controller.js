@@ -32,6 +32,7 @@ export default class extends Controller {
       paginationMode: "remote",
       pagination: true, //fit columns to width of table (optional)
       paginationSize: 10,
+      groupBy: "user_gender",
       dataSendParams: {
         page: "start",
         size: "length",
@@ -48,7 +49,7 @@ export default class extends Controller {
         { formatter:"rowSelection", titleFormatter:"rowSelection", width: 50, resizable: false, headerSort: false, cellClick: function(e, cell){ cell.getRow().toggleSelect(); } },
         { title: "Id", field: "id", visible: false },
         { title: "Usuário", field: "user_name", widthGrow: 2, resizable: false },
-        { title: "Genero", field: "user_gender" },
+        { title: "Genero", field: "user_gender", visible: false },
         { title: "Step", field: "step_id", resizable: false, editor: 'select',
           editorParams: {
             values: steps
@@ -60,9 +61,47 @@ export default class extends Controller {
             return "";
           }
         },
-        { title: "Data do Registro", field: "registration_date", resizable: false },
-        { title: "Status", field: "status", resizable: false },
+        { field: "current_step_name", visible: false },
+        { field: "next_step_name", visible: false },
+        { title: "Candidatura", field: "registration_date", resizable: false },
+        { title: "Status", field: "status_description", resizable: false },
+        { field: "status_value", visible: false },
         { title: "Total", field: "total_points", resizable: false },
+        {
+          title:"Ações",
+          formatter: (cell, formatterParams, onRendered) => {
+            const data = cell.getData();
+            const div = document.createElement('div');
+
+            if(data.status_value === 0) //Somente mostra quando o status for Aguardando aprovação
+            {
+              const approveIcon = document.getElementById('approveIcon').content.cloneNode(true);
+              const approveButton = document.createElement('button');
+              approveButton.type = "button";
+              approveButton.classList.add('btn');
+              approveButton.classList.add('btn-success');
+              approveButton.classList.add('mx-1');
+              approveButton.setAttribute('data-user_program_step_id', data.id);
+              approveButton.setAttribute('data-current_step_name', data.current_step_name);
+              approveButton.setAttribute('data-next_step_name', data.next_step_name);
+              approveButton.addEventListener("click", this.showApproveConfirmation);
+              approveButton.appendChild(approveIcon);
+              div.appendChild(approveButton);
+
+              const disapproveIcon = document.getElementById('disapproveIcon').content.cloneNode(true);
+              const disapproveButton = document.createElement('button');
+              disapproveButton.type = "button";
+              disapproveButton.classList.add('btn');
+              disapproveButton.classList.add('btn-danger');
+              disapproveButton.setAttribute('data-user_program_step_id', data.id);
+              disapproveButton.addEventListener("click", this.showDisaproveConfirmation);
+              disapproveButton.appendChild(disapproveIcon);
+              div.appendChild(disapproveButton);
+            }
+
+            return div;
+          }
+        }
       ],
     });
 
@@ -73,6 +112,96 @@ export default class extends Controller {
       if (rowValid === true) {
         const data = cell.getRow().getData();
         this.saveCandidate(data);
+      }
+    });
+  }
+
+  showApproveConfirmation(event)
+  {
+    const current_step_name = event.currentTarget.dataset.current_step_name;
+    const next_step_name = event.currentTarget.dataset.next_step_name;
+
+    Swal.fire({
+      title: "Você tem certeza?",
+      text: `${current_step_name} -> ${next_step_name}`,
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#B973FF",
+      // cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, quero aprovar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // fetch(`/step_questions/${stepQuestionId}`, {
+        //   method: "DELETE",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "X-CSRF-Token": getMetaValue("csrf-token"),
+        //   }
+        // })
+        //     .then((response) => {
+        //       if (!response.ok) {
+        //         throw new Error(`Erro na solicitação: ${response.status}`);
+        //       }
+        //       return response.json();
+        //     })
+        //     .then((response) => {
+        //       Swal.fire({
+        //         position: "center",
+        //         icon: 'success',
+        //         title: response.message,
+        //         showConfirmButton: false,
+        //         timer: 1500
+        //       });
+        //
+        //       window.questionsTabulator.setData();
+        //     })
+        //     .catch((error) => {
+        //       console.error("Erro ao processar a solicitação:", error);
+        //     });
+      }
+    });
+  }
+
+  showDisaproveConfirmation(event){
+    Swal.fire({
+      title: "Você tem certeza?",
+      text: "Não é possivel reverter!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#B973FF",
+      // cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, quero reprovar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // fetch(`/step_questions/${stepQuestionId}`, {
+        //   method: "DELETE",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "X-CSRF-Token": getMetaValue("csrf-token"),
+        //   }
+        // })
+        //     .then((response) => {
+        //       if (!response.ok) {
+        //         throw new Error(`Erro na solicitação: ${response.status}`);
+        //       }
+        //       return response.json();
+        //     })
+        //     .then((response) => {
+        //       Swal.fire({
+        //         position: "center",
+        //         icon: 'success',
+        //         title: response.message,
+        //         showConfirmButton: false,
+        //         timer: 1500
+        //       });
+        //
+        //       window.questionsTabulator.setData();
+        //     })
+        //     .catch((error) => {
+        //       console.error("Erro ao processar a solicitação:", error);
+        //     });
       }
     });
   }

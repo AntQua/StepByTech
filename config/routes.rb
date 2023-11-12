@@ -56,10 +56,10 @@ Rails.application.routes.draw do
      #Tabulator update step candidate
     patch 'users_programs_steps/:program_id/update', to: 'users_programs_steps#update_step_candidate', as: 'update_step_candidate'
 
-
-
     get 'step_questions/:program_id/new', to: 'step_questions#new', as: 'new_step_question'
-    post 'step_questions', to: 'step_questions#create', as: 'step_questions'
-    # post 'step_questions/new', to: 'step_questions#'
+    get 'step_questions/:program_id/edit/:id', to: 'step_questions#edit', as: 'edit_step_question'
+    post 'step_questions', to: 'step_questions#create', as: 'create_step_questions'
+    patch 'step_questions/:id', to: 'step_questions#update', as: 'update_step_questions'
+    delete 'step_questions/:id', to: 'step_questions#destroy', as: 'destroy_step_questions'
   end
 end

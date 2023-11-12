@@ -10,9 +10,8 @@ class User < ApplicationRecord
   has_many :events, through: :users_events
   has_many :notifications
   has_many :posts
-  has_many :user_attributes
-  has_many :program_attributes, through: :user_attributes
-  
+  has_many :user_answers
+
   has_one_attached :avatar  # This is for the Active Storage association for the user's avatar.
 
   enum gender: { Masculino: 0, Feminino: 1 }

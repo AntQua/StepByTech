@@ -26,6 +26,34 @@ export default class extends Controller {
         }
     }
 
+    //TODO: Processar response antes de fechar o modal e mostrar notificações com o modal aberto
+    async processResponse(event)
+    {
+        if (event.detail.fetchResponse.succeeded) {
+            event.preventDefault()
+            const json = await event.detail.fetchResponse.response.clone().json();
+            if(json.status === "success")
+            {
+                Swal.fire({
+                    position: "center",
+                    icon: 'success',
+                    title: json.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            else {
+                Swal.fire({
+                    position: "center",
+                    icon: 'error',
+                    title: json.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+    }
+
     submitEnd() {
         this.modal.hide();
     }
