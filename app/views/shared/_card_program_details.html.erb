@@ -2,112 +2,86 @@
   <i class="fa-solid fa-house txt-opac"></i>
   <i class="fa-solid fa-chevron-right txt-opac"></i>
   <%= link_to "Programas", programs_path, class: "txt-links-disabled" %>
-    <i class="fa-solid fa-chevron-right links-actived"></i>
-    <p class="m-0 txt-links-actived">Detalhes do programa</p>
+  <i class="fa-solid fa-chevron-right links-actived"></i>
+  <p class="m-0 txt-links-actived">Detalhes do programa</p>
+</div>
+<div class="d-flex gap-4 align-items-center mb-5">
+  <h3 class="m-0">Programa</h3>
+</div>
+<div class="bg-white rounded-4">
+  <div class="p-3 mb-4 d-flex gap-3">
+    <div>
+      <% if @program.image.attached? %>
+        <%= image_tag @program.image, class: "image-program" %>
+      <% else %>
+        <%= image_tag "temp_thumb.jpg", class: "avatar-square-s", alt: "default image program" %>
+      <% end %>
     </div>
-    <div class="d-flex gap-4 align-items-center mb-5">
-      <h3 class="m-0">Programa</h3>
-    </div>
-    <div class="bg-white rounded-4">
-      <div class="p-3 mb-4 d-flex gap-3">
-        <div>
-          <% if @program.image.attached? %>
-            <%= image_tag @program.image, class: "image-program" %>
-          <% else %>
-            <%= image_tag "temp_thumb.jpg", class: "avatar-square-s", alt: "default image program" %>
-          <% end %>
+    <div>
+      <div class="d-flex justify-content-between gap-3">
+        <div class="d-flex col align-items-center gap-2">
+          <h5><%= @program.title %></h5>
+          <%= image_tag "tag_badges_complete.svg" %>
         </div>
-        <div>
-          <div class="d-flex justify-content-between gap-3">
-            <div class="d-flex col align-items-center gap-2">
-              <h5><%= @program.title %></h5>
-              <%= image_tag "tag_badges_complete.svg" %>
-            </div>
-            <% if policy(@program).update? %>
-              <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none mb-2" %>
-            <% end %>
-            <% if current_page?(apply_path(@program)) == false && @program.check_apply_available?(current_user) %>
-              <%= link_to "Candidatura", apply_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
-            <% end %>
-            <% if current_page?(questionnaire_path(@program)) == false && @program.check_pending_questionnaires?(current_user) %>
-              <%= link_to "Questionário", questionnaire_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
-            <% end %>
+        <% if policy(@program).update? %>
+          <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none mb-2" %>
+        <% end %>
+        <% if current_page?(apply_path(@program)) == false && @program.check_apply_available?(current_user) %>
+          <%= link_to "Candidatura", apply_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
+        <% end %>
+        <% if current_page?(questionnaire_path(@program)) == false && @program.check_pending_questionnaires?(current_user) %>
+          <%= link_to "Questionário", questionnaire_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
+        <% end %>
+      </div>
+      <p class="card-sub-title-dashboard mb-4"><%= @program.description %></p>
+      <div class="d-flex col">
+        <div class="d-flex col">
+          <div class="d-flex gap-2 align-items-center col-6">
+            <%= image_tag "date_range.png" %>
+            <p class="m-0 card-sub-title-dashboard">
+              Data da inscrição :
+              <%= @program.registration_start_date.strftime('%d/%m/%Y') %>
+              até <%= @program.registration_end_date.strftime('%d/%m/%Y') %>
+            </p>
           </div>
-          <p class="card-sub-title-dashboard mb-4"><%= @program.description %></p>
-          <div class="d-flex col">
-            <div class="d-flex col">
-              <div class="d-flex gap-2 align-items-center col-6">
-                <%= image_tag "date_range.png" %>
-                <p class="m-0 card-sub-title-dashboard">
-                  Data da inscrição :
-                  <%= @program.registration_start_date.strftime('%d/%m/%Y') %>
-                  até <%= @program.registration_end_date.strftime('%d/%m/%Y') %>
-                </p>
-              </div>
-              <div class="d-flex gap-2 align-items-center col-6">
-                <%= image_tag "date_range.png" %>
-                <p class="m-0 card-sub-title-dashboard">
-                  Data do programa :
-                  <%= @program.begin_date.strftime('%d/%m/%Y') %> até <%= @program.end_date.strftime('%d/%m/%Y') %>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex gap-2 align-items-center mt-3">
-            <div class="d-flex gap-2 align-items-center col-6">
-              <%= image_tag "user_alt_fill.png" %>
-              <p class="m-0 card-sub-title-dashboard">Número máximo de
-                candidatos: <%= @program.registration_limit %></p>
-            </div>
-            <%# ter certeza que isto abaixo é necessário... %>
-            <div class="d-flex gap-5 align-items-center col-6">
-              <p class="m-0 card-sub-title-dashboard">Activo: <%= @program.active ? "Sim" : "Não" %></p>
-              <p class="m-0 card-sub-title-dashboard">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
-            </div>
+          <div class="d-flex gap-2 align-items-center col-6">
+            <%= image_tag "date_range.png" %>
+            <p class="m-0 card-sub-title-dashboard">
+              Data do programa :
+              <%= @program.begin_date.strftime('%d/%m/%Y') %> até <%= @program.end_date.strftime('%d/%m/%Y') %>
+            </p>
           </div>
         </div>
       </div>
-      <div>
-        <ul class="nav nav-tabs">
-          <!-- All users can see the Steps tab -->
-          <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
-          </li>
-          <!-- Only admin users or users with update policy can see the Atributos tab -->
-          <% if policy(@program).update? %>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-questions">Questionários</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-candidates">Candidatos</a>
-            </li>
-          <% end %>
-          <!-- All users can see the Eventos tab -->
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
-          </li>
-        </ul>
+      <div class="d-flex gap-2 align-items-center mt-3">
+        <div class="d-flex gap-2 align-items-center col-6">
+          <%= image_tag "user_alt_fill.png" %>
+          <p class="m-0 card-sub-title-dashboard">Número máximo de
+            candidatos: <%= @program.registration_limit %></p>
+        </div>
+        <%# ter certeza que isto abaixo é necessário... %>
+        <div class="d-flex gap-5 align-items-center col-6">
+          <p class="m-0 card-sub-title-dashboard">Activo: <%= @program.active ? "Sim" : "Não" %></p>
+          <p class="m-0 card-sub-title-dashboard">Completo: <%= !@program.completed ? "Programa a decorrer" : "Programa finalizado" %></p>
+        </div>
       </div>
     </div>
   </div>
-
   <div>
     <ul class="nav nav-tabs">
       <!-- All users can see the Steps tab -->
       <li class="nav-item">
         <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
       </li>
-
       <!-- Only admin users or users with update policy can see the Atributos tab -->
       <% if policy(@program).update? %>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attributes">Atributos</a>
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-questions">Questionários</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-candidates">Candidatos</a>
         </li>
       <% end %>
-
       <!-- All users can see the Eventos tab -->
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
@@ -117,5 +91,4 @@
       </li>
     </ul>
   </div>
-
 </div>
