@@ -1,0 +1,38 @@
+<%= render "shared/card_program_details" %>
+<% if false %>
+  <div class="card-profile container px-3 d-flex justify-content-center">
+    <strong>
+      <p class="m-0">Você já submeteu sua candidatura. Por favor, aguarde até o final do período de inscrição do
+        programa para saber os resultados.</p>
+    </strong>
+  </div>
+<% else %>
+  <h3>Questionário do <%= @current_step.name %></h3>
+  <div class="card-profile container mt-5">
+    <%= simple_form_for(@program, url: answer_questionnaire_path(@program), html: { method: :post }) do |f| %>
+      <% @questions.each do |question| %>
+        <div class="mb-3">
+          <p><strong><%= question.title_format %></strong></p>
+          <% question.step_question_options.each do |option| %>
+            <% if question.question_type == StepQuestion.question_types.key(1) %>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="<%= option.id %>" name="checked[]">
+                <label class="form-check-label" for="checked[]">
+                  <%= option.title %>
+                </label>
+              </div>
+            <% end %>
+            <% if question.question_type == StepQuestion.question_types.key(0) %>
+              <textarea class="form-control" name="textAnswers[<%= option.id %>]" rows="3" maxlength="<%= question.limit %>" placeholder="<%= option.title %>"></textarea>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <!-- attr with questions -->
+      <div class="d-flex justify-content-between py-6 px-9">
+        <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
+        <%= f.button :submit, 'Responder', class: "btn-edit-profile" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

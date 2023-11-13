@@ -39,13 +39,22 @@ class ProgramPolicy < ApplicationPolicy
       user.is_admin?
     end
 
-    def table_data?
-      user.is_admin?
-    end
     def apply?
       true
     end
     def apply_to_program?
       true
+    end
+
+    def table_data?
+      user.is_admin?
+    end
+
+    def approve?
+      user.is_admin
+    end
+
+    def disapprove?
+      user.is_admin
     end
 end

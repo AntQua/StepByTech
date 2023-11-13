@@ -25,7 +25,7 @@ export default class extends Controller {
     this.programId = this.candidateTableTarget.dataset.programId;
     const steps = await this.loadStepsOptions(this.programId);
 
-    this.candidateTabulator = new Tabulator(this.candidateTableTarget, {
+    window.candidateTabulator = this.candidateTabulator = new Tabulator(this.candidateTableTarget, {
       layout: "fitColumns",
       resizableColumnFit:true,
       responsiveLayout:true,
@@ -50,23 +50,23 @@ export default class extends Controller {
         { title: "Id", field: "id", visible: false },
         { title: "Usuário", field: "user_name", widthGrow: 2, resizable: false },
         { title: "Genero", field: "user_gender", visible: false },
-        { title: "Step", field: "step_id", resizable: false, editor: 'select',
-          editorParams: {
-            values: steps
-          },
-          formatter: function(cell, formatterParams, onRendered) {
-            if (cell.getValue() > 0) {
-              return steps.find(obj => obj.value === cell.getValue()).label;
-            }
-            return "";
-          }
-        },
-        { field: "current_step_name", visible: false },
+        { title: "Step", field: "current_step_name" },
         { field: "next_step_name", visible: false },
-        { title: "Candidatura", field: "registration_date", resizable: false },
+        // { title: "Step", field: "step_id", resizable: false, editor: 'select',
+        //   editorParams: {
+        //     values: steps
+        //   },
+        //   formatter: function(cell, formatterParams, onRendered) {
+        //     if (cell.getValue() > 0) {
+        //       return steps.find(obj => obj.value === cell.getValue()).label;
+        //     }
+        //     return "";
+        //   }
+        // },
         { title: "Status", field: "status_description", resizable: false },
-        { field: "status_value", visible: false },
         { title: "Total", field: "total_points", resizable: false },
+        { title: "Candidatura", field: "registration_date", resizable: false },
+        { field: "status_value", visible: false },
         {
           title:"Ações",
           formatter: (cell, formatterParams, onRendered) => {
@@ -120,6 +120,7 @@ export default class extends Controller {
   {
     const current_step_name = event.currentTarget.dataset.current_step_name;
     const next_step_name = event.currentTarget.dataset.next_step_name;
+    const user_program_step_id = event.currentTarget.dataset.user_program_step_id
 
     Swal.fire({
       title: "Você tem certeza?",
@@ -132,38 +133,41 @@ export default class extends Controller {
       confirmButtonText: "Sim, quero aprovar!"
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`/step_questions/${stepQuestionId}`, {
-        //   method: "DELETE",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "X-CSRF-Token": getMetaValue("csrf-token"),
-        //   }
-        // })
-        //     .then((response) => {
-        //       if (!response.ok) {
-        //         throw new Error(`Erro na solicitação: ${response.status}`);
-        //       }
-        //       return response.json();
-        //     })
-        //     .then((response) => {
-        //       Swal.fire({
-        //         position: "center",
-        //         icon: 'success',
-        //         title: response.message,
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //       });
-        //
-        //       window.questionsTabulator.setData();
-        //     })
-        //     .catch((error) => {
-        //       console.error("Erro ao processar a solicitação:", error);
-        //     });
+        fetch(`/users_programs_steps/approve/${user_program_step_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": getMetaValue("csrf-token"),
+          }
+        })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((response) => {
+              Swal.fire({
+                position: "center",
+                icon: 'success',
+                title: response.message,
+                showConfirmButton: false,
+                timer: 1500
+              });
+
+              window.candidateTabulator.setData();
+            })
+            .catch((error) => {
+              console.error("Erro ao processar a solicitação:", error);
+            });
       }
     });
   }
 
   showDisaproveConfirmation(event){
+
+    const user_program_step_id = event.currentTarget.dataset.user_program_step_id
+
     Swal.fire({
       title: "Você tem certeza?",
       text: "Não é possivel reverter!",
@@ -175,33 +179,33 @@ export default class extends Controller {
       confirmButtonText: "Sim, quero reprovar!"
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`/step_questions/${stepQuestionId}`, {
-        //   method: "DELETE",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "X-CSRF-Token": getMetaValue("csrf-token"),
-        //   }
-        // })
-        //     .then((response) => {
-        //       if (!response.ok) {
-        //         throw new Error(`Erro na solicitação: ${response.status}`);
-        //       }
-        //       return response.json();
-        //     })
-        //     .then((response) => {
-        //       Swal.fire({
-        //         position: "center",
-        //         icon: 'success',
-        //         title: response.message,
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //       });
-        //
-        //       window.questionsTabulator.setData();
-        //     })
-        //     .catch((error) => {
-        //       console.error("Erro ao processar a solicitação:", error);
-        //     });
+        fetch(`/users_programs_steps/disapprove/${user_program_step_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": getMetaValue("csrf-token"),
+          }
+        })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((response) => {
+              Swal.fire({
+                position: "center",
+                icon: 'success',
+                title: response.message,
+                showConfirmButton: false,
+                timer: 1500
+              });
+
+              window.candidateTabulator.setData();
+            })
+            .catch((error) => {
+              console.error("Erro ao processar a solicitação:", error);
+            });
       }
     });
   }

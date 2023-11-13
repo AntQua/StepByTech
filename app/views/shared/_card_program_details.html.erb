@@ -26,8 +26,11 @@
             <% if policy(@program).update? %>
               <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none mb-2" %>
             <% end %>
-            <% if current_page?(apply_path(@program)) == false && @program.registration_open? && !current_user.is_admin && @program.is_candidate?(current_user.id) == false %>
-              <%= link_to "Candidatar", apply_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
+            <% if current_page?(apply_path(@program)) == false && @program.check_apply_available?(current_user) %>
+              <%= link_to "Candidatura", apply_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
+            <% end %>
+            <% if current_page?(questionnaire_path(@program)) == false && @program.check_pending_questionnaires?(current_user) %>
+              <%= link_to "Questionário", questionnaire_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
             <% end %>
           </div>
           <p class="card-sub-title-dashboard mb-4"><%= @program.description %></p>

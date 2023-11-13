@@ -1,6 +1,5 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data]
-  before_action :authorize_program
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire]
   layout "dashboard"
 
   def apply
@@ -19,52 +18,51 @@ class UsersProgramsStepsController < ApplicationController
 
   def apply_to_program
     current_date = Date.today
-    candidate_step = @program.steps.where({ name: "Candidatura", step_order: 0 }).first
-    if candidate_step != nil &&
-      current_date >= @program.registration_start_date &&
-      current_date <= @program.registration_end_date &&
-      current_user.users_programs_steps.exists?(program_id: @program.id) == false
+    candidate_step = @program.steps.find_by(name: "Candidatura", step_order: 0)
+    if candidate_step &&
+      current_date.between?(@program.registration_start_date, @program.registration_end_date) &&
+      !current_user.users_programs_steps.exists?(program_id: @program.id)
 
-      answers = []
-      params[:checked].each do |option_id|
-        answer = current_user.user_answers.build({ :step_question_option_id => option_id })
-        answers.push(answer)
-      end if params[:checked].present?
-
-      params[:textAnswers].each do |option_text|
-        step_question_option_id = option_text[0].to_i
-        text = option_text[1].to_s
-        answer = current_user.user_answers.build({ :step_question_option_id => step_question_option_id, text: text })
-        answers.push(answer)
-      end if params[:textAnswers].present?
-
-      begin
-        success = []
-        UserAnswer.transaction do
-          success = answers.map(&:save)
-          raise ActiveRecord::Rollback unless success.all?
-        end
-        if success.all?
-          initial_step = @program.steps.where(step_order: 0).first
-          if initial_step != nil
-            user_program_step = current_user.users_programs_steps.build({
-                                                                          program_id: @program.id,
-                                                                          step_id: initial_step.id,
-                                                                          registration_date: DateTime.now,
-                                                                          status: 0 # Aguardando Aprovação
-                                                                        })
-            user_program_step.save!
-          end
-          redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
-        else
-          redirect_to program_path(@program), alert: 'Não foi possivel realizar sua candidatura!'
-        end
-      rescue
-        redirect_to program_path(@program), alert: 'Não foi possível realizar sua candidatura!'
+      answers = build_answers
+      if save_answers(answers)
+        create_user_program_step
+        redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
+      else
+        redirect_to_program_with_alert
       end
     else
-      redirect_to program_path(@program), alert: "Não é possivel se candidatar!"
+      redirect_to_program_with_alert
     end
+  end
+
+  def build_answers
+    answers = []
+    params[:checked].each { |option_id| answers << current_user.user_answers.build(step_question_option_id: option_id) } if params[:checked].present?
+    params[:textAnswers].each do |option_text|
+      step_question_option_id, text = option_text
+      answers << current_user.user_answers.build(step_question_option_id: step_question_option_id, text: text)
+    end if params[:textAnswers].present?
+    answers
+  end
+
+  def save_answers(answers)
+    UserAnswer.transaction do
+      answers.all?(&:save)
+    end
+  end
+
+  def create_user_program_step
+    initial_step = @program.steps.find_by(step_order: 0)
+    current_user.users_programs_steps.create!(
+      program_id: @program.id,
+      step_id: initial_step.id,
+      registration_date: DateTime.now,
+      status: 0 # Aguardando Aprovação
+    )
+  end
+
+  def redirect_to_program_with_alert
+    redirect_to program_path(@program), alert: 'Não foi possivel realizar sua candidatura!'
   end
 
   def apply_for_next_step
@@ -106,8 +104,34 @@ class UsersProgramsStepsController < ApplicationController
     end
   end
 
-  def approve_candidate
-    step
+  def approve
+    current_step_order = @user_program_step.step.step_order
+    next_step = @user_program_step.program.next_step(current_step_order)
+    if next_step != nil
+      @user_program_step.status = UsersProgramsStep.statuses.key(1) # Aprovado
+      @user_program_step.step = next_step
+    else
+      @user_program_step.status = UsersProgramsStep.statuses.key(3) # Finalizado
+    end
+
+    if @user_program_step.save
+      render json: { status: 'success', message: "Candidato aprovado com sucesso!" }, status: :ok
+    else
+      approve_render_error
+    end
+  end
+
+  def approve_render_error
+    render json: { status: 'error', message: "Falha na tentativa de aprovar o candidato", errors: @user_program_step.errors }, status: :unprocessable_entity
+  end
+
+  def disapprove
+    @user_program_step.status = UsersProgramsStep.statuses.key(2) # Reprovado
+    if @user_program_step.save
+      render json: { status: 'success', message: "Candidato reprovado com sucesso!" }, status: :ok
+    else
+      render json: { status: 'error', message: "Falha na tentativa de reprovar o candidato", errors: @user_program_step.errors }, status: :unprocessable_entity
+    end
   end
 
   def update_step_candidate
@@ -120,10 +144,36 @@ class UsersProgramsStepsController < ApplicationController
     render json: { data: user_program_step }, status: :ok
   end
 
+  def questionnaire
+    @current_step = current_user.current_step(@program)
+    if @current_step
+      @questions = @program.step_questions.where(step: @current_step).order(:id)
+    else
+      redirect_to program_path(@program), alert: "Não foi possivel visualizar o questionário!"
+    end
+  end
+
+  def answer_questionnaire
+    current_user_program_step = current_user.user_program_step(@program)
+
+    if current_user_program_step&.can_answer_questionnaire?
+      answers = build_answers
+
+      if save_answers(answers)
+        current_user_program_step.update(status: UsersProgramsStep.statuses.key(0))
+        redirect_to program_path(@program), notice: 'Questionário respondido com sucesso!'
+      else
+        redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
+      end
+    else
+      redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
+    end
+  end
+
   private
 
   def set_program_and_step
-    @program = Program.find(params[:program_id])
+    @program = Program.find(params[:program_id]) if params[:program_id]
     @user_program_step = UsersProgramsStep.find(params[:id]) if params[:id]
   end
 
