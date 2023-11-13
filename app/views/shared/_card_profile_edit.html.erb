@@ -7,10 +7,9 @@
     <div class="row">
       <div class="col-md-12 mb-3">
         <%= f.label :avatar, 'Foto do Perfil' %>
-        <%= f.file_field :avatar, class: 'form-control' %>
+        <%= f.file_field :avatar, label: false, class: 'form-control' %>
       </div>
     </div>
-    
     <!-- Nome -->
     <div class="row">
       <div class="col-md-12">
@@ -18,6 +17,9 @@
         <%= f.input :name, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
       </div>
     </div>
+    <!-- Gênero -->
+    <%= f.label :gender, 'Gênero' %>
+    <%= f.input :gender, as: :select, collection: User.genders.keys, prompt: 'Selecione um gênero', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
     <!-- Email -->
     <%= f.label :email, 'Email' %>
     <%= f.input :email, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
@@ -26,10 +28,10 @@
     <%= f.input :phone, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
     <!-- País -->
     <%= f.label :country, 'País' %>
-    <%= f.input :country, collection: ['Portugal'], prompt: 'Selecione um país', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <%= f.input :country,  as: :select, collection: User.countries.keys, prompt: 'Selecione um país', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
     <!-- Cidade -->
     <%= f.label :city, 'Cidade' %>
-    <%= f.input :city, collection: ['Lisboa'], prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <%= f.input :city,  as: :select, collection: User.cities.keys, prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
     <!-- Sobre Mim -->
     <%= f.label :about_me, 'Sobre Mim' %>
     <%= f.input :about_me, as: :text, input_html: { rows: 4 }, label: false, input_html: { class: 'form-control bg-white' } %>

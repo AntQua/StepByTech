@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_05_222727) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_12_143200) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +126,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_222727) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "step_question_options", force: :cascade do |t|
+    t.bigint "step_question_id", null: false
+    t.string "title"
+    t.integer "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_question_id"], name: "index_step_question_options_on_step_question_id"
+  end
+
+  create_table "step_questions", force: :cascade do |t|
+    t.integer "step_id"
+    t.string "title"
+    t.integer "limit"
+    t.integer "question_type", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "steps", force: :cascade do |t|
     t.bigint "program_id", null: false
     t.string "name"
@@ -141,13 +160,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_222727) do
     t.index ["program_id"], name: "index_steps_on_program_id"
   end
 
-  create_table "user_attributes", force: :cascade do |t|
-    t.bigint "program_attribute_id", null: false
+  create_table "user_answers", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "step_question_option_id", null: false
+    t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["program_attribute_id"], name: "index_user_attributes_on_program_attribute_id"
-    t.index ["user_id"], name: "index_user_attributes_on_user_id"
+    t.index ["step_question_option_id"], name: "index_user_answers_on_step_question_option_id"
+    t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -161,7 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_222727) do
     t.string "name"
     t.date "birth_date"
     t.string "phone"
-    t.string "city"
+    t.integer "city"
     t.string "address"
     t.boolean "is_admin"
     t.text "about_me"
@@ -218,9 +238,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_222727) do
   add_foreign_key "posts", "steps"
   add_foreign_key "posts", "users"
   add_foreign_key "program_attributes", "programs"
+  add_foreign_key "step_question_options", "step_questions"
   add_foreign_key "steps", "programs"
-  add_foreign_key "user_attributes", "program_attributes"
-  add_foreign_key "user_attributes", "users"
+  add_foreign_key "user_answers", "step_question_options"
+  add_foreign_key "user_answers", "users"
   add_foreign_key "users_events", "events"
   add_foreign_key "users_events", "users"
   add_foreign_key "users_programs_steps", "programs"

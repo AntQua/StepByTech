@@ -27,4 +27,41 @@ main {
     padding: 30px;
 }
 
+// Sidebar
+.sidebar-toggle {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+
+.btn-sidebar {
+    border: none;
+    background: none;
+}
+
+.sidebar.show-sidebar {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main";
+    }
+
+    .sidebar {
+        display: none; /* Esconda a barra lateral por padrão */
+    }
+
+    .sidebar-toggle {
+        display: block; /* Mostra o ícone de menu */
+    }
+
+    // .sidebar .show-sidebar {
+    //     display: block;
+    // }
+}
+
 

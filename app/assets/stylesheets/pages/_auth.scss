@@ -34,7 +34,7 @@
   padding: 10px;
 }
 
-.auth-form input {
+.auth-form input, .auth-form select {
   background-color: transparent;
   border: 1px solid $purple;
   border-bottom-right-radius: 10px;

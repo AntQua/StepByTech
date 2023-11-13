@@ -3,8 +3,8 @@ class Step < ApplicationRecord
   has_many :users_programs_steps
   has_many :users, through: :users_programs_steps
   has_many :posts
+  has_many :step_questions
 
-  # before_validation :clean_dates
   validate :dates_must_be_present_and_valid
 
   def name_with_order

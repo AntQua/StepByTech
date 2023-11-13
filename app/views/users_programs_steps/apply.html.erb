@@ -1,26 +1,31 @@
 <%= render "shared/card_program_details" %>
 <%# FORMULÁRIO PARA USUÁRIO SE CANDIDATAR %>
-<% if current_user.user_attributes.any? { |attribute| attribute.program_attribute.program_id == @program.id } %>
+<% if false %>
   <div class="card-profile container px-3 d-flex justify-content-center">
     <strong>
-      <p class="m-0">Você já submeteu sua candidatura. Por favor, aguarde até o final do período de inscrição do programa para saber os resultados.</p>
+      <p class="m-0">Você já submeteu sua candidatura. Por favor, aguarde até o final do período de inscrição do
+        programa para saber os resultados.</p>
     </strong>
   </div>
 <% else %>
   <h3>Formulário de inscrição</h3>
   <div class="card-profile container mt-5">
     <%= simple_form_for(@program, url: apply_to_program_path(@program), html: { method: :post }) do |f| %>
-      <!-- attr with questions -->
-      <% @program.program_attributes.group_by{ |attribute| attribute.question }.each do |question| %>
+      <% @questions.each do |question| %>
         <div class="mb-3">
-          <p><strong><%= question[0] %></strong></p>
-          <% question[1].each do |attribute| %>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="<%= attribute.id %>" name="checked[]">
-              <label class="form-check-label" for="checked[]">
-                <%= attribute.name %>
-              </label>
-            </div>
+          <p><strong><%= question.title_format %></strong></p>
+          <% question.step_question_options.each do |option| %>
+            <% if question.question_type == StepQuestion.question_types.key(1) %>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="<%= option.id %>" name="checked[]">
+                <label class="form-check-label" for="checked[]">
+                  <%= option.title %>
+                </label>
+              </div>
+            <% end %>
+            <% if question.question_type == StepQuestion.question_types.key(0) %>
+              <textarea class="form-control" name="textAnswers[<%= option.id %>]" rows="3" maxlength="<%= question.limit %>" placeholder="<%= option.title %>"></textarea>
+            <% end %>
           <% end %>
         </div>
       <% end %>

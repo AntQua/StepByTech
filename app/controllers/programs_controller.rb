@@ -62,6 +62,10 @@ class ProgramsController < ApplicationController
   # PATCH/PUT /programs/1
   def update
     if @program.update(program_params)
+      if params[:program][:image].present?
+        @program.image.attach(params[:program][:image])
+      end
+      @program.save
       redirect_to program_path(@program), notice: 'Program was successfully updated.'
     else
       render 'edit_program_form', layout: 'dashboard'

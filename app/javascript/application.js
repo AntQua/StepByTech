@@ -5,3 +5,5 @@ import "@popperjs/core"
 import "bootstrap"
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 window.Tabulator = Tabulator;
+import Swal from 'sweetalert2';
+window.Swal = Swal;
