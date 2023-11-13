@@ -1,5 +1,6 @@
 <%= render "shared/card_program_details" %>
 <div class="tab-content">
+  <%# tab for steps %>
   <div class="row tab-pane fade show active" role="tabpanel" id="tab-steps">
     <div class="d-flex justify-content-end">
       <% if policy(Step).create? %>
@@ -86,7 +87,7 @@
       </div>
     </div>
   </div>
-  <%# next tab candidates %>
+  <%# tab for candidates %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">
     <div class="d-flex justify-content-end">
       <% if policy(Step).create? %>
@@ -112,6 +113,7 @@
       ></div>
     </div>
   </div>
+  <%# tab for events %>
   <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-events" data-controller="event">
     <div class="programs-list row">
       <% if @program_events.any? %>
@@ -155,6 +157,75 @@
         <p class="text-center">Não há eventos agendados.</p>
       <% end %>
     </div>
+  </div>
+  <%# tab for posts gallery %>
+  <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-gallery" data-controller="gallery">
+
+    <% combined_posts = (@program_posts + @step_posts).uniq %>
+
+    <%# Display posts related to the program %>
+    <% if combined_posts.any? %>
+      <% combined_posts.each do |post| %>
+          <div class="card bg-white rounded-4 mb-3 p-3">
+            <div class="card-header bg-white">
+              <div class= "d-flex justify-content-between align-items-center bg-white">
+                <h5 class="post-title"><%= post.title %></h5>
+                  <% if policy(Post).update? %>
+                    <div>
+                      <%= link_to edit_post_path(post), class: 'text-primary text-decoration-none me-2' do %>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      <% end %>
+                      <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
+                        <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <p class="text-muted"><%= post.created_at.strftime("%d %b %Y") %></p>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="post-text"><%= post.body %></p>
+            </div>
+
+            <%# render associations here %>
+            <div class="card-body">
+              <% if post.event.present? %>
+                <p>Evento: <%= post.event.title %></p>
+              <% end %>
+
+              <% if post.program.present? %>
+                <p>Programa: <%= post.program.title %></p>
+              <% end %>
+
+
+              <% if post.step.present? %>
+                <% if post.step.program.present? %>
+                  <p>Programa associado ao Step: <%= post.step.program.title %></p>
+                <% end %>
+                <p>Step <%= post.step.step_order %>: <%= post.step.name %></p>
+              <% end %>
+            </div>
+
+            <% if post.media_contents.attached? %>
+              <div class="card-body">
+                <% post.media_contents.each do |media_content| %>
+                  <% if media_content.content_type.start_with?('image/') %>
+                    <%= image_tag(media_content, width: 150, height: 150, class: 'img-thumbnail me-2') %>
+                  <% elsif media_content.content_type.start_with?('video/') %>
+                    <video width="320" height="240" controls class="me-2">
+                      <source src="<%= url_for(media_content) %>" type="<%= media_content.content_type %>">
+                      Your browser does not support the video tag.
+                    </video>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+      <% end %>
+    <% else %>
+      <h3 class="text-center mt-5">Não existem publicações associadas a este programa ou aos seus Steps.</h3>
+    <% end %>
+
   </div>
 </div>
 <!-- Botão de cancelar programa -->

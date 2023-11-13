@@ -1,0 +1,17 @@
+<div class="form-group">
+  <%= f.label :program_id_for_step, "Programs for Step: " %>
+  <%= f.select :program_id_for_step,
+               @programs.map { |p| [p.title, p.id] },
+               { include_blank: "Seleccione um programa para o Step" },
+               class: "form-select",
+               data: { post_form_target: "programForStepSelect", action: "change->post-form#updateSteps" } %>
+</div>
+
+<div class="form-group mb-5">
+  <%= f.label :step_id, "Steps: " %>
+  <%= f.select :step_id, [],
+               { include_blank: "Seleccione um Step" },
+               class: "form-select",
+               data: { post_form_target: "stepSelect" },
+               id: "post_step_id" %>
+</div>

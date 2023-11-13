@@ -11,6 +11,8 @@ class Step < ApplicationRecord
     "Step #{step_order} - #{name}"
   end
 
+  # Scopes
+  scope :active, -> { where(active: true) }
 
   private
 

@@ -89,3 +89,33 @@
         </ul>
       </div>
     </div>
+  </div>
+
+  <div>
+    <ul class="nav nav-tabs">
+      <!-- All users can see the Steps tab -->
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-steps">Steps</a>
+      </li>
+
+      <!-- Only admin users or users with update policy can see the Atributos tab -->
+      <% if policy(@program).update? %>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attributes">Atributos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-candidates">Candidatos</a>
+        </li>
+      <% end %>
+
+      <!-- All users can see the Eventos tab -->
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-gallery">Galeria</a>
+      </li>
+    </ul>
+  </div>
+
+</div>

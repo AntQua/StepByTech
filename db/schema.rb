@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_11_12_143200) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,9 +91,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_143200) do
     t.string "title"
     t.text "body"
     t.bigint "user_id", null: false
-    t.bigint "program_id", null: false
-    t.bigint "event_id", null: false
-    t.bigint "step_id", null: false
+    t.bigint "program_id"
+    t.bigint "event_id"
+    t.bigint "step_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_posts_on_event_id"

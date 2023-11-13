@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :posts
 
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
-      resources :steps, only: [:show, :new, :edit, :create, :update, :destroy]
+      resources :steps, only: [:index, :show, :new, :edit, :create, :update, :destroy]
     end
 
     resources :events do

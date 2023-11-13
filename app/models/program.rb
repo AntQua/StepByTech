@@ -52,4 +52,8 @@ class Program < ApplicationRecord
 
     false
   end
+
+  # Scopes
+  scope :active, -> { where(active: true) }
+
 end
