@@ -126,12 +126,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_143200) do
   end
 
   create_table "step_question_options", force: :cascade do |t|
-    t.bigint "step_question_id", null: false
+    t.bigint "step_questions_id", null: false
     t.string "title"
     t.integer "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["step_question_id"], name: "index_step_question_options_on_step_question_id"
+    t.index ["step_questions_id"], name: "index_step_question_options_on_step_questions_id"
   end
 
   create_table "step_questions", force: :cascade do |t|
@@ -237,7 +237,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_143200) do
   add_foreign_key "posts", "steps"
   add_foreign_key "posts", "users"
   add_foreign_key "program_attributes", "programs"
-  add_foreign_key "step_question_options", "step_questions"
+  add_foreign_key "step_question_options", "step_questions", column: "step_questions_id"
   add_foreign_key "steps", "programs"
   add_foreign_key "user_answers", "step_question_options"
   add_foreign_key "user_answers", "users"
