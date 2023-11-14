@@ -11,62 +11,93 @@
   <% end %>
 </div>
 
-<div class="posts-list">
-  <% @posts.each do |post| %>
-    <div class="card bg-white rounded-4 mb-3 p-3">
-      <div class="card-header bg-white">
-        <div class= "d-flex justify-content-between align-items-center bg-white">
-          <h5 class="post-title"><%= post.title %></h5>
-            <% if policy(Post).update? %>
-              <div>
-                <%= link_to edit_post_path(post), class: 'text-primary text-decoration-none me-2' do %>
-                  <i class="fa-regular fa-pen-to-square"></i>
-                <% end %>
-                <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
-                  <i class="fa-solid fa-trash"></i>
-                <% end %>
-              </div>
-            <% end %>
-          <p class="text-muted"><%= post.created_at.strftime("%d %b %Y") %></p>
+<div data-controller="media-modal">
+  <div class="posts-list">
+    <% @posts.each do |post| %>
+      <div class="card bg-white rounded-4 mb-3 p-3">
+        <div class="card-header bg-white">
+          <div class= "d-flex justify-content-between align-items-center bg-white">
+            <h5 class="post-title"><%= post.title %></h5>
+              <% if policy(Post).update? %>
+                <div>
+                  <%= link_to edit_post_path(post), class: 'text-primary text-decoration-none me-2' do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
+                  <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
+                    <i class="fa-solid fa-trash"></i>
+                  <% end %>
+                </div>
+              <% end %>
+            <p class="text-muted"><%= post.created_at.strftime("%d %b %Y") %></p>
+          </div>
         </div>
-      </div>
-      <div class="card-body">
-        <p class="post-text"><%= post.body %></p>
-      </div>
-
-      <%# render associations here %>
-      <div class="card-body">
-        <% if post.event.present? %>
-          <p>Evento: <%= post.event.title %></p>
-        <% end %>
-
-        <% if post.program.present? %>
-          <p>Programa: <%= post.program.title %></p>
-        <% end %>
-
-
-        <% if post.step.present? %>
-          <% if post.step.program.present? %>
-            <p>Programa associado ao Step: <%= post.step.program.title %></p>
-          <% end %>
-          <p>Step <%= post.step.step_order %>: <%= post.step.name %></p>
-        <% end %>
-      </div>
-
-      <% if post.media_contents.attached? %>
         <div class="card-body">
-          <% post.media_contents.each do |media_content| %>
-            <% if media_content.content_type.start_with?('image/') %>
-              <%= image_tag(media_content, width: 150, height: 150, class: 'img-thumbnail me-2') %>
-            <% elsif media_content.content_type.start_with?('video/') %>
-              <video width="320" height="240" controls class="me-2">
-                <source src="<%= url_for(media_content) %>" type="<%= media_content.content_type %>">
-                Your browser does not support the video tag.
-              </video>
+          <p class="post-text"><%= post.body %></p>
+        </div>
+
+        <%# render associations here %>
+        <div class="card-body">
+          <% if post.event.present? %>
+            <p>Evento: <%= post.event.title %></p>
+          <% end %>
+
+          <% if post.program.present? %>
+            <p>Programa: <%= post.program.title %></p>
+          <% end %>
+
+
+          <% if post.step.present? %>
+            <% if post.step.program.present? %>
+              <p>Programa associado ao Step: <%= post.step.program.title %></p>
             <% end %>
+            <p>Step <%= post.step.step_order %>: <%= post.step.name %></p>
           <% end %>
         </div>
-      <% end %>
+
+        <% if post.media_contents.attached? %>
+          <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <% post.media_contents.each do |media_content| %>
+              <% if media_content.content_type.start_with?('image/') %>
+                <%= link_to "#",
+                            data: {
+                              "action": "click->media-modal#show",
+                              "media-modal-content-url-value": url_for(media_content),
+                              "media-modal-content-type-value": media_content.content_type.start_with?('image/') ? "image" : "video"
+                            } do %>
+                  <%= image_tag(media_content, class: "media-thumbnail m-2") %>
+                <% end %>
+              <% elsif media_content.content_type.start_with?('video/') %>
+                <%= link_to "#",
+                            data: {
+                              action: "click->media-modal#show",
+                              "media-modal-content-url-value": url_for(media_content),
+                              "media-modal-content-type-value": "video"
+                            } do %>
+                  <video controls class="media-thumbnail m-2">
+                    <source src="<%= url_for(media_content) %>" type="<%= media_content.content_type %>">
+                    Your browser does not support the video tag.
+                  </video>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-circle-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body" data-media-modal-target="modalBody">
+          <!-- Content will be dynamically loaded here -->
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>

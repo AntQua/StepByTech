@@ -201,12 +201,30 @@
   -webkit-box-orient: vertical;
 }
 
-.img-thumbnail {
-  max-width: 150px;
-  max-height: 150px;
+// .img-thumbnail {
+//   max-width: 150px;
+//   // max-height: 150px;
+// }
+
+// .video-thumbnail {
+//   max-width: 150px;
+//   // max-height: 150px;
+// }
+
+
+.media-thumbnail {
+  width: 150px; /* instead of max-width */
+  height: 100px; /* instead of max-height */
+  object-fit: cover; /* This will make sure that the aspect ratio is maintained while the content is sized to fill the element's content box */
+  border: none;
+  padding: 0;
 }
 
-.video-thumbnail {
-  max-width: 320px;
-  max-height: 240px;
+#mediaModal .modal-dialog {
+  max-width: 60%; /* Adjust the size as needed */
+}
+
+#mediaModal img, #mediaModal video {
+  max-width: 100%;
+  height: auto;
 }
