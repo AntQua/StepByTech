@@ -9,44 +9,7 @@
 </div>
 
 <h3 class="mb-5">Novo Step</h3>
-<div class="card-profile container mt-5">
-  <% if @step.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@step.errors.count, "error") %> prohibited this step from being saved:</h2>
-      <ul>
-        <% @step.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= simple_form_for [@program, @step], data: { controller: "datepicker" }  do |f| %>
-    <!-- Input fields for the step attributes -->
-    <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
-    <%= f.input :step_order, label: "Ordem do Step", input_html: { class: 'form-control bg-white' } %>
-    <div class="custom-control custom-checkbox mb-3">
-      <%= f.input :submission, label: "Submission", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
-    </div>
-    <div class="custom-control custom-checkbox mb-3">
-      <%= f.input :active, label: "Active", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
-    </div>
-    <%= f.input :description, label: "Descrição", input_html: { class: 'form-control bg-white' } %>
-    <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
-    <div class="mb-3">
-      <label for="step[dates]" class="form-label">Escolha as Datas</label>
-      <input type="date" required class="datepicker form-control bg-white" name="step[dates]" data-mode="multiple" />
-    </div>
-    <div class="row mb-3">
-      <div class="col">
-        <%= f.input :hour_start, label: "Hora de inicio das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
-      </div>
-      <div class="col">
-        <%= f.input :hour_finish, label: "Hora de fim das sessões", as: :time, input_html: { class: 'form-control bg-white' } %>
-      </div>
-    </div>
-    <div class="card-footer d-flex justify-content-between py-6 px-9">
-      <%= link_to 'Voltar para os Steps', program_path(@step.program), class: 'btn btn-secondary mt-3' %>
-      <%= f.submit "Criar Step", data: { confirm: 'Você tem certeza?' }, class: "btn-edit-profile" %>
-    </div>
-  <% end %>
-</div>
+
+<%= render 'step_form' %>
+
+

@@ -7,52 +7,64 @@
         <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none mt-3" %>
       <% end %>
     </div>
-    <div class="d-flex row m-0 p-0">
+
+    <div class="programs-list row">
       <% @program.steps.sort_by(&:step_order).each do |step| %>
-        <div class="steps-card col-md-4 mb-4 mt-5">
-          <div class="card h-100 bg-white rounded-4 d-flex flex-column">
+        <div class="program-card col-md-4 mb-4">
+          <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
             <div class="card-body flex-grow-1">
-              <div class="d-flex justify-content-between align-items-center">
-                <%= image_tag "logotype_web.png", class: "" %>
-                <p class="badge bg-primary h-100 m-0">In Progress</p>
+              <div class="text-center">
+                <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "align-self-start mr-auto avatar-square-s", alt: "default image step" %>
+                <div>
+                  <div class="text-center mt-2">
+                    <% if step.active = true %>
+                      <span class="badge bg-success">A Decorrer</span>
+                    <% elsif step.active = false %>
+                      <span class="badge bg-danger">Terminado</span>
+                    <% end %>
+                  </div>
+                  <h3 class="mx-auto mt-2"><%= step.name %></h3>
+                </div>
               </div>
-              <div class="card-title-dashboard d-flex justify-content-between align-items-center">
-                <h4><%= step.name %></h4>
-              </div>
-              <p class="card-sub-title-dashboard"><%= step.description %></p>
-              <%# <p>Debug: <%= step.dates.inspect</p> %>
+
+              <p class="card-sub-title-dashboard mt-3 mb-3"><%= step.description %></p>
+
               <% if step.dates.present? %>
+                <%= image_tag "date_range.png" %>
                 <% grouped_dates = step.dates.compact.group_by { |date| date.strftime('%B') } %>
                 <% sessions_strings = grouped_dates.map do |month, dates|
 
                   days = dates.map { |date| date.day }.compact.uniq.sort
                   next if days.empty?
                   formatted_days = if days.length == 1
-                                     days.first.to_s
-                                   else
-                                     days[0...-1].join(', ') + " e #{days.last}"
-                                   end
+                                      days.first.to_s
+                                    else
+                                      days[0...-1].join(', ') + " e #{days.last}"
+                                    end
 
-                  "🗓️ #{formatted_days} de #{t(month.downcase, locale: :pt)}"
+                  "#{formatted_days} de #{t(month.downcase, locale: :pt)}"
                 end.reject(&:nil?).join('<br>').html_safe %>
                 <%= sessions_strings %>
               <% end %>
+
               <div class="d-flex gap-2 mt-2">
                 <%= image_tag "time.png", class: "" %>
                 <p class="m-0"><strong>Início:</strong> <%= step.hour_start.strftime('%H:%M') if step.hour_start %>
                   <strong>| Fim:</strong> <%= step.hour_finish.strftime('%H:%M') if step.hour_finish %></p>
               </div>
-            </div>
-            <!-- Adding the icon link to the bottom right of the card using Bootstrap -->
-            <div class="card-footer border-0 bg-transparent text-end m-2">
-              <%= link_to program_step_path(step.program, step) do %>
-                <%= image_tag "arrow-right.svg" %>
-              <% end %>
+
+              <div class="text-end m-2 pt-3">
+                <%= link_to program_step_path(step.program, step) do %>
+                  <%= image_tag "arrow-right.svg" %>
+                <% end %>
+              </div>
+
             </div>
           </div>
         </div>
       <% end %>
     </div>
+
   </div>
   <%# Questionários tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-questions">
