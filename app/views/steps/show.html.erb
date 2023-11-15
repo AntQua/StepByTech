@@ -8,54 +8,73 @@
   <p class="m-0 txt-links-actived">Detalhes do step</p>
 </div>
 
-<h3 class="mb-5">Detalhes do Step</h3>
+<h3 class="mb-5">Detalhes do Step <%= @step.step_order %> : <span><%= @step.name %></span></h3>
 
-<div class="bg-white rounded-4 p-3 mb-4">
-  <div class="container mt-1">
-    <div class="d-flex justify-content-between">
-      <div class="d-flex align-items-center gap-3">
-        <%= link_to program_path(@step.program) do %>
-          <%= image_tag "arrow_left.png" %>
-        <% end %>
-        <h5 class="m-0"><%= @step.name %><span class="text-purple ms-4"><%= @program.title %></span></h5>
-      </div>
-      <% if policy(Step).update? %>
-        <%= link_to 'Editar Step', edit_program_step_path(@step.program, @step), class: 'btn-edit-profile text-decoration-none' %>
+<div class="bg-white rounded-4 p-3">
+  <div class="d-flex gap-3 p-3">
+    <div>
+      <% if @step.image.attached? %>
+        <%= image_tag @step.image, class: "image-program" %>
+      <% else %>
+        <%= image_tag "temp_thumb.jpg", class: "avatar-square-s", alt: "default image step" %>
       <% end %>
     </div>
-    <div class="px-5 pt-4">
-      <div class="mb-3">
-        <strong>Descrição:</strong> <%= @step.description %>
-      </div>
-      <div class="mb-3">
-        <strong>Submission:</strong> <%= @step.submission ? 'Yes' : 'No' %>
-      </div>
-      <div class="mb-3">
-        <strong>Active:</strong> <%= @step.active ? 'Yes' : 'No' %>
-      </div>
-      <div class="mb-3">
-        <strong>Formato:</strong> <%= @step.format %>
-      </div>
-      <div class="mb-3">
-        <strong>Datas selecionadas:</strong>
-        <ul>
-          <% @step.dates.compact.each do |date| %>
-            <li><%= date.strftime('%d/%m/%Y') %></li>
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <h5 class="m-0"><span class="text-purple"><%= @program.title %></span>  -  Step <%= @step.step_order %> : <span><%= @step.name %></span></h5>
+        <div class="text-center">
+          <% if @step.active = true %>
+            <span class="badge bg-success">A Decorrer</span>
+          <% elsif @step.active = false %>
+            <span class="badge bg-danger">Terminado</span>
           <% end %>
-        </ul>
+        </div>
+        <% if policy(Step).update? || policy(Step).destroy? %>
+          <div>
+            <%= link_to edit_program_step_path(@step.program, @step), class: 'text-primary text-decoration-none me-2' do %>
+              <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Step"></i>
+            <% end %>
+            <%= link_to program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "text-danger me-2" do %>
+              <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Step"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <div class="mb-3">
-        <%= image_tag "time.png", class: "" %>
-        <strong>Hora de inicio das sessões:</strong> <%= @step.hour_start.strftime('%H:%M') unless @step.hour_start.nil? %>
+
+      <p class="card-sub-title-dashboard mt-3 mb-3"><%= @step.description %></p>
+
+      <div>
+        <div class="mb-3">
+          <strong>Em Submissão :</strong> <span class="card-sub-title-dashboard"><%= @step.submission ? 'Sim' : 'Não' %></span>
+        </div>
+        <div class="mb-3">
+          <strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= @step.format %></span>
+        </div>
+        <div class="mb-3">
+          <%= image_tag "date_range.png" %>
+          <strong>Datas das sessões:</strong>
+          <ul class="card-sub-title-dashboard">
+            <% @step.dates.compact.each do |date| %>
+              <li><%= date.strftime('%d/%m/%Y') %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="mb-3">
+          <%= image_tag "time.png", class: "" %>
+          <strong>Hora de inicio das sessões:</strong> <span class="card-sub-title-dashboard"><%= @step.hour_start.strftime('%H:%M') unless @step.hour_start.nil? %></span>
+        </div>
+        <div class="mb-3">
+          <%= image_tag "time.png", class: "" %>
+          <strong>Hora de fim das sessões:</strong> <span class="card-sub-title-dashboard"><%= @step.hour_finish.strftime('%H:%M') unless @step.hour_finish.nil? %></span>
+        </div>
       </div>
-      <div class="mb-3">
-        <%= image_tag "time.png", class: "" %>
-        <strong>Hora de fim das sessões:</strong> <%= @step.hour_finish.strftime('%H:%M') unless @step.hour_finish.nil? %>
-      </div>
-    </div>
-    <div class="d-flex justify-content-end">
-      <% if policy(Step).destroy? %>
-        <%= link_to "Excluir Step", program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "btn-cancel mt-5" %>
-      <% end %>
+
     </div>
   </div>
+</div>
+
+<div class="text-start mt-2 pt-3">
+  <%= link_to program_path(@step.program) do %>
+    <%= image_tag "arrow_left.png" %>
+  <% end %>
+</div>
