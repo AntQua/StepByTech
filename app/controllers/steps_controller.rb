@@ -89,7 +89,7 @@ class StepsController < ApplicationController
   end
 
   def step_params
-    params.require(:step).permit(:name, :step_order, :submission, :active, :description, :format, :hour_start, :hour_finish, {dates: []})
+    params.require(:step).permit(:name, :step_order, :submission, :active, :description, :format, :hour_start, :hour_finish, :image, {dates: []})
   end
 
   def authorize_step
