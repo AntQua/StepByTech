@@ -10,7 +10,7 @@
     </div>
   <% end %>
 
-  <%= simple_form_for [@program, @step], data: { controller: "datepicker" } do |f| %>
+  <%= simple_form_for [@program, @step], multipart: true, data: { controller: "datepicker" } do |f| %>
     <div class="mb-3">
       <%= f.input :image, as: :file, label: "Adicionar Imagem ao Step", input_html: { class: 'form-control bg-white' } %>
       <% if @step.image.attached? %>
@@ -20,11 +20,13 @@
     </div>
     <%= f.input :name, label: "Nome do Step", input_html: { class: 'form-control bg-white' } %>
     <%= f.input :step_order, label: "Ordem do Step", input_html: { class: 'form-control bg-white' } %>
-    <div class="custom-control custom-checkbox mb-3">
-      <%= f.input :submission, label: "Submission", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
+    <div class="form-check form-switch mb-3">
+      <%= f.check_box :submission, class: 'form-check-input', id: 'submissionSwitch' %>
+      <%= f.label :submission, 'Submissão', class: 'form-check-label', for: 'submissionSwitch' %>
     </div>
-    <div class="custom-control custom-checkbox mb-3">
-      <%= f.input :active, label: "Active", as: :boolean, input_html: { class: 'custom-control-input' }, label_html: { class: 'custom-control-label' }, wrapper: false %>
+    <div class="form-check form-switch mb-3">
+      <%= f.check_box :active, class: 'form-check-input', id: 'activeSwitch' %>
+      <%= f.label :active, 'Activo', class: 'form-check-label', for: 'activeSwitch' %>
     </div>
     <%= f.input :description, label: "Descrição", input_html: { class: 'form-control bg-white' } %>
     <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>

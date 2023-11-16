@@ -17,9 +17,9 @@
                 <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "align-self-start mr-auto avatar-square-s", alt: "default image step" %>
                 <div>
                   <div class="text-center mt-2">
-                    <% if step.active = true %>
+                    <% if step.active? %>
                       <span class="badge bg-success">A Decorrer</span>
-                    <% elsif step.active = false %>
+                    <% else %>
                       <span class="badge bg-danger">Terminado</span>
                     <% end %>
                   </div>
@@ -233,8 +233,8 @@
   </div>
 </div>
 <!-- Botão de cancelar programa -->
-<% if policy(Program).new? %>
-  <div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
+<%# <% if policy(Program).new? %>
+  <%# <div class="d-flex align-items-end justify-content-end bg-white rounded-4 p-3 mt-5">
     <%= link_to "Excluir programa", program_path(@program), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel" %>
-  </div>
-<% end %>
+  <%# </div>
+<% end %> 
