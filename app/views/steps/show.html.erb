@@ -23,9 +23,9 @@
       <div class="d-flex justify-content-between">
         <h5 class="m-0"><span class="text-purple"><%= @program.title %></span>  -  Step <%= @step.step_order %> : <span><%= @step.name %></span></h5>
         <div class="text-center">
-          <% if @step.active = true %>
+          <% if @step.active? %>
             <span class="badge bg-success">A Decorrer</span>
-          <% elsif @step.active = false %>
+          <% else %>
             <span class="badge bg-danger">Terminado</span>
           <% end %>
         </div>
