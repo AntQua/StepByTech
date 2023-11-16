@@ -31,7 +31,7 @@
         </div>
         <% if policy(Step).update? || policy(Step).destroy? %>
           <div>
-            <%= link_to edit_program_step_path(@step.program, @step), class: 'text-primary text-decoration-none me-2' do %>
+            <%= link_to edit_program_step_path(@step.program, @step), class: 'text-purple text-decoration-none me-2' do %>
               <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Step"></i>
             <% end %>
             <%= link_to program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "text-danger me-2" do %>

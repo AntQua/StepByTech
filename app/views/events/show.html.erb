@@ -36,7 +36,9 @@
         </div>
 
         <% if policy(@event).edit? %>
-          <%= link_to "Excluir Evento", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?" }, class: "btn-cancel" %>
+          <%= link_to event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o evento #{@event.title}?"}, class: 'text-danger me-2' do %>
+            <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Evento"></i>
+          <% end %>
         <% end %>
       </div>
 
