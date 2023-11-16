@@ -8,8 +8,8 @@
 <%# <div class="d-flex gap-4 align-items-center mb-5">
   <h3 class="m-0">Programa</h3>
 </div> %>
-<div class="bg-white rounded-4 mt-5">
-  <div class="p-3 mb-4 d-flex gap-3">
+<div class="bg-white rounded-4 p-3">
+  <div class="d-flex gap-3 p-3">
     <div>
       <% if @program.image.attached? %>
         <%= image_tag @program.image, class: "image-program" %>
@@ -17,20 +17,28 @@
         <%= image_tag "temp_thumb.jpg", class: "avatar-square-s", alt: "default image program" %>
       <% end %>
     </div>
-    <div>
+    <div class="container">
       <div class="d-flex justify-content-between gap-3">
-        <div class="d-flex col align-items-center gap-2">
-          <h5><%= @program.title %></h5>
-          <%= image_tag "tag_badges_complete.svg" %>
+        <h5><%= @program.title %></h5>
+        <div class="text-center">
+          <% if @program.completed? %>
+            <span class="badge bg-success">A Decorrer</span>
+          <% else %>
+            <span class="badge bg-danger">Terminado</span>
+          <% end %>
         </div>
+
         <% if policy(@program).update? %>
-          <%= link_to edit_program_path(@program), class: 'text-purple text-decoration-none me-2' do %>
-              <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Programa"></i>
-          <% end %>
-          <%= link_to program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}? 🚨 So pode ser cancelado se não tiver Steps associados! 🚨"  }, class: "text-danger me-2" do %>
-            <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Step"></i>
-          <% end %>
+          <div>
+            <%= link_to edit_program_path(@program), class: 'text-purple text-decoration-none me-2' do %>
+                <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Programa"></i>
+            <% end %>
+            <%= link_to program_path(@program), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}? 🚨 So pode ser cancelado se não tiver Steps associados! 🚨"  }, class: "text-danger me-2" do %>
+              <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Programa"></i>
+            <% end %>
+          </div>
         <% end %>
+
         <% if current_page?(apply_path(@program)) == false && @program.check_apply_available?(current_user) %>
           <%= link_to "Candidatura", apply_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
         <% end %>
@@ -38,7 +46,9 @@
           <%= link_to "Questionário", questionnaire_path(@program.id), class: "btn-edit-profile text-decoration-none mb-2" %>
         <% end %>
       </div>
-      <p class="card-sub-title-dashboard mb-4"><%= @program.description %></p>
+
+      <p class="card-sub-title-dashboard mt-3 mb-3"><%= @program.description %></p>
+
       <div class="d-flex col">
         <div class="d-flex col">
           <div class="d-flex gap-2 align-items-center col-6">

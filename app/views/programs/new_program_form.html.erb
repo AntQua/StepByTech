@@ -46,11 +46,13 @@
     <div class="mb-3">
       <%= f.input :registration_limit, label: "Número máximo de candidatos", as: :integer, input_html: { class: 'form-control bg-white' } %>
     </div>
-    <div class="mb-3 form-check">
-      <%= f.input :active, label: "Ativo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
+    <div class="form-check form-switch mb-3">
+      <%= f.check_box :completed, class: 'form-check-input', id: 'completedSwitch' %>
+      <%= f.label :completed, 'Completo', class: 'form-check-label', for: 'completedSwitch' %>
     </div>
-    <div class="mb-3 form-check">
-      <%= f.input :completed, label: "Completo", as: :boolean, wrapper: false, label_html: { class: 'form-check-label' }, input_html: { class: 'form-check-input border bg-white' } %>
+    <div class="form-check form-switch mb-3">
+      <%= f.check_box :active, class: 'form-check-input', id: 'activeSwitch' %>
+      <%= f.label :active, 'Activo', class: 'form-check-label', for: 'activeSwitch' %>
     </div>
     <div class="d-flex justify-content-between py-6 px-9">
       <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
