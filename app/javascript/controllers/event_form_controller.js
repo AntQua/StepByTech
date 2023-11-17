@@ -15,7 +15,7 @@ export default class extends Controller {
     if (programId) {
       stepSelect.disabled = true;
 
-      fetch(`/programs/${programId}/active_steps.json`)
+      fetch(`/programs/${programId}/all_steps.json`)
         .then(response => response.json())
         .then((data) => {
           stepSelect.innerHTML = '<option value="">Nenhum (Sem associação a um Step)</option>';
