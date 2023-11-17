@@ -78,6 +78,16 @@ class ProgramsController < ApplicationController
     redirect_to programs_path, notice: 'Program was successfully deleted.'
   end
 
+  def steps
+    Rails.logger.info "Fetching steps for program #{params[:id]}"
+    program = Program.find(params[:id])
+    steps = program.steps.active.map do |step|
+      { id: step.id, name_with_order: step.name_with_order }
+    end
+    render json: steps
+  end
+
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
