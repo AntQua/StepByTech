@@ -11,8 +11,11 @@ export default class PostFormController extends Controller {
 
   connect() {
     console.log("Post form controller connected");
-    this.hasInitializedSteps = false;
     this.setInitialAssociationDisplay();
+    // Call updateSteps if the association is 'step'
+    if (this.getCurrentAssociationType() === 'step') {
+      this.updateSteps();
+    }
   }
 
   handleAssociationChange(event) {
@@ -78,11 +81,6 @@ export default class PostFormController extends Controller {
   }
 
   updateSteps() {
-    // Prevent clearing the selections on initial load
-    if (!this.hasInitializedSteps) {
-      this.hasInitializedSteps = true;
-      return;
-    }
 
     const programId = this.programForStepSelectTarget.value;
     const stepSelect = this.stepSelectTarget;
