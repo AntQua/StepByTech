@@ -11,6 +11,7 @@ export default class PostFormController extends Controller {
 
   connect() {
     console.log("Post form controller connected");
+    this.hasInitializedSteps = false;
     this.setInitialAssociationDisplay();
   }
 
@@ -20,8 +21,11 @@ export default class PostFormController extends Controller {
     this.programFieldsTarget.style.display = 'none';
     this.stepFieldsTarget.style.display = 'none';
 
-    // Reset selections for all associations
-    this.resetSelections();
+    // Get the current association type
+    const currentAssociationType = this.getCurrentAssociationType();
+
+    // Reset selections for all associations except the current one
+    this.resetSelections(currentAssociationType);
 
     // Show the appropriate association-specific field based on the selected radio button
     switch (event.target.value) {
@@ -33,6 +37,7 @@ export default class PostFormController extends Controller {
         break;
       case 'step':
         this.stepFieldsTarget.style.display = 'block';
+        this.updateSteps(); // Ensure steps are updated when the step association is selected
         break;
       case 'none':
       default:
@@ -41,15 +46,14 @@ export default class PostFormController extends Controller {
     }
   }
 
-  resetSelections() {
-    // Reset event, program, and step selections
-    if (this.eventSelectTarget) {
+  resetSelections(currentAssociationType) {
+    if (currentAssociationType !== 'event' && this.eventSelectTarget) {
       this.eventSelectTarget.value = '';
     }
-    if (this.programSelectTarget) {
+    if (currentAssociationType !== 'program' && this.programSelectTarget) {
       this.programSelectTarget.value = '';
     }
-    if (this.stepSelectTarget) {
+    if (currentAssociationType !== 'step' && this.stepSelectTarget) {
       this.stepSelectTarget.value = '';
     }
   }
@@ -74,8 +78,15 @@ export default class PostFormController extends Controller {
   }
 
   updateSteps() {
+    // Prevent clearing the selections on initial load
+    if (!this.hasInitializedSteps) {
+      this.hasInitializedSteps = true;
+      return;
+    }
+
     const programId = this.programForStepSelectTarget.value;
     const stepSelect = this.stepSelectTarget;
+    const currentStepId = this.element.querySelector('[data-post-step-id]').dataset.postStepId;
 
     // Clear current options in step select
     stepSelect.innerHTML = '';
@@ -88,6 +99,9 @@ export default class PostFormController extends Controller {
           const option = document.createElement('option');
           option.value = step.id;
           option.text = step.name_with_order;
+          if (step.id.toString() === currentStepId) {
+            option.selected = true;
+          }
           stepSelect.appendChild(option);
         });
       })

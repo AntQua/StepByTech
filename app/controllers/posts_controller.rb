@@ -41,6 +41,8 @@ class PostsController < ApplicationController
     else
       @post.association_type = 'none'
     end
+
+    @post.program_id_for_step = @post.step&.program_id if @post.step_id.present?
   end
 
   # POST /posts
@@ -57,11 +59,15 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    #Rails.logger.info params.inspect
     handle_media_contents(@post, params[:remove_media_contents])
 
-    # Reset associations based on the selected association type
-    reset_associations(@post, post_params[:association_type])
+    # Check the incoming parameters
+    Rails.logger.info "Post params: #{post_params.inspect}"
+
+    # Only reset associations if association_type has changed
+    if @post.association_type != post_params[:association_type]
+      reset_associations(@post, post_params[:association_type])
+    end
 
     # Proceed with the update process
     if @post.update(post_params.except(:remove_media_contents, :media_contents))
@@ -123,6 +129,7 @@ class PostsController < ApplicationController
     end
 
     def reset_associations(post, association_type)
+      Rails.logger.info "Resetting associations for post with new association_type: #{association_type}"
       case association_type
       when 'event'
         post.program_id = nil
@@ -138,5 +145,6 @@ class PostsController < ApplicationController
         post.program_id = nil
         post.step_id = nil
       end
+      Rails.logger.info "Post associations after reset: Event - #{post.event_id}, Program - #{post.program_id}, Step - #{post.step_id}"
     end
 end
