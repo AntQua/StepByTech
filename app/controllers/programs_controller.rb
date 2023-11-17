@@ -79,7 +79,6 @@ class ProgramsController < ApplicationController
   end
 
   def steps
-    Rails.logger.info "Fetching steps for program #{params[:id]}"
     program = Program.find(params[:id])
     steps = program.steps.map do |step|
       { id: step.id, name_with_order: step.name_with_order }
