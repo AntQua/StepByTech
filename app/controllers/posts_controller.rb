@@ -48,7 +48,6 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
-    #handle_associations(@post, params[:post][:association_type])
 
     if @post.save
       redirect_to posts_path, notice: "Post created successfully!"
@@ -60,9 +59,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   def update
     handle_media_contents(@post, params[:remove_media_contents])
-
-    # Check the incoming parameters
-    Rails.logger.info "Post params: #{post_params.inspect}"
 
     # Only reset associations if association_type has changed
     if @post.association_type != post_params[:association_type]
@@ -129,7 +125,6 @@ class PostsController < ApplicationController
     end
 
     def reset_associations(post, association_type)
-      Rails.logger.info "Resetting associations for post with new association_type: #{association_type}"
       case association_type
       when 'event'
         post.program_id = nil
@@ -145,6 +140,5 @@ class PostsController < ApplicationController
         post.program_id = nil
         post.step_id = nil
       end
-      Rails.logger.info "Post associations after reset: Event - #{post.event_id}, Program - #{post.program_id}, Step - #{post.step_id}"
     end
 end
