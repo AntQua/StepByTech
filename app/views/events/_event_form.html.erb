@@ -11,7 +11,7 @@
   <% end %>
 
 
-  <%= simple_form_for @event do |f| %>
+  <%= simple_form_for @event, data: { controller: "event-form" } do |f| %>
 
     <div class="mb-3">
       <%= f.input :image, as: :file, label: "Adicionar Imagem ao Evento", input_html: { class: 'form-control bg-white' } %>
@@ -80,14 +80,18 @@
     </div>
 
 
-    <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)" %>
+    <%# <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)" %>
 
-    <%= f.association :step,
+    <%# <%= f.association :step,
     collection: @programs.map(&:steps).flatten,
     label_method: :name_with_order,
     value_method: :id,
     prompt: "Nenhum (Sem associação a um Step)",
     group_method: :program %>
+
+    <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)", input_html: { data: { action: "change->event-form#updateSteps", event_form_target: "program" } } %>
+
+    <%= f.association :step, collection: [], label_method: :name_with_order, value_method: :id, prompt: "Nenhum (Sem associação a um Step)", input_html: { data: { event_form_target: "step" }, disabled: true } %>
 
 
     <div class="d-flex justify-content-between py-6 px-9">

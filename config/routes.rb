@@ -24,8 +24,10 @@ Rails.application.routes.draw do
     resources :posts
 
     resources :programs, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
+      get ':id/all_steps', to: 'programs#steps', as: 'program_all_steps', on: :collection, defaults: { format: 'json' }
       resources :steps, only: [:index, :show, :new, :edit, :create, :update, :destroy]
     end
+
 
     resources :events do
       post 'participate', on: :member

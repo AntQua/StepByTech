@@ -10,7 +10,7 @@ class ProgramPolicy < ApplicationPolicy
     def detail?
       true
     end
-        
+
     def new?
       user.is_admin? # Apenas administradores podem criar novos programas
     end
@@ -36,6 +36,10 @@ class ProgramPolicy < ApplicationPolicy
     end
 
     def update_step_candidate?
+      user.is_admin?
+    end
+
+    def steps?
       user.is_admin?
     end
 
