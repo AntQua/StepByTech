@@ -81,13 +81,13 @@ export default class PostFormController extends Controller {
     stepSelect.innerHTML = '';
 
     // Fetch the steps based on the selected program
-    fetch(`/programs/${programId}/steps`)
+    fetch(`/programs/${programId}/all_steps.json`)
       .then(response => response.json())
       .then(data => {
         data.forEach((step) => {
           const option = document.createElement('option');
           option.value = step.id;
-          option.text = step.name;
+          option.text = step.name_with_order;
           stepSelect.appendChild(option);
         });
       })
