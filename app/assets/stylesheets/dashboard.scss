@@ -25,6 +25,7 @@ main {
     overflow-y: scroll;
     height: 100vh;
     padding: 30px;
+    width: calc(100vw - 340px);
 }
 
 // Sidebar

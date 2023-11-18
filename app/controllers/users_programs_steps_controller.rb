@@ -1,5 +1,5 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire]
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire, :cancel_apply_to_program]
   layout "dashboard"
 
   def apply
@@ -33,6 +33,36 @@ class UsersProgramsStepsController < ApplicationController
     else
       redirect_to_program_with_alert
     end
+  end
+
+  def cancel_apply_to_program
+    user_program_step_to_delete = current_user.users_programs_steps.find_by(program_id: @program.id)
+
+    if user_program_step_to_delete&.present?
+      step = user_program_step_to_delete.step
+      if user_program_step_to_delete.destroy && step.step_questions.present?
+        questions_options = step.step_questions.flat_map { |question| question.step_question_options }
+        answers_to_delete = current_user.user_answers.select { |answer| questions_options.any? { |option| answer.step_question_option_id == option.id } }
+        if answers_to_delete.map(&:destroy)
+          redirect_to dashboard_path, notice: 'Inscrição ao programa cancelada com sucesso!'
+        end
+      else
+        redirect_to dashboard_path, notice: 'Inscrição ao programa cancelada com sucesso!'
+      end
+    end
+
+    # if candidate_step &&
+    #    current_date.between?(@program.registration_start_date, @program.registration_end_date) &&
+    #    user_program_step.present?
+
+    #   user_program_step.answers.destroy_all
+
+    #   user_program_step.destroy
+
+    #   redirect_to program_path(@program), notice: 'Inscrição ao programa cancelada com sucesso!'
+    # else
+    #   redirect_to_program_with_alert
+    # end
   end
 
   def build_answers

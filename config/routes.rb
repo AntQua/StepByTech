@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/answer_questionnaire', to: 'users_programs_steps#answer_questionnaire', as: 'answer_questionnaire'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
-
+    get 'programs/:program_id/cancel_apply', to: 'users_programs_steps#cancel_apply_to_program', as: 'cancel_apply_to_program'
      #Apply to Program
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
      # Questionnaire
