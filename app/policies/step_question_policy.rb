@@ -26,5 +26,9 @@ class StepQuestionPolicy < ApplicationPolicy
   def save?
     user.is_admin?
   end
+
+  def preview?
+    user.is_admin?
+  end
 end
 

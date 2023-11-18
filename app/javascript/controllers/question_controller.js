@@ -11,6 +11,7 @@ export default class QuestionController extends Controller {
     get questionController() {
         return this.application.getControllerForElementAndIdentifier(this.element, "questionTable");
     }
+
     async setup() {
 
         this.programId = this.questionsTableTarget.dataset.programId;
@@ -29,27 +30,29 @@ export default class QuestionController extends Controller {
                 size: "length",
             },
             ajaxURL: this.questionsTableTarget.dataset.sourceUrl,
-            // groupHeader:function(value, count, data, group){
-            //     //value - the value all members of this group share
-            //     //count - the number of rows in this group
-            //     //data - an array of all the row data objects in this group
-            //     //group - the group component for the group
-            //
-            //     const content = document.createElement('div');
-            //     content.classList.add('d-flex');
-            //     content.classList.add('w-80');
-            //     content.classList.add('justify-content-between');
-            //
-            //     const infoSpan = document.createElement('span');
-            //     infoSpan.textContent = `${value} (${count} item(s))`;
-            //     content.appendChild(infoSpan);
-            //
-            //     const previewButton = document.createElement('a');
-            //     previewButton.textContent = "Pré-visualizar";
-            //     content.appendChild(previewButton);
-            //
-            //     return content;
-            // },
+            groupHeader:function(value, count, data, group){
+                //value - the value all members of this group share
+                //count - the number of rows in this group
+                //data - an array of all the row data objects in this group
+                //group - the group component for the group
+                const stepId = data[0].step_id;
+                const content = document.createElement('div');
+                content.classList.add('btn-header-preview');
+            
+                const infoSpan = document.createElement('span');
+                infoSpan.textContent = `${value} (${count} item(s))`;
+                content.appendChild(infoSpan);
+            
+                const previewButton = document.createElement('a');
+                previewButton.textContent = "Preview";
+                previewButton.classList.add('btn-preview');
+                previewButton.setAttribute("target", "_blank");
+                previewButton.setAttribute("href", `/step_questions/${stepId}/preview`);
+
+                content.appendChild(previewButton);
+            
+                return content;
+            },
             columns: [
                 { formatter:"rowSelection", titleFormatter:"rowSelection", width: 50, resizable: false, headerSort: false, cellClick: function(e, cell){ cell.getRow().toggleSelect(); } },
                 {

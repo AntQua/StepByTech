@@ -42,8 +42,6 @@ Rails.application.routes.draw do
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
      # Questionnaire
     get 'programs/:program_id/questionnaire', to: 'users_programs_steps#questionnaire', as: 'questionnaire'
-
-
      #Tabulator selector steps  response
     get 'steps/:program_id/table_data', to: 'steps#table_data', as: 'steps_table_data'
      #Tabulator candidates response
@@ -71,5 +69,7 @@ Rails.application.routes.draw do
     post 'step_questions', to: 'step_questions#create', as: 'create_step_questions'
     patch 'step_questions/:id', to: 'step_questions#update', as: 'update_step_questions'
     delete 'step_questions/:id', to: 'step_questions#destroy', as: 'destroy_step_questions'
+    # Preview
+    get 'step_questions/:step_id/preview', to: 'step_questions#preview', as: 'preview'
   end
 end

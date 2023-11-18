@@ -1,0 +1,33 @@
+<div class="d-flex align-items-center gap-3 mb-3">
+  <i class="fa-solid fa-house txt-opac"></i>
+  <i class="fa-solid fa-chevron-right txt-opac"></i>
+  <%= link_to "Programas", programs_path, class: "txt-links-disabled" %>
+  <i class="fa-solid fa-chevron-right txt-links-disabled"></i>
+  <%= link_to "Detalhes do programa", program_path(@step.program.id), class:"txt-links-disabled" %>
+  <i class="fa-solid fa-chevron-right links-actived"></i>
+  <p class="m-0 txt-links-actived">Preview do Questionário</p>
+</div>
+<h1><%= @step.program.title %></h1>
+<div class="bg-white p-3 rounded-4">
+  <h3>Questionário do <%= @step.name %></h3>
+  <div class="card-profile container mt-2">
+    <% @step.step_questions.each do |question| %>
+      <div class="mb-2">
+        <p><strong><%= question.title_format %></strong></p>
+        <% question.step_question_options.each do |option| %>
+          <% if question.question_type == StepQuestion.question_types.key(1) %>
+            <div class="form-check">
+              <input class="form-check-input" disabled type="checkbox" value="<%= option.id %>" name="checked[]">
+              <label class="form-check-label" for="checked[]">
+                <%= option.title %>
+              </label>
+            </div>
+          <% end %>
+          <% if question.question_type == StepQuestion.question_types.key(0) %>
+            <textarea class="form-control" disabled name="textAnswers[<%= option.id %>]" rows="3" maxlength="<%= question.limit %>" placeholder="<%= option.title %>"></textarea>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
