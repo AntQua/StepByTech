@@ -1,3 +1,25 @@
-<div class="pt-5 mt-5 text-center">
-  <h1>Galeria Geral de Posts para todos users</h1>
+<div class="galeria-container">
+  <h1>GALERIA</h1>
+  <div>
+    <ul class="d-flex galeria-links">
+      <li><a href="", class="active">Todos</a></li>
+      <li><a href="">Web Development</a></li>
+      <li><a href="">Data Science</a></li>
+      <li><a href="">Data Analytics</a></li>
+    </ul>
+  </div>
+ <% @posts.each do |post| %>
+  <div class="posts-container">
+    <h2><%= post.step.program.title%></h2>
+    <%= post.title %>
+    <%= post.body %>
+      <% if post.media_contents.attached? %>
+        <div class="media-content">
+        <% post.media_contents.each do |media| %>
+          <%= image_tag media, class:"media" %>
+        <% end %>
+        </div>
+      <% end %>
+  </div>
+ <% end %>
 </div>
