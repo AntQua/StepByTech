@@ -1,3 +1,11 @@
-<div class="pt-5 mt-5 text-center">
-  <h1>Galeria Geral de Posts para todos users</h1>
+<div class="pt-5 mt-5">
+  <h1>GALERIA</h1>
+ <% @posts.each do |post| %>
+  <h4><%= post.title %></h4>
+  <%= post.step.program.title%>
+  <h6><%= post.body %></h6>
+  <% if post.media_contents.attached? %>
+    <%= post.media_contents %>
+  <% end %>
+ <% end %>
 </div>
