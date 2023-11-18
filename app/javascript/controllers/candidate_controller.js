@@ -69,6 +69,7 @@ export default class extends Controller {
         { field: "status_value", visible: false },
         {
           title:"Ações",
+          download: false,
           formatter: (cell, formatterParams, onRendered) => {
             const data = cell.getData();
             const div = document.createElement('div');
@@ -233,6 +234,16 @@ export default class extends Controller {
       });
   }
 
+  downloadXlsx(event) {
+    candidateTabulator.download("xlsx", "candidatos.xlsx", {sheetName:"Candidatos"});
+  }
+  
+  downloadPdf(event) {
+    candidateTabulator.download("pdf", "candidatos.pdf", {
+      orientation:"portrait", //set page orientation to portrait
+      title:"Candidatos", //add title to report
+    });
+  }
   // addNewRow() {
   //   this.attributesTabulator.addRow({ program_id: this.programId }, true);
   // }

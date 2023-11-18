@@ -101,7 +101,14 @@
   </div>
   <%# Candidatos tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end gap-2">
+      <button data-action="click->candidate#downloadXlsx" class="btn-excel text-decoration-none mt-3 mb-3">
+        <i class="fa-solid fa-file-excel"></i>
+        </button>
+      <button data-action="click->candidate#downloadPdf" class="btn-pdf text-decoration-none mt-3 mb-3">
+        <i class="fa-solid fa-file-pdf"></i>
+      </button>
+
       <% if policy(Step).create? %>
         <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Configuração</button>
       <% end %>

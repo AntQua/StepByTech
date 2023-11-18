@@ -125,3 +125,19 @@ input:checked + .slider:before {
   font-weight: bold;
   text-decoration: none;
 }
+
+.btn-excel {
+  padding: 10px 15px;
+  background-color: #1d6f41;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+}
+
+.btn-pdf {
+  padding: 10px 15px;
+  background-color: #db2e32;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+}
