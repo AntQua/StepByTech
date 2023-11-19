@@ -36,7 +36,10 @@ class ProgramsController < ApplicationController
   # POST /programs
   def create
     @program = Program.new(program_params)
-
+    if params[:program][:image].present?
+      @program.image.attach(params[:program][:image])
+    end
+    @program.save
     initial_step = @program.steps.build({
                                           name: "Candidatura",
                                           step_order: 0,
