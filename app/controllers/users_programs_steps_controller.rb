@@ -23,12 +23,16 @@ class UsersProgramsStepsController < ApplicationController
       current_date.between?(@program.registration_start_date, @program.registration_end_date) &&
       !current_user.users_programs_steps.exists?(program_id: @program.id)
 
-      answers = build_answers
-      if save_answers(answers)
-        create_user_program_step
-        redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
+      if valid_answers_limit?
+        answers = build_answers
+        if save_answers(answers)
+          create_user_program_step
+          redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
+        else
+          redirect_to_program_with_alert
+        end
       else
-        redirect_to_program_with_alert
+        redirect_to apply_path(@program), notice: 'Não foi possivel realizar a candidatura, limite de resposta de alguma questão foi excedida!'
       end
     else
       redirect_to_program_with_alert
@@ -50,19 +54,19 @@ class UsersProgramsStepsController < ApplicationController
         redirect_to dashboard_path, notice: 'Inscrição ao programa cancelada com sucesso!'
       end
     end
+  end
 
-    # if candidate_step &&
-    #    current_date.between?(@program.registration_start_date, @program.registration_end_date) &&
-    #    user_program_step.present?
+  def valid_answers_limit?
+    options = params[:checked]
 
-    #   user_program_step.answers.destroy_all
-
-    #   user_program_step.destroy
-
-    #   redirect_to program_path(@program), notice: 'Inscrição ao programa cancelada com sucesso!'
-    # else
-    #   redirect_to_program_with_alert
-    # end
+    return true unless options.present?
+  
+    questions = options.map { |option_id| StepQuestionOption.find(option_id)&.step_question }.uniq
+  
+    questions.none? do |question|
+      count = options.count { |option_id| question.step_question_options.any? { |qo| qo.id == option_id.to_i } }
+      count > question.limit
+    end
   end
 
   def build_answers
