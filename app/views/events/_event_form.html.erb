@@ -79,16 +79,6 @@
         </div>
     </div>
 
-
-    <%# <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)" %>
-
-    <%# <%= f.association :step,
-    collection: @programs.map(&:steps).flatten,
-    label_method: :name_with_order,
-    value_method: :id,
-    prompt: "Nenhum (Sem associação a um Step)",
-    group_method: :program %>
-
     <%= f.association :program, collection: @programs, label_method: :title, value_method: :id, prompt: "Nenhum (Sem associação a um programa)", input_html: { data: { action: "change->event-form#updateSteps", event_form_target: "program" } } %>
 
     <%= f.association :step, collection: [], label_method: :name_with_order, value_method: :id, prompt: "Nenhum (Sem associação a um Step)", input_html: { data: { event_form_target: "step" }, disabled: true } %>
