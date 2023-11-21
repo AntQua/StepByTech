@@ -60,9 +60,9 @@ class UsersProgramsStepsController < ApplicationController
     options = params[:checked]
 
     return true unless options.present?
-  
+
     questions = options.map { |option_id| StepQuestionOption.find(option_id)&.step_question }.uniq
-  
+
     questions.none? do |question|
       count = options.count { |option_id| question.step_question_options.any? { |qo| qo.id == option_id.to_i } }
       count > question.limit
@@ -82,6 +82,35 @@ class UsersProgramsStepsController < ApplicationController
   def save_answers(answers)
     UserAnswer.transaction do
       answers.all?(&:save)
+    end
+  end
+
+  def view_candidate
+    if @user_program_step
+      @questions_and_answers = {}
+
+      @user_program_step.user.user_answers.includes(:step_question_option).each do |user_answer|
+        step = user_answer.step_question_option.step_question.step
+        question_id = user_answer.step_question_option.step_question_id
+        question_title = user_answer.step_question_option.step_question.title
+        answer_text = user_answer.text || user_answer.step_question_option.title
+        answer_point = user_answer.step_question_option.weight
+
+        # Verificar se já existe um grupo para este step
+        @questions_and_answers[step.name] ||= { total_points: 0, questions: {} }
+
+        # Verificar se já existe um grupo para esta pergunta dentro do step
+        @questions_and_answers[step.name][:questions][question_id] ||= { title: question_title, answers: [], points: 0 }
+
+        # Verificar se a resposta já existe no array antes de adicioná-la
+        unless @questions_and_answers[step.name][:questions][question_id][:answers].include?(answer_text)
+          @questions_and_answers[step.name][:total_points] += answer_point
+          @questions_and_answers[step.name][:questions][question_id][:points] += answer_point
+          @questions_and_answers[step.name][:questions][question_id][:answers] << answer_text
+        end
+      end
+    else
+      redirect_to program_path(@program), alert: 'Candidato não encontrado!'
     end
   end
 
@@ -202,9 +231,6 @@ class UsersProgramsStepsController < ApplicationController
     else
       redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
     end
-  end
-
-  def view_candidate
   end
 
   private

@@ -3,8 +3,9 @@ class Step < ApplicationRecord
   has_many :users_programs_steps
   has_many :users, through: :users_programs_steps
   has_many :posts
-  has_many :step_questions
+  has_many :step_questions, dependent: :destroy
   has_one_attached :image
+  has_many :user_answers
 
   validate :dates_must_be_present_and_valid
 
