@@ -8,11 +8,11 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.includes(:user, :program, :event, :step).all
+    @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
   end
 
   def general
-    @posts = Post.includes(:user, :program, :event, :step).all
+    @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
     authorize @posts, :general?
   end
 
@@ -41,12 +41,13 @@ class PostsController < ApplicationController
     else
       @post.association_type = 'none'
     end
+
+    @post.program_id_for_step = @post.step&.program_id if @post.step_id.present?
   end
 
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
-    #handle_associations(@post, params[:post][:association_type])
 
     if @post.save
       redirect_to posts_path, notice: "Post created successfully!"
@@ -57,11 +58,12 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    #Rails.logger.info params.inspect
     handle_media_contents(@post, params[:remove_media_contents])
 
-    # Reset associations based on the selected association type
-    reset_associations(@post, post_params[:association_type])
+    # Only reset associations if association_type has changed
+    if @post.association_type != post_params[:association_type]
+      reset_associations(@post, post_params[:association_type])
+    end
 
     # Proceed with the update process
     if @post.update(post_params.except(:remove_media_contents, :media_contents))
