@@ -16,9 +16,9 @@ class ProgramsController < ApplicationController
     authorize Program
     @program_events = @program.events.where(status: "agendado")
 
-    # Fetch posts related to the program and its steps
-    @program_posts = Post.where(program_id: @program.id)
-    @step_posts = Post.where(step_id: @program.steps.ids)
+  # Fetch posts related to the program and its steps, ordered by most recent
+  @program_posts = Post.where(program_id: @program.id).order(created_at: :desc)
+  @step_posts = Post.where(step_id: @program.steps.ids).order(created_at: :desc)
 
     render layout: 'dashboard'
   end
