@@ -1,12 +1,12 @@
 <div class="d-flex align-items-center gap-3 mb-3">
-  <i class="fa-solid fa-house"></i>
+  <i class="fa-solid fa-house txt-opac"></i>
+  <i class="fa-solid fa-chevron-right txt-opac"></i>
+  <%= link_to "Eventos", events_path, class:"txt-links-disabled" %>
   <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Eventos</p>
-  <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0">Detalhes</p>
+  <p class="m-0 txt-links-actived">Detalhes do Evento</p>
 </div>
 
-<h3 class="mb-5">Evento</h3>
+<h3 class="mb-5 mt-5">Evento</h3>
 
 <div class="bg-white rounded-4 p-3 mb-2">
   <div class="d-flex gap-5">
@@ -85,11 +85,6 @@
   <% if policy(@event).edit? %>
     <div class="mt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <%# <li class="nav-item" role="presentation">
-                <a class="nav-link text-decoration-none" id="edit-event-tab" data-bs-toggle="tab" data-bs-target="#edit-event" type="button" role="tab" aria-controls="edit-event" aria-selected="true">
-                  Editar Evento
-                </a>
-            </li> %>
             <li class="nav-item" role="presentation">
               <button class="nav-link position-relative active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
                 Inscritos no evento
@@ -124,12 +119,6 @@
 </div>
 
 <% if policy(@event).edit? %>
-  <%# <div class="tab-content bg-white rounded-4 p-3 mb-4>" id="myTabContent">
-    <div class="tab-pane fade" id="edit-event" role="tabpanel" aria-labelledby="edit-event-tab">
-      <%# <h3>Editar evento <%= @event.title %>
-      <%# </h3> %>
-      <%# <%= render 'event_form' %>
-    <%# </div> %>
     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
       <p><strong>Total de inscritos no evento :</strong> <%= @event.users.count %></p>
       <% @event.users.each do |user| %>
