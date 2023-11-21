@@ -12,12 +12,12 @@
   <div class="card-profile container mt-5">
     <%= simple_form_for(@program, url: apply_to_program_path(@program), html: { method: :post }) do |f| %>
       <% @questions.each do |question| %>
-        <div class="mb-3">
+        <div class="mb-3" data-controller="checkbox-limit" data-checkbox-limit-limit-value="<%= question.limit %>">
           <p><strong><%= question.title_format %></strong></p>
           <% question.step_question_options.each do |option| %>
             <% if question.question_type == StepQuestion.question_types.key(1) %>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<%= option.id %>" name="checked[]">
+                <input class="form-check-input" type="checkbox" value="<%= option.id %>" name="checked[]" data-action="checkbox-limit#handleCheckbox">
                 <label class="form-check-label" for="checked[]">
                   <%= option.title %>
                 </label>

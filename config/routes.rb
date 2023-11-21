@@ -37,13 +37,11 @@ Rails.application.routes.draw do
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'
     post 'programs/:program_id/answer_questionnaire', to: 'users_programs_steps#answer_questionnaire', as: 'answer_questionnaire'
     post 'programs/:program_id/steps/:id/apply_for_next', to: 'users_programs_steps#apply_for_next_step', as: 'apply_for_next_step'
-
+    get 'programs/:program_id/cancel_apply', to: 'users_programs_steps#cancel_apply_to_program', as: 'cancel_apply_to_program'
      #Apply to Program
     get 'programs/:program_id/apply', to: 'users_programs_steps#apply', as: 'apply'
      # Questionnaire
     get 'programs/:program_id/questionnaire', to: 'users_programs_steps#questionnaire', as: 'questionnaire'
-
-
      #Tabulator selector steps  response
     get 'steps/:program_id/table_data', to: 'steps#table_data', as: 'steps_table_data'
      #Tabulator candidates response
@@ -65,11 +63,15 @@ Rails.application.routes.draw do
 
     patch 'users_programs_steps/approve/:id', to: 'users_programs_steps#approve', as: 'approve_candidate'
     patch 'users_programs_steps/disapprove/:id', to: 'users_programs_steps#disapprove', as: 'disapprove_candidate'
+    # View candidates
+    get 'users_programs_steps/candidate/:id', to: 'users_programs_steps#view_candidate', as: 'view_candidate'
 
     get 'step_questions/:program_id/new', to: 'step_questions#new', as: 'new_step_question'
     get 'step_questions/:program_id/edit/:id', to: 'step_questions#edit', as: 'edit_step_question'
     post 'step_questions', to: 'step_questions#create', as: 'create_step_questions'
     patch 'step_questions/:id', to: 'step_questions#update', as: 'update_step_questions'
     delete 'step_questions/:id', to: 'step_questions#destroy', as: 'destroy_step_questions'
+    # Preview
+    get 'step_questions/:step_id/preview', to: 'step_questions#preview', as: 'preview'
   end
 end

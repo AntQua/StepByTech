@@ -1,66 +1,9 @@
-<%# Colocar isto dinamico %>
-<div class="d-flex align-items-center gap-3 mb-5">
-  <i class="fa-solid fa-house txt-opac"></i>
-  <i class="fa-solid fa-chevron-right txt-opac"></i>
-  <%= link_to "Programas", program_path, class:"txt-links-disabled" %>
-  <i class="fa-solid fa-chevron-right txt-opac"></i>
-  <%= link_to "Detalhes do programa", program_path(@program.id), class:"txt-links-disabled" %>
-  <i class="fa-solid fa-chevron-right"></i>
-  <p class="m-0 txt-links-actived">Alterar Programa</p>
-</div>
-<%# Colocar isto dinamico %>
-<div class="d-flex align-items-center gap-5">
-  <h3>Alterar Programa</h3>
-  <h4 class="text-purple"><%= @program.title %></h4>
-</div>
-<div class="card-profile container mt-5 bg-white" data-controller="datepicker">
-  <%= simple_form_for(@program) do |f| %>
-    <!-- Upload's photo -->
-    <div class="row">
-      <div class="col-md-12 mb-3">
-        <%= f.label :image, 'Imagem do Programa' %>
-        <%= f.file_field :image, label: false, class: 'form-control' %>
-      </div>
-    </div>
-    <!-- Name's program -->
-    <div class="mb-3">
-      <%= f.input :title, label: "Nome do Programa", input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <div class="mb-3">
-      <%= f.input :description, label: "Descrição", as: :text, input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <!-- Group the registration dates -->
-    <div class="row mb-3">
-      <div class="col">
-        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { value: @program.registration_start_date.strftime('%d/%m/%Y'),data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
-      </div>
-      <div class="col">
-        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { value: @program.registration_end_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
-      </div>
-    </div>
-    <!-- Group the event dates -->
-    <div class="row mb-3">
-      <div class="col">
-        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { value: @program.begin_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
-      </div>
-      <div class="col">
-        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { value: @program.end_date.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
-      </div>
-    </div>
-    <div class="mb-3">
-      <%= f.input :registration_limit, label: "Número máximo de candidatos", as: :integer, input_html: { class: 'form-control bg-white' } %>
-    </div>
-    <div class="form-check form-switch mb-3">
-      <%= f.check_box :completed, class: 'form-check-input', id: 'completedSwitch' %>
-      <%= f.label :completed, 'Completo', class: 'form-check-label', for: 'completedSwitch' %>
-    </div>
-    <div class="form-check form-switch mb-3">
-      <%= f.check_box :active, class: 'form-check-input', id: 'activeSwitch' %>
-      <%= f.label :active, 'Activo', class: 'form-check-label', for: 'activeSwitch' %>
-    </div>
-    <div class="card-footer d-flex justify-content-between py-6 px-9">
-      <%= link_to 'Voltar para os detalhes do Programa', program_path(@program), class: 'btn btn-secondary mt-3' %>
-      <%= f.button :submit, 'Atualizar Programa', class: 'btn-edit-profile' %>
-    </div>
-  <% end %>
-</div>
+<!-- edit_program_form.html.erb -->
+
+<% content_for :form_title, "Alterar Programa" %>
+<% content_for :form_heading, "Alterar Programa" %>
+<% content_for :back_link_text, 'Voltar para os detalhes do Programa' %>
+<% content_for :back_link_path, program_path(@program) %>
+<% content_for :submit_button_text, 'Atualizar Programa' %>
+
+<%= render 'program_form' %>

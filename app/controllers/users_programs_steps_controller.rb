@@ -1,5 +1,5 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire]
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire, :cancel_apply_to_program, :view_candidate]
   layout "dashboard"
 
   def apply
@@ -23,15 +23,49 @@ class UsersProgramsStepsController < ApplicationController
       current_date.between?(@program.registration_start_date, @program.registration_end_date) &&
       !current_user.users_programs_steps.exists?(program_id: @program.id)
 
-      answers = build_answers
-      if save_answers(answers)
-        create_user_program_step
-        redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
+      if valid_answers_limit?
+        answers = build_answers
+        if save_answers(answers)
+          create_user_program_step
+          redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
+        else
+          redirect_to_program_with_alert
+        end
       else
-        redirect_to_program_with_alert
+        redirect_to apply_path(@program), notice: 'Não foi possivel realizar a candidatura, limite de resposta de alguma questão foi excedida!'
       end
     else
       redirect_to_program_with_alert
+    end
+  end
+
+  def cancel_apply_to_program
+    user_program_step_to_delete = current_user.users_programs_steps.find_by(program_id: @program.id)
+
+    if user_program_step_to_delete&.present?
+      step = user_program_step_to_delete.step
+      if user_program_step_to_delete.destroy && step.step_questions.present?
+        questions_options = step.step_questions.flat_map { |question| question.step_question_options }
+        answers_to_delete = current_user.user_answers.select { |answer| questions_options.any? { |option| answer.step_question_option_id == option.id } }
+        if answers_to_delete.map(&:destroy)
+          redirect_to dashboard_path, notice: 'Inscrição ao programa cancelada com sucesso!'
+        end
+      else
+        redirect_to dashboard_path, notice: 'Inscrição ao programa cancelada com sucesso!'
+      end
+    end
+  end
+
+  def valid_answers_limit?
+    options = params[:checked]
+
+    return true unless options.present?
+
+    questions = options.map { |option_id| StepQuestionOption.find(option_id)&.step_question }.uniq
+
+    questions.none? do |question|
+      count = options.count { |option_id| question.step_question_options.any? { |qo| qo.id == option_id.to_i } }
+      count > question.limit
     end
   end
 
@@ -48,6 +82,35 @@ class UsersProgramsStepsController < ApplicationController
   def save_answers(answers)
     UserAnswer.transaction do
       answers.all?(&:save)
+    end
+  end
+
+  def view_candidate
+    if @user_program_step
+      @questions_and_answers = {}
+
+      @user_program_step.user.user_answers.includes(:step_question_option).each do |user_answer|
+        step = user_answer.step_question_option.step_question.step
+        question_id = user_answer.step_question_option.step_question_id
+        question_title = user_answer.step_question_option.step_question.title
+        answer_text = user_answer.text || user_answer.step_question_option.title
+        answer_point = user_answer.step_question_option.weight
+
+        # Verificar se já existe um grupo para este step
+        @questions_and_answers[step&.name] ||= { total_points: 0, questions: {} }
+
+        # Verificar se já existe um grupo para esta pergunta dentro do step
+        @questions_and_answers[step&.name][:questions][question_id] ||= { title: question_title, answers: [], points: 0 }
+
+        # Verificar se a resposta já existe no array antes de adicioná-la
+        unless @questions_and_answers[step&.name][:questions][question_id][:answers].include?(answer_text)
+          @questions_and_answers[step&.name][:total_points] += answer_point
+          @questions_and_answers[step&.name][:questions][question_id][:points] += answer_point
+          @questions_and_answers[step&.name][:questions][question_id][:answers] << answer_text
+        end
+      end
+    else
+      redirect_to program_path(@program), alert: 'Candidato não encontrado!'
     end
   end
 

@@ -145,6 +145,10 @@
   opacity: 50%;
 }
 
+.bg-purple {
+  background-color: $light-purple;
+}
+
 // Card Program Details
 
 .card-detail {
@@ -191,7 +195,7 @@
   color: $light-purple;  /* Text color for active tab */
 }
 
-.two-line-container {
+.line-container {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

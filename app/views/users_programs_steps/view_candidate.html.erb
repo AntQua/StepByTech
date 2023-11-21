@@ -1,0 +1,42 @@
+<div class="d-flex row gap-3">
+  <h2 class="bg-purple rounded-4 p-4 text-center">Informações do Candidato</h2>
+  <%= render partial: "shared/card_profile", locals: { user: @user_program_step.user } %>
+  <%= render partial: "shared/card_profile_details", locals: { user: @user_program_step.user, view: true } %>
+</div>
+<%# lógica para apresentar questionario.. %>
+<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3">
+  <h2 class="text-center">Respostas dos Questionários</h2>
+  <div class="accordion" id="stepsQuestionnaries">
+    <% if @questions_and_answers.present? %>
+      <% @questions_and_answers.each_with_index do |step, index| %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="questionnaireHeading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#questionnaireCollapse_<%= index %>" aria-expanded="true" aria-controls="questionnaireCollapse_<%= index %>">
+              Questionário <%= step[0] %> (Total de Pontos: <%= step[1][:total_points] %>)
+            </button>
+          </h2>
+          <div id="questionnaireCollapse_<%= index %>" class="accordion-collapse collapse" aria-labelledby="questionnaireHeading" data-bs-parent="#stepsQuestionnaries">
+            <div class="accordion-body">
+              <% step[1][:questions]&.each do |question| %>
+                <h5><%= question[1][:title] %></h5>
+                <ul>
+                  <% question[1][:answers]&.each do |answer| %>
+                    <li><%= answer %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>Nenhuma resposta disponível.</p>
+    <% end %>
+  </div>
+    <%# if @user_program_step %>
+
+    <%# else %>
+      <%#= redirect_to program_path(@program), alert: 'Candidato não encontrado!' %>
+    <%# end %>
+</div>
+

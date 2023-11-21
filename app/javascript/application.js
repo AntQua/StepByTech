@@ -3,6 +3,9 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
+import "tabulator-jspdf"
+import "tabulator-xlsx"
+import "tabulator-jspdf-autotable"
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 window.Tabulator = Tabulator;
 import Swal from 'sweetalert2';

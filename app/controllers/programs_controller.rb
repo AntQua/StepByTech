@@ -36,7 +36,10 @@ class ProgramsController < ApplicationController
   # POST /programs
   def create
     @program = Program.new(program_params)
-
+    if params[:program][:image].present?
+      @program.image.attach(params[:program][:image])
+    end
+    @program.save
     initial_step = @program.steps.build({
                                           name: "Candidatura",
                                           step_order: 0,
@@ -74,6 +77,7 @@ class ProgramsController < ApplicationController
 
   # DELETE /programs/1
   def destroy
+    @program.steps.destroy_all
     @program.destroy
     redirect_to programs_path, notice: 'Program was successfully deleted.'
   end

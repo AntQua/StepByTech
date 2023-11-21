@@ -1,6 +1,7 @@
 class StepQuestionsController < ApplicationController
   before_action :set_step_question, only: [:save, :edit, :update, :destroy]
   before_action :authorize_step_questions
+  layout "dashboard"
 
   def new
     @question = StepQuestion.new
@@ -99,6 +100,10 @@ class StepQuestionsController < ApplicationController
     @questions = StepQuestion.all.sort_by(&:id)
 
     render json: { data: @questions }, status: :ok
+  end
+
+  def preview
+    @step = params[:step_id].present? ? Step.find(params[:step_id]) : nil
   end
 
   private

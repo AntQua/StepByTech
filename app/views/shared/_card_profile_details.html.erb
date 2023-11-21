@@ -1,38 +1,44 @@
+<%
+  view = false unless view&.present?
+  user = current_user unless user&.present?
+%>
 <div class="card-details-profile d-flex gap-3">
   <div class="d-flex align-items-center justify-content-between line-bottom">
     <p class="m-0 fw-bold">Perfil - Detalhes</p>
-    <%= button_to "Editar Perfil", user_settings_path, method: :get, class: "btn-edit-profile mb-4" %>
+    <% unless view %>
+      <%= button_to "Editar Perfil", user_settings_path, method: :get, class: "btn-edit-profile mb-4" %>
+    <% end %>
   </div>
   <div class="mt-4">
     <div class="mx-5 fw-bold">
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">Nome Completo</p>
-        <p class="txt-p col-6 m-0"><%= current_user.name %></p>
+        <p class="txt-p col-6 m-0"><%= user.name %></p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">Gênero</p>
-        <p class="txt-p col-6 m-0"><%= current_user.gender %></p>
+        <p class="txt-p col-6 m-0"><%= user.gender %></p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">Email</p>
-        <p class="txt-p col-6 m-0"><%= current_user.email %></p>
+        <p class="txt-p col-6 m-0"><%= user.email %></p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">Contato telemóvel</p>
-        <p class="txt-p col-6 m-0"><%= current_user.phone %></p>
+        <p class="txt-p col-6 m-0"><%= user.phone %></p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">País</p>
-        <p class="txt-p col-6 m-0"><%= current_user.country %></p>
+        <p class="txt-p col-6 m-0"><%= user.country %></p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom my-2 py-2">
         <p class="txt-title col-6 m-0">Cidade</p>
-        <p class="txt-p col-6 m-0"><%= current_user.city %></p>
+        <p class="txt-p col-6 m-0"><%= user.city %></p>
       </div>
     </div>
   </div>
   <div class="mx-5">
     <p class="txt-title fw-bold">Sobre mim</p>
-    <p class="txt-p col-12"><%= current_user.about_me %></p>
+    <p class="txt-p col-12"><%= user.about_me %></p>
   </div>
 </div>

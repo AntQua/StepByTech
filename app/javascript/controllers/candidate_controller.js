@@ -69,9 +69,20 @@ export default class extends Controller {
         { field: "status_value", visible: false },
         {
           title:"Ações",
+          download: false,
           formatter: (cell, formatterParams, onRendered) => {
             const data = cell.getData();
             const div = document.createElement('div');
+            // show profile candidate
+            const showProfileButton = document.createElement('a');
+            const showProfileIcon = document.getElementById('showProfileIcon').content.cloneNode(true);
+            showProfileButton.classList.add('btn');
+            showProfileButton.classList.add('btn-secondary');
+            showProfileButton.classList.add('mx-1');
+            showProfileButton.setAttribute('target', '_blank');
+            showProfileButton.href = `/users_programs_steps/candidate/${data.id}`
+            showProfileButton.appendChild(showProfileIcon);
+            div.appendChild(showProfileButton);
 
             if(data.status_value === 0) //Somente mostra quando o status for Aguardando aprovação
             {
@@ -233,6 +244,16 @@ export default class extends Controller {
       });
   }
 
+  downloadXlsx(event) {
+    candidateTabulator.download("xlsx", "candidatos.xlsx", {sheetName:"Candidatos"});
+  }
+  
+  downloadPdf(event) {
+    candidateTabulator.download("pdf", "candidatos.pdf", {
+      orientation:"portrait", //set page orientation to portrait
+      title:"Candidatos", //add title to report
+    });
+  }
   // addNewRow() {
   //   this.attributesTabulator.addRow({ program_id: this.programId }, true);
   // }
