@@ -1,0 +1,4 @@
+<div class="d-flex row gap-3">
+  <%= render partial: "shared/card_profile", locals: { user: @user_program_step.user } %>
+  <%= render partial: "shared/card_profile_details", locals: { user: @user_program_step.user, view: true } %>
+</div>

@@ -63,6 +63,8 @@ Rails.application.routes.draw do
 
     patch 'users_programs_steps/approve/:id', to: 'users_programs_steps#approve', as: 'approve_candidate'
     patch 'users_programs_steps/disapprove/:id', to: 'users_programs_steps#disapprove', as: 'disapprove_candidate'
+    # View candidates
+    get 'users_programs_steps/candidate/:id', to: 'users_programs_steps#view_candidate', as: 'view_candidate'
 
     get 'step_questions/:program_id/new', to: 'step_questions#new', as: 'new_step_question'
     get 'step_questions/:program_id/edit/:id', to: 'step_questions#edit', as: 'edit_step_question'

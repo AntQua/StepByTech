@@ -1,5 +1,5 @@
 class UsersProgramsStepsController < ApplicationController
-  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire, :cancel_apply_to_program]
+  before_action :set_program_and_step, only: [:apply_for_next_step, :apply_to_program, :apply, :update_step_candidate, :table_data, :approve, :disapprove, :questionnaire, :answer_questionnaire, :cancel_apply_to_program, :view_candidate]
   layout "dashboard"
 
   def apply
@@ -202,6 +202,9 @@ class UsersProgramsStepsController < ApplicationController
     else
       redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
     end
+  end
+
+  def view_candidate
   end
 
   private

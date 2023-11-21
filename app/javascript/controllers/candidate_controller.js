@@ -73,6 +73,16 @@ export default class extends Controller {
           formatter: (cell, formatterParams, onRendered) => {
             const data = cell.getData();
             const div = document.createElement('div');
+            // show profile candidate
+            const showProfileButton = document.createElement('a');
+            const showProfileIcon = document.getElementById('showProfileIcon').content.cloneNode(true);
+            showProfileButton.classList.add('btn');
+            showProfileButton.classList.add('btn-secondary');
+            showProfileButton.classList.add('mx-1');
+            showProfileButton.setAttribute('target', '_blank');
+            showProfileButton.href = `/users_programs_steps/candidate/${data.id}`
+            showProfileButton.appendChild(showProfileIcon);
+            div.appendChild(showProfileButton);
 
             if(data.status_value === 0) //Somente mostra quando o status for Aguardando aprovação
             {
