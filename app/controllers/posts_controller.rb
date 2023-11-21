@@ -8,11 +8,11 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.includes(:user, :program, :event, :step).all
+    @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
   end
 
   def general
-    @posts = Post.includes(:user, :program, :event, :step).all
+    @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
     authorize @posts, :general?
   end
 
