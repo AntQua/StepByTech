@@ -97,16 +97,16 @@ class UsersProgramsStepsController < ApplicationController
         answer_point = user_answer.step_question_option.weight
 
         # Verificar se já existe um grupo para este step
-        @questions_and_answers[step.name] ||= { total_points: 0, questions: {} }
+        @questions_and_answers[step&.name] ||= { total_points: 0, questions: {} }
 
         # Verificar se já existe um grupo para esta pergunta dentro do step
-        @questions_and_answers[step.name][:questions][question_id] ||= { title: question_title, answers: [], points: 0 }
+        @questions_and_answers[step&.name][:questions][question_id] ||= { title: question_title, answers: [], points: 0 }
 
         # Verificar se a resposta já existe no array antes de adicioná-la
-        unless @questions_and_answers[step.name][:questions][question_id][:answers].include?(answer_text)
-          @questions_and_answers[step.name][:total_points] += answer_point
-          @questions_and_answers[step.name][:questions][question_id][:points] += answer_point
-          @questions_and_answers[step.name][:questions][question_id][:answers] << answer_text
+        unless @questions_and_answers[step&.name][:questions][question_id][:answers].include?(answer_text)
+          @questions_and_answers[step&.name][:total_points] += answer_point
+          @questions_and_answers[step&.name][:questions][question_id][:points] += answer_point
+          @questions_and_answers[step&.name][:questions][question_id][:answers] << answer_text
         end
       end
     else
