@@ -100,7 +100,7 @@ class ProgramsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def program_params
-    params.require(:program).permit(:title, :description, :registration_start_date, :registration_end_date, :begin_date, :end_date, :registration_limit, :active, :completed)
+    params.require(:program).permit(:title, :description, :preview, :registration_start_date, :registration_end_date, :begin_date, :end_date, :registration_limit, :active, :completed)
   end
 
   def authorize_program

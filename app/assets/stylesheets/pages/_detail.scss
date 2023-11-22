@@ -1,10 +1,16 @@
 .detail-container {
-  margin: 0 170px 0 170px;
-  margin-top: 69.9px;
-  margin-bottom: 66.4px;
-  height: calc(100vh - 136.3px);
-  overflow-y: scroll;
+  // margin: 0 170px 0 170px;
+  // margin-top: 69.9px;
+  // margin-bottom: 66.4px;
+  // height: calc(100vh - 136.3px);
+  // overflow-y: scroll;
   position: relative;
+
+  padding: 69.9px 170px 66.4px 170px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  // height: calc(100vh - 136.3px);
+  height: 100vh;
 }
 
 .detail-container::-webkit-scrollbar{
@@ -31,12 +37,9 @@
 
 .steps-container {
   display: grid;
+  gap: 30px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-column-gap: 50px;
-  grid-row-gap: 25px;
-  justify-content: space-between;
-  margin: 0 170px;
-  margin-top: 30px;
+  margin: 20px 0 20px 0;
 }
 
 .event-image {
