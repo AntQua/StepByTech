@@ -20,6 +20,15 @@
       <p class="m-0 card-sub-title-dashboard"><strong>Data do Evento:</strong> <%= event.date.strftime('%d/%m/%Y') %></p>
     </div>
       <p class="mt-3"><strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= event.event_type.capitalize %></span></p>
+      <p class="mt-3 text-center"><span class="card-sub-title-dashboard"><%= event.program.title %></span></p>
+      <p class="text-center">
+        <% if event.step %>
+          <span class="card-sub-title-dashboard"><%= event.step.name_with_order %></span>
+        <% else %>
+          <span></span> <!-- Or any other placeholder text -->
+        <% end %>
+      </p>
+
       <div class="text-end m-2 pt-3">
         <%= link_to event_path(event) do %>
           <%= image_tag "arrow-right.svg" %>

@@ -75,7 +75,7 @@
             <p><strong>Programa associado:</strong> <span class="card-sub-title-dashboard"><%= @event.program.title %></span> </p>
           <% end %>
           <% if @event.step %>
-            <p><strong>Step associado:</strong> <span class="card-sub-title-dashboard"><%= @event.step.name %></span> </p>
+            <p><strong>Step associado:</strong> <span class="card-sub-title-dashboard"><%= @event.step.name_with_order %></span> </p>
           <% end %>
         </div>
       <% end %>
