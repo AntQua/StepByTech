@@ -10,7 +10,7 @@ export default class PostFormController extends Controller {
     ]
 
   connect() {
-    console.log("Post form controller connected");
+    //console.log("Post form controller connected");
     this.setInitialAssociationDisplay();
     // Call updateSteps if the association is 'step'
     if (this.getCurrentAssociationType() === 'step') {

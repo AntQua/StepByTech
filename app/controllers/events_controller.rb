@@ -41,7 +41,9 @@ class EventsController < ApplicationController
   def edit
     authorize @event
     @programs = Program.where(active: true)
+    @steps = @event.program&.steps || [] # This will fetch steps if a program is associated
   end
+
 
   def update
     authorize @event

@@ -1,11 +1,23 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-
-  static targets = ["program", "step"]
+  static targets = ["program", "step"];
 
   connect() {
     console.log("Event form controller connected");
+    this.setInitialStep();
+  }
+
+  setInitialStep() {
+    const programId = this.programTarget.value;
+    const stepSelect = this.stepTarget;
+    const currentStepId = stepSelect.dataset.currentStepId; // Assuming you have this data attribute in your view
+
+    if (programId) {
+      this.updateStepOptions(programId, currentStepId, stepSelect);
+    } else {
+      this.clearStepOptions(stepSelect);
+    }
   }
 
   updateSteps() {
@@ -13,21 +25,44 @@ export default class extends Controller {
     const stepSelect = this.stepTarget;
 
     if (programId) {
-      stepSelect.disabled = true;
-
-      fetch(`/programs/${programId}/all_steps.json`)
-        .then(response => response.json())
-        .then((data) => {
-          stepSelect.innerHTML = '<option value="">Nenhum (Sem associação a um Step)</option>';
-          data.forEach((step) => {
-            stepSelect.innerHTML += `<option value="${step.id}">${step.name_with_order}</option>`;
-          });
-          stepSelect.disabled = false;
-        });
+      this.updateStepOptions(programId, null, stepSelect);
     } else {
-      // Clear the steps dropdown and add the default option
-      stepSelect.innerHTML = '<option value="">Nenhum (Sem associação a um Step)</option>';
-      stepSelect.disabled = true; // Optionally disable the dropdown
+      this.clearStepOptions(stepSelect);
     }
   }
+
+  updateStepOptions(programId, currentStepId, stepSelect) {
+    stepSelect.disabled = true;
+
+    fetch(`/programs/${programId}/all_steps.json`)
+      .then(response => response.json())
+      .then((data) => {
+        this.populateStepOptions(data, stepSelect, currentStepId);
+        stepSelect.disabled = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.clearStepOptions(stepSelect);
+      });
+  }
+
+  populateStepOptions(steps, stepSelect, currentStepId) {
+    this.clearStepOptions(stepSelect);
+
+    steps.forEach((step) => {
+      const option = document.createElement('option');
+      option.value = step.id;
+      option.textContent = step.name_with_order;
+      if (currentStepId && step.id.toString() === currentStepId) {
+        option.selected = true;
+      }
+      stepSelect.appendChild(option);
+    });
+  }
+
+  clearStepOptions(stepSelect) {
+    stepSelect.innerHTML = '<option value="">Nenhum (Sem associação a um Step)</option>';
+    stepSelect.disabled = true;
+  }
 }
+
