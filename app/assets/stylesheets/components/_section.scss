@@ -1,10 +1,9 @@
 .homepage-container {
-  margin: 0 170px;
-  margin-top: 69.9px;
-  margin-bottom: 66.4px;
+  padding: 69.9px 170px 66.4px 170px;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  height: calc(100vh - 136.3px);
+  // height: calc(100vh - 136.3px);
+  height: 100vh;
 }
 
 .homepage-container::-webkit-scrollbar{
@@ -12,7 +11,9 @@
 }
 
 .section {
-  min-height: calc(100vh - 136.3px);
+  height: 100vh;
+  // min-height: calc(100vh - 136.3px);
+  padding-top: 150px;
   h2 {
     margin-bottom: 30px;
   }
@@ -20,7 +21,6 @@
 
 #home {
   position: relative;
-  margin-bottom: 200px;
   .background-image {
     background-image: url("stepbytech_astro.png"), url("bg_back_blend-25.png");
     background-size: 85%, 50%;
@@ -125,9 +125,9 @@
   }
 }
 
-#programs {
-  margin-bottom: 200px;
-}
+// #programs {
+//   // margin-bottom: 200px;
+// }
 
 #credits {
   p {

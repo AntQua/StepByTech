@@ -51,12 +51,12 @@
     <% if @programs.present? == true  %>
       <div class="cards-container">
         <% @programs.each do |program| %>
-          <div class="card text-center card-programs">
+          <div class="card-block">
             <div class="card-h">
             </div>
             <div class="card-body">
               <h4 class="card-title"><span>&lt; / &gt; &nbsp;</span><%= program.title %></h4>
-              <p class="card-text"><%= program.description %></p>
+              <p class="card-text"><%= program.preview %></p>
               <p class="card-sub-title">Data do Programa</p>
               <p class="card-text">Início: <%= program.begin_date%> | Fim: <%= program.end_date %></p>
               <%= link_to "Mais Informações", programdetail_path(program.id), class:"btn btn-programs"%>

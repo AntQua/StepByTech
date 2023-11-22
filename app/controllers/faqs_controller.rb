@@ -6,7 +6,7 @@ class FaqsController < ApplicationController
   layout "dashboard", except: [:general]
 
   def index
-    @faqs = Faq.all
+    @faqs = Faq.order(created_at: :asc)
   end
 
   def show
@@ -25,7 +25,7 @@ class FaqsController < ApplicationController
     if @faq.save
       redirect_to faqs_path, notice: 'Faq was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,9 +33,11 @@ class FaqsController < ApplicationController
   end
 
   def update
-    @faq.update(faq_params)
-
-    redirect_to faqs_path
+    if @faq.update(faq_params)
+      redirect_to faqs_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
