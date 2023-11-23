@@ -14,13 +14,13 @@
           <h3 class="mx-auto mt-2"><%= event.title %></h3>
         </div>
       </div>
-    <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(50) %></p>
-    <div class="d-flex gap-2 align-items-center">
-      <%= image_tag "date_range.png" %>
-      <p class="m-0 card-sub-title-dashboard"><strong>Data do Evento:</strong> <%= event.date.strftime('%d/%m/%Y') %></p>
-    </div>
+      <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(50) %></p>
+      <div class="d-flex gap-2 align-items-center">
+        <%= image_tag "date_range.png" %>
+        <p class="m-0 card-sub-title-dashboard"><strong>Data do Evento:</strong> <%= event.date.strftime('%d/%m/%Y') %></p>
+      </div>
       <p class="mt-3"><strong>Formato:</strong> <span class="card-sub-title-dashboard"><%= event.event_type.capitalize %></span></p>
-      <p class="mt-3 text-center"><span class="card-sub-title-dashboard"><%= event.program.title %></span></p>
+      <p class="mt-3 text-center"><span class="card-sub-title-dashboard"><%= event.program&.title %></span></p> <!-- Use &. to safely access program's title -->
       <p class="text-center">
         <% if event.step %>
           <span class="card-sub-title-dashboard"><%= event.step.name_with_order %></span>
@@ -37,3 +37,4 @@
     </div>
   </div>
 </div>
+
