@@ -14,9 +14,9 @@
   <div class="d-flex gap-3 p-3">
     <div>
       <% if @step.image.attached? %>
-        <%= image_tag @step.image, class: "image-program" %>
+        <%= image_tag @step.image, class: "image-step" %>
       <% else %>
-        <%= image_tag "temp_thumb.jpg", class: "avatar-square-s", alt: "default image step" %>
+        <%= image_tag "temp_thumb.jpg", class: "image-step", alt: "default image step" %>
       <% end %>
     </div>
     <div class="container">
@@ -30,11 +30,11 @@
           <% end %>
         </div>
         <% if policy(Step).update? || policy(Step).destroy? %>
-          <div>
-            <%= link_to edit_program_step_path(@step.program, @step), class: 'text-purple text-decoration-none me-2' do %>
+          <div class=" d-flex gap-2">
+            <%= link_to edit_program_step_path(@step.program, @step), class: 'btn-icon-purple' do %>
               <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Step"></i>
             <% end %>
-            <%= link_to program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "text-danger me-2" do %>
+            <%= link_to program_step_path(@step.program, @step), data: {turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o Step #{@step.step_order} - #{@step.name}?" }, class: "btn-cancel" do %>
               <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Step"></i>
             <% end %>
           </div>
@@ -71,10 +71,4 @@
 
     </div>
   </div>
-</div>
-
-<div class="text-start mt-2 pt-3">
-  <%= link_to program_path(@step.program) do %>
-    <%= image_tag "arrow_left.png" %>
-  <% end %>
 </div>

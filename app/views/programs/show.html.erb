@@ -14,8 +14,9 @@
           <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
             <div class="card-body flex-grow-1">
               <div class="text-center">
-                <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "align-self-start mr-auto avatar-square-s", alt: "default image step" %>
-                <div>
+                <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "image-program-list", alt: "default image step" %>
+                <div class="d-flex justify-content-between">
+                  <h3 class="mt-2"><%= step.name %></h3>
                   <div class="text-center mt-2">
                     <% if step.active? %>
                       <span class="badge bg-success">A Decorrer</span>
@@ -23,7 +24,6 @@
                       <span class="badge bg-danger">Terminado</span>
                     <% end %>
                   </div>
-                  <h3 class="mx-auto mt-2"><%= step.name %></h3>
                 </div>
               </div>
 

@@ -202,7 +202,8 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 16px;
-  min-height: 32px;
+  min-height: 48px;
+  margin-bottom: 16px;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
@@ -216,7 +217,6 @@
 //   max-width: 150px;
 //   // max-height: 150px;
 // }
-
 
 .media-thumbnail {
   width: 150px; /* instead of max-width */
