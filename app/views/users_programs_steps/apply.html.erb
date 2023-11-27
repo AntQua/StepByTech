@@ -8,8 +8,8 @@
     </strong>
   </div>
 <% else %>
-  <h3>Formulário de inscrição</h3>
-  <div class="card-profile container mt-5">
+  <h3 class="mt-4 bg-white p-4 rounded-4">Formulário de inscrição</h3>
+  <div class="card-profile container mt-4">
     <%= simple_form_for(@program, url: apply_to_program_path(@program), html: { method: :post }) do |f| %>
       <% @questions.each do |question| %>
         <div class="mb-3" data-controller="checkbox-limit" data-checkbox-limit-limit-value="<%= question.limit %>">
