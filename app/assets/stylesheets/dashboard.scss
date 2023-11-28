@@ -25,7 +25,7 @@ main {
     overflow-y: scroll;
     height: 100vh;
     padding: 30px;
-    width: calc(100vw - 340px);
+    // width: calc(100vw - 340px);
 }
 
 // Sidebar
@@ -46,7 +46,7 @@ main {
     display: block;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
     body {
         grid-template-columns: 1fr;
         grid-template-areas: "main";
@@ -57,12 +57,8 @@ main {
     }
 
     .sidebar-toggle {
-        display: block; /* Mostra o ícone de menu */
+        display: block;
     }
-
-    // .sidebar .show-sidebar {
-    //     display: block;
-    // }
 }
 
 .tabulator-group {

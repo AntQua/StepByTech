@@ -12,6 +12,19 @@
 @import "pages/index";
 
 
+.programs-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.program-card {
+    flex: 1 1 calc(33.333% - 10px);
+    max-width: calc(33.333% - 10px);
+    box-sizing: border-box;
+}
+
 // .programs-list {
 //   display: flex;
 //   flex-wrap: wrap;

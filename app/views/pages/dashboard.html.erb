@@ -36,7 +36,6 @@
                     <%= link_to cancel_apply_to_program_path(program_step.program.id), method: :post, class: "btn" do %>
                       <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom"></i>
                     <% end %>
-
                     <%= link_to program_path(program_step.program) do %>
                       <%= image_tag "arrow-right.svg" %>
                     <% end %>

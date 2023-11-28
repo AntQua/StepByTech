@@ -4,18 +4,18 @@
   <div class="row tab-pane fade show active" role="tabpanel" id="tab-steps">
     <div class="d-flex justify-content-end">
       <% if policy(Step).create? %>
-        <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none my-3" %>
+        <%= link_to "Criar Step", new_program_step_path(@program), class: "btn-edit-profile text-decoration-none my-4 mb-0" %>
       <% end %>
     </div>
-
-    <div class="programs-list row">
+    <div class="programs-list">
       <% @program.steps.sort_by(&:step_order).each do |step| %>
-        <div class="program-card col-md-4 mb-4">
+        <div class="program-card col-md-4 mb-2 mt-4">
           <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
             <div class="card-body flex-grow-1">
               <div class="text-center">
-                <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "align-self-start mr-auto avatar-square-s", alt: "default image step" %>
-                <div>
+                <%= image_tag step.image.attached? ? url_for(step.image) : "temp_thumb.jpg", class: "image-program-list", alt: "default image step" %>
+                <div class="d-flex justify-content-between">
+                  <h3 class="mt-2"><%= step.name %></h3>
                   <div class="text-center mt-2">
                     <% if step.active? %>
                       <span class="badge bg-success">A Decorrer</span>
@@ -23,12 +23,9 @@
                       <span class="badge bg-danger">Terminado</span>
                     <% end %>
                   </div>
-                  <h3 class="mx-auto mt-2"><%= step.name %></h3>
                 </div>
               </div>
-
               <p class="card-sub-title-dashboard mt-3 mb-3"><%= step.description %></p>
-
               <% if step.dates.present? %>
                 <%= image_tag "date_range.png" %>
                 <% grouped_dates = step.dates.compact.group_by { |date| date.strftime('%B') } %>
@@ -46,25 +43,21 @@
                 end.reject(&:nil?).join('<br>').html_safe %>
                 <%= sessions_strings %>
               <% end %>
-
               <div class="d-flex gap-2 mt-2">
                 <%= image_tag "time.png", class: "" %>
                 <p class="m-0"><strong>Início:</strong> <%= step.hour_start.strftime('%H:%M') if step.hour_start %>
                   <strong>| Fim:</strong> <%= step.hour_finish.strftime('%H:%M') if step.hour_finish %></p>
               </div>
-
               <div class="text-end m-2 pt-3">
                 <%= link_to program_step_path(step.program, step) do %>
                   <%= image_tag "arrow-right.svg" %>
                 <% end %>
               </div>
-
             </div>
           </div>
         </div>
       <% end %>
     </div>
-
   </div>
   <%# Questionários tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-questions">
@@ -104,14 +97,10 @@
     <div class="d-flex justify-content-end gap-2">
       <button data-action="click->candidate#downloadXlsx" class="btn-excel text-decoration-none mt-3 mb-3">
         <i class="fa-solid fa-file-excel"></i>
-        </button>
+      </button>
       <button data-action="click->candidate#downloadPdf" class="btn-pdf text-decoration-none mt-3 mb-3">
         <i class="fa-solid fa-file-pdf"></i>
       </button>
-
-      <% if policy(Step).create? %>
-        <button type="button" data-action="attribute#addNewRow" class="btn-edit-profile text-decoration-none mt-3 mb-3">Configuração</button>
-      <% end %>
     </div>
     <div class="d-flex row m-0 p-0 ">
       <template id="approveIcon">
