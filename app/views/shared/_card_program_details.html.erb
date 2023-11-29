@@ -29,7 +29,8 @@
 
         <% if policy(@program).update? %>
           <div>
-            <%= link_to "Editar Programa", edit_program_path(@program), class: "btn-edit-profile text-decoration-none mb-2" %>
+
+            <%= link_to raw('<i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Programa"></i>'), edit_program_path(@program), class: "btn-icon-purple me-2", title: "Editar programa" %>
             <%= link_to raw('<i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Programa"></i>'), program_path(@program), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar o programa de #{@program.title}?" }, class: "btn-cancel", title: "Excluir programa" %>
           </div>
         <% end %>
