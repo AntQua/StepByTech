@@ -43,20 +43,37 @@
 }
 
 .event-image {
-  max-width: 200px; /* Or whatever size you'd like */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
-  border: 2px solid #e0e0e0; /* Adds a light border */
+  width: 200px;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
 }
+
 
 .img-preview{
-  max-width: 200px; /* Or whatever size you'd like */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
-  border: 2px solid #e0e0e0; /* Adds a light border */
+  max-width: 200px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e0e0e0; 
 }
 
-.event-logo{
-  max-width: 150px; /* Or whatever size you'd like */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
-  border: 2px solid #e0e0e0; /* Adds a light border */
-  border-radius: 5px;
+.event-logo {
+  width: 100%; /* Make the image width responsive to the container */
+  height: auto;
+  object-fit: contain; /* Scale the image within the element's box */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+}
+
+/* Add responsive design for the card */
+@media (max-width: 768px) {
+  // .program-card {
+  //   width: 100%; /* Full width on smaller screens */
+  // }
+
+  .event-logo {
+    max-width: 100%; /* Override any other max-width to make it fully responsive */
+  }
 }
