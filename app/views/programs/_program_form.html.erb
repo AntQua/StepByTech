@@ -58,8 +58,10 @@
       <%= f.label :active, 'Activo', class: 'form-check-label', for: 'activeSwitch' %>
     </div>
     <%= yield(:extra_form_content) %>
-    <div class="d-flex justify-content-between py-6 px-9">
-      <%= link_to 'Voltar', program_path(@program.id), class: 'btn btn-secondary mt-3' %>
+    <div class="d-flex align-items-center justify-content-between py-6 px-9">
+      <%= link_to program_path(@program.id) do %>
+        <%= image_tag "arrow-left.svg" %>
+      <% end %>
       <%= f.button :submit, yield(:submit_button_text), class: 'btn-edit-profile' %>
     </div>
   <% end %>
