@@ -1,0 +1,47 @@
+<div class="card bg-white rounded-4 mb-3 p-3">
+  <div class="card-header bg-white">
+    <div class= "d-flex justify-content-between align-items-center bg-white">
+      <div class="d-flex align-items-baseline mb-2">
+        <h5 class="post-title mb-0"><%= post.title %></h5>
+        <% if post.step.present? %>
+          <p class="mb-0"><%= post.step.name %></p>
+        <% end %>
+      </div>
+      <% if post.step.present? %>
+       <h6 class="mb-0"><%= post.step.program.title %></h6>
+      <% end %>
+      <% if post.program.present? %>
+        <h6 class="mb-0"><%= post.program.title %></h6>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body">
+    <% if post.event.present? %>
+      <p>Evento: <%= post.event.title %></p>
+    <% end %>
+    <p class="post-text m-0"><%= post.body %></p>
+  </div>
+  <% if post.media_contents.attached? %>
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+      <% post.media_contents.each do |media_content| %>
+        <% content_url = url_for(media_content) %>
+        <% content_type = media_content.content_type.start_with?('image/') ? "image" : "video" %>
+        <%= link_to "#",
+                    data: {
+                      action: "click->media-modal#show",
+                      media_modal_content_url: content_url,
+                      media_modal_content_type: content_type
+                    } do %>
+          <% if media_content.content_type.start_with?('image/') %>
+            <%= image_tag(media_content, class: "media m-2") %>
+          <% elsif media_content.content_type.start_with?('video/') %>
+            <video controls class="media-thumbnail m-2">
+              <source src="<%= content_url %>" type="<%= media_content.content_type %>">
+              Your browser does not support the video tag.
+            </video>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
