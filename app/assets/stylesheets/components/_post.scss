@@ -48,21 +48,12 @@
   text-align: center;
 }
 
-.media-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  justify-items: center;
-  row-gap: 30px;
-  margin: 20px 0 20px 0;
-
-  .media {
-    width: 250px;
+.media {
+  width: 250px;
     height: 250px;
     object-fit: cover;
-  }
+}
 
-  //  .media:hover {
-  //   width: 300px;
-  //   max-height: 300px;
-  //  }
+.post-title {
+  margin-right: 10px;
 }

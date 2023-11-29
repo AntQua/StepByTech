@@ -8,24 +8,6 @@
       <li><a href="">Data Analytics</a></li>
     </ul>
   </div>
-  <% @posts.each do |post| %>
-    <div class="posts-container">
-      <% if post.step %>
-        <h2><%= post.step.program.title if post.step.program %></h2>
-      <% else %>
-        <h2>No associated program</h2>
-      <% end %>
-      <%= post.title %>
-      <%= post.body %>
-      <% if post.media_contents.attached? %>
-        <div class="media-content">
-          <% post.media_contents.each do |media| %>
-            <%= image_tag media, class: "media" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
 
   <%# Lista de todos os posts - Customizar CSS em card_post_galeria %>
   <%# Criar novos posts em admin no dashboard e testar css na galeria %>
@@ -33,7 +15,7 @@
   <div data-controller="media-modal">
     <div class="posts-list">
       <% @posts.each do |post| %>
-        <%= render partial: "shared/card_post_galeria", locals: { post: post } %>
+        <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
       <% end %>
     </div>
 
