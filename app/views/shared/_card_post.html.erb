@@ -3,11 +3,11 @@
     <div class= "d-flex justify-content-between align-items-center bg-white">
       <h5 class="post-title"><%= post.title %></h5>
         <% if policy(Post).update? %>
-          <div>
-            <%= link_to edit_post_path(post), class: 'text-purple text-decoration-none me-2' do %>
+          <div class="d-flex gap-2">
+            <%= link_to edit_post_path(post), class: 'btn-icon-purple' do %>
               <i class="fa-regular fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar Publicação"></i>
             <% end %>
-            <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'text-danger me-2' do %>
+            <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "Tem a certeza que pretende cancelar a publicação #{post.title}?"}, class: 'btn-cancel' do %>
               <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Publicação"></i>
             <% end %>
           </div>
