@@ -17,21 +17,42 @@
         <%= f.input :name, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
       </div>
     </div>
-    <!-- Gênero -->
-    <%= f.label :gender, 'Gênero' %>
-    <%= f.input :gender, as: :select, collection: User.genders.keys, prompt: 'Selecione um gênero', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
-    <!-- Email -->
-    <%= f.label :email, 'Email' %>
-    <%= f.input :email, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
-    <!-- Contato Telefônico -->
-    <%= f.label :phone, 'Contato Telefônico' %>
-    <%= f.input :phone, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
-    <!-- País -->
-    <%= f.label :country, 'País' %>
-    <%= f.input :country,  as: :select, collection: User.countries.keys, prompt: 'Selecione um país', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
-    <!-- Cidade -->
-    <%= f.label :city, 'Cidade' %>
-    <%= f.input :city,  as: :select, collection: User.cities.keys, prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+    <div class="row">
+      <!-- Gender -->
+      <div class="col-md-6">
+        <%= f.label :gender, 'Gênero' %>
+        <%= f.input :gender, as: :select, collection: User.genders.keys, prompt: 'Selecione um gênero', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <!-- Age -->
+      <div class="col-md-6">
+        <%= f.label :age, 'Idade' %>
+        <%= f.number_field :age, required: true, class: 'form-control bg-white' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Email -->
+        <%= f.label :email, 'Email' %>
+        <%= f.input :email, required: true, label: false, input_html: { class: 'form-control bg-white' }%>
+      </div>
+      <div class="col-md-6">
+        <!-- Contato Telefônico -->
+        <%= f.label :phone, 'Contato Telemóvel' %>
+        <%= f.input :phone, required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <!-- País -->
+        <%= f.label :country, 'País' %>
+        <%= f.input :country,  as: :select, collection: User.countries.keys, prompt: 'Selecione um país', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+      </div>
+      <div class="col-md-6">
+        <!-- Cidade -->
+        <%= f.label :city, 'Cidade' %>
+        <%= f.input :city,  as: :select, collection: User.cities.keys, prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+      </div>
+    </div>
     <!-- Sobre Mim -->
     <%= f.label :about_me, 'Sobre Mim' %>
     <%= f.input :about_me, as: :text, input_html: { rows: 4 }, label: false, input_html: { class: 'form-control bg-white' } %>
