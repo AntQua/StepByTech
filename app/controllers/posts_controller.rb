@@ -12,8 +12,15 @@ class PostsController < ApplicationController
   end
 
   def general
-    @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
-    authorize @posts, :general?
+    # @posts = Post.includes(:user, :program, :event, :step).order(created_at: :desc)
+    @general_posts = Post.for_association_type('none').order(created_at: :desc)
+    @event_posts = Post.for_association_type('event').order(created_at: :desc)
+    @program_and_step_posts = Post.for_association_type('program')
+                                   .or(Post.for_association_type('step'))
+                                   .order(created_at: :desc)
+    authorize @general_posts, :general?
+    authorize @event_posts, :general? # Assuming same policy method applies
+    authorize @program_and_step_posts, :general?
   end
 
   # GET /posts/1
