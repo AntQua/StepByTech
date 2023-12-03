@@ -30,8 +30,9 @@ class UsersController < ApplicationController
     private
 
     def user_params
-      params.require(:user).permit(:name, :age, :gender, :email, :phone, :country, :city, :about_me)
+      params.require(:user).permit(:name, :birth_date, :gender, :email, :phone, :country, :city, :about_me)
     end
+
 
 
     # def after_sign_in_path_for(resource)

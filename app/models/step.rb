@@ -16,6 +16,15 @@ class Step < ApplicationRecord
   # Scopes
   scope :active, -> { where(active: true) }
 
+  def user_count
+    users.count
+  end
+
+  def submissions_count
+    users_programs_steps.joins(:users_programs_steps_submissions).count
+  end
+
+
   private
 
   def dates_must_be_present_and_valid

@@ -20,13 +20,18 @@
     <div class="row">
       <!-- Gender -->
       <div class="col-md-6">
-        <%= f.label :gender, 'Gênero' %>
-        <%= f.input :gender, as: :select, collection: User.genders.keys, prompt: 'Selecione um gênero', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
+        <%= f.label :gender, 'Género' %>
+        <%= f.input :gender, as: :select, collection: User.genders.keys, prompt: 'Selecione um género', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
       </div>
-      <!-- Age -->
+      <!-- Birth Date -->
       <div class="col-md-6">
-        <%= f.label :age, 'Idade' %>
-        <%= f.number_field :age, required: true, class: 'form-control bg-white' %>
+        <%= f.label :birth_date, 'Data de Nascimento' %>
+        <%= f.input :birth_date, as: :string, required: true, label: false,
+                    input_html: {
+                      class: 'form-control bg-white',
+                      data: { birthdate_picker_target: "birthDate", controller: "birthdate-picker" },
+                      value: @user.birth_date.present? ? @user.birth_date.strftime("%d/%m/%Y") : ""
+                    } %>
       </div>
     </div>
     <div class="row">
