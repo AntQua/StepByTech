@@ -30,10 +30,9 @@
                     input_html: {
                       class: 'form-control bg-white',
                       data: { birthdate_picker_target: "birthDate", controller: "birthdate-picker" },
-                      value: @user.birth_date.strftime("%d/%m/%Y")
+                      value: @user.birth_date.present? ? @user.birth_date.strftime("%d/%m/%Y") : ""
                     } %>
       </div>
-
     </div>
     <div class="row">
       <div class="col-md-6">

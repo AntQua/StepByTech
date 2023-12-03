@@ -23,7 +23,8 @@ class User < ApplicationRecord
   # calculate age from the birth date
   def age
     return unless birth_date
-    ((Time.zone.now - birth_date.to_time) / 1.year.seconds).floor
+    now = Time.zone.now.to_date
+    now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
   end
 
   def answered_step?(step_id)
@@ -44,9 +45,6 @@ class User < ApplicationRecord
 
   def at_least_18
     return if birth_date.blank?
-
-    if ((Time.zone.now - birth_date.to_time) / 1.year.seconds).floor < 18
-      errors.add(:birth_date, 'Você deve ter pelo menos 18 anos de idade.')
-    end
+    errors.add(:birth_date, 'Você deve ter pelo menos 18 anos de idade.') if age < 18
   end
 end

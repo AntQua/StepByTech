@@ -69,13 +69,25 @@ class Program < ApplicationRecord
 
   def age_distribution
     age_ranges = {
-      '18-25' => users.where(age: 18..25).count,
-      '26-30' => users.where(age: 26..30).count,
-      '31-35' => users.where(age: 31..35).count,
-      '36-40' => users.where(age: 36..40).count,
-      '41-50' => users.where(age: 41..50).count,
-      '50+'   => users.where('age > ?', 50).count
+      '18-25' => 0,
+      '26-30' => 0,
+      '31-35' => 0,
+      '36-40' => 0,
+      '41-50' => 0,
+      '50+'   => 0
     }
+
+    users.each do |user|
+      user_age = user.age
+      case user_age
+      when 18..25 then age_ranges['18-25'] += 1
+      when 26..30 then age_ranges['26-30'] += 1
+      when 31..35 then age_ranges['31-35'] += 1
+      when 36..40 then age_ranges['36-40'] += 1
+      when 41..50 then age_ranges['41-50'] += 1
+      when 51..   then age_ranges['50+']   += 1
+      end
+    end
 
     total_users = users.count
     return {} if total_users.zero?
