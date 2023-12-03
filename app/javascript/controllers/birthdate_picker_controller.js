@@ -13,9 +13,9 @@ export default class extends Controller {
 
       const options = {
         dateFormat,
-        locale: Portuguese, // Use Portuguese locale
-        maxDate: new Date().fp_incr(-1), // Users should be at least 1 day old
-        yearRange: [1900, new Date().getFullYear()] // Example year range from 1900 to current year
+        locale: Portuguese,
+        maxDate: new Date().fp_incr(-1),
+        defaultDate: input.value, // Set the default date
       };
 
       flatpickr(input, options);
