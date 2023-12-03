@@ -26,22 +26,44 @@
             <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
               <p class="m-0"><span>Data inicial<br>
                   <span><%= program_step.program.begin_date.strftime('%d/%m/%Y') %></p>
-                </li>
-                <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
-                  <p class="m-0"><span>Data final<br>
-                      <span><%= program_step.program.end_date.strftime('%d/%m/%Y') %></p>
-                    </li>
-                  </ul>
-                  <div class="d-flex justify-content-between pt-3">
-                    <%= link_to cancel_apply_to_program_path(program_step.program.id), method: :post, class: "btn" do %>
-                      <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom"></i>
-                    <% end %>
-                    <%= link_to program_path(program_step.program) do %>
-                      <%= image_tag "arrow-right.svg" %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
+            </li>
+            <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
+              <p class="m-0"><span>Data final<br>
+                  <span><%= program_step.program.end_date.strftime('%d/%m/%Y') %></p>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-between pt-3">
+            <%= link_to cancel_apply_to_program_path(program_step.program.id), method: :post, class: "btn" do %>
+              <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom"></i>
+            <% end %>
+            <%= link_to program_path(program_step.program) do %>
+              <%= image_tag "arrow-right.svg" %>
+            <% end %>
+          </div>
         </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<% Program.active.each do |program| %>
+  <h2><%= program.title %></h2>
+  <p>Number of Users: <%= program.user_count %></p>
+  <% program.steps.active.each do |step| %>
+    <h3><%= step.name %></h3>
+    <p>Number of Users in Step: <%= step.user_count %></p>
+    <p>Number of Submissions: <%= step.submissions_count %></p>
+  <% end %>
+
+  <h3>Gender Distribution</h3>
+  <% program.gender_distribution.each do |gender, percentage| %>
+    <p><%= gender %>: <%= percentage %> %</p>
+  <% end %>
+
+  <h3>Age Distribution</h3>
+  <% program.age_distribution.each do |range, percentage| %>
+    <p><%= range %>: <%= percentage %> %</p>
+  <% end %>
+<% end %>
+

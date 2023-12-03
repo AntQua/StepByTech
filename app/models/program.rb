@@ -53,6 +53,37 @@ class Program < ApplicationRecord
     false
   end
 
+  def user_count
+    users.count
+  end
+
+  def gender_distribution
+    total_users = users.count
+    return {} if total_users.zero?
+
+    User.genders.keys.each_with_object({}) do |gender, distribution|
+      count = users.where(gender: User.genders[gender]).count
+      distribution[gender] = (count.to_f / total_users * 100).round(2)
+    end
+  end
+
+  def age_distribution
+    age_ranges = {
+      '18-25' => users.where(age: 18..25).count,
+      '26-30' => users.where(age: 26..30).count,
+      '31-35' => users.where(age: 31..35).count,
+      '36-40' => users.where(age: 36..40).count,
+      '41-50' => users.where(age: 41..50).count,
+      '50+'   => users.where('age > ?', 50).count
+    }
+
+    total_users = users.count
+    return {} if total_users.zero?
+
+    age_ranges.transform_values { |count| (count.to_f / total_users * 100).round(2) }
+  end
+
+
   # Scopes
   scope :active, -> { where(active: true) }
 
