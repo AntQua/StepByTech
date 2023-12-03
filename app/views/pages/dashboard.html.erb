@@ -48,7 +48,7 @@
 
 
 <% Program.active.each do |program| %>
-  <h2><%= program.title %></h2>
+  <h2><strong>Program: </strong><%= program.title %></h2>
   <p>Number of Users: <%= program.user_count %></p>
   <% program.steps.active.each do |step| %>
     <h3><%= step.name %></h3>
@@ -66,4 +66,3 @@
     <p><%= range %>: <%= percentage %> %</p>
   <% end %>
 <% end %>
-
