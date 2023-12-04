@@ -48,21 +48,30 @@
 
 
 <% Program.active.each do |program| %>
-  <h2><strong>Program: </strong><%= program.title %></h2>
-  <p>Number of Users: <%= program.user_count %></p>
-  <% program.steps.active.each do |step| %>
-    <h3><%= step.name %></h3>
-    <p>Number of Users in Step: <%= step.user_count %></p>
-    <p>Number of Submissions: <%= step.submissions_count %></p>
-  <% end %>
+  <div class="card bg-white rounded-4 mb-3 p-3">
+    <h2><strong>Program: </strong><%= program.title %></h2>
+    <p>Number of Users: <%= program.user_count %></p>
 
-  <h3>Gender Distribution</h3>
-  <% program.gender_distribution.each do |gender, percentage| %>
-    <p><%= gender %>: <%= percentage %> %</p>
-  <% end %>
+    <% program.steps.active.each do |step| %>
+      <div class="mb-2">
+        <h3><%= step.name %></h3>
+        <p>Number of Users in Step: <%= step.user_count %></p>
+        <p>Number of Submissions: <%= step.submissions_count %></p>
+      </div>
+    <% end %>
 
-  <h3>Age Distribution</h3>
-  <% program.age_distribution.each do |range, percentage| %>
-    <p><%= range %>: <%= percentage %> %</p>
-  <% end %>
+    <div class="mb-2">
+      <h3>Gender Distribution</h3>
+      <% program.gender_distribution.each do |gender, percentage| %>
+        <p><%= gender %>: <%= percentage %> %</p>
+      <% end %>
+    </div>
+
+    <div class="mb-2">
+      <h3>Age Distribution</h3>
+      <% program.age_distribution.each do |range, percentage| %>
+        <p><%= range %>: <%= percentage %> %</p>
+      <% end %>
+    </div>
+  </div>
 <% end %>
