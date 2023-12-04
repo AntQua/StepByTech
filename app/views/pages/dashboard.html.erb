@@ -48,21 +48,47 @@
 
 
 <% Program.active.each do |program| %>
-  <h2><strong>Program: </strong><%= program.title %></h2>
-  <p>Number of Users: <%= program.user_count %></p>
-  <% program.steps.active.each do |step| %>
-    <h3><%= step.name %></h3>
-    <p>Number of Users in Step: <%= step.user_count %></p>
-    <p>Number of Submissions: <%= step.submissions_count %></p>
-  <% end %>
+  <div class="card bg-white rounded-4 mb-3 p-3">
+    <h2><strong>Programa: </strong><%= program.title %></h2>
+    <p>Número de Candidatos: <%= program.user_count %></p>
 
-  <h3>Gender Distribution</h3>
-  <% program.gender_distribution.each do |gender, percentage| %>
-    <p><%= gender %>: <%= percentage %> %</p>
-  <% end %>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Géneros</h3>
+        <% program.gender_distribution.each do |gender, percentage| %>
+          <p><%= gender %>: <%= percentage %> %</p>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <h3>Idades</h3>
+        <% program.age_distribution.each do |range, percentage| %>
+          <p><%= range %>: <%= percentage %> %</p>
+        <% end %>
+      </div>
+    </div>
 
-  <h3>Age Distribution</h3>
-  <% program.age_distribution.each do |range, percentage| %>
-    <p><%= range %>: <%= percentage %> %</p>
-  <% end %>
+    <div class="row">
+      <% program.steps.active.each do |step| %>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3><%= step.name %></h3>
+              <p>Número de Candidatos no Step: <%= step.user_count %></p>
+              <p>Número de Submissões no Step: <%= step.submissions_count %></p>
+
+              <h4>Géneros</h4>
+              <% step.gender_distribution.each do |gender, percentage| %>
+                <p><%= gender %>: <%= percentage %> %</p>
+              <% end %>
+
+              <h4>Idades</h4>
+              <% step.age_distribution.each do |range, percentage| %>
+                <p><%= range %>: <%= percentage %> %</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>
