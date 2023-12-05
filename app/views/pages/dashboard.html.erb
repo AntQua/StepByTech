@@ -54,18 +54,18 @@
 
     <div class="row">
       <div class="col-md-6">
-        <h3>Distribuição de Género no Programa</h3>
-        <%= pie_chart program.gender_distribution, donut: true %>
+        <%# <h3>Distribuição de Género no Programa</h3> %>
+        <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
       </div>
       <div class="col-md-6">
-        <h3>Distribuição de Idade no Programa</h3>
-        <%= column_chart program.age_distribution %>
+        <%# <h3>Distribuição de Idade no Programa</h3> %>
+        <%= column_chart program.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens"  %>
       </div>
     </div>
 
     <div class="row">
       <% program.steps.active.each do |step| %>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-3">
           <div class="card mb-4">
             <div class="card-body">
               <h4><%= step.name %></h4>
@@ -73,13 +73,13 @@
               <p>Número de Submissões no Step: <%= step.submissions_count %></p>
 
               <div>
-                <h5>Distribuição de Gênero no Step</h5>
-                <%= pie_chart step.gender_distribution, donut: true %>
+                <%# <h5>Distribuição de Género no Step</h5> %>
+                <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
               </div>
 
               <div>
-                <h5>Distribuição de Idade no Step</h5>
-                <%= column_chart step.age_distribution %>
+                <%# <h5>Distribuição de Idade no Step</h5> %>
+                <%= column_chart step.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens"  %>
               </div>
             </div>
           </div>
