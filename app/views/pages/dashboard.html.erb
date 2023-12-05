@@ -54,37 +54,33 @@
 
     <div class="row">
       <div class="col-md-6">
-        <h3>Géneros</h3>
-        <% program.gender_distribution.each do |gender, percentage| %>
-          <p><%= gender %>: <%= percentage %> %</p>
-        <% end %>
+        <h3>Distribuição de Género no Programa</h3>
+        <%= pie_chart program.gender_distribution, donut: true %>
       </div>
       <div class="col-md-6">
-        <h3>Idades</h3>
-        <% program.age_distribution.each do |range, percentage| %>
-          <p><%= range %>: <%= percentage %> %</p>
-        <% end %>
+        <h3>Distribuição de Idade no Programa</h3>
+        <%= column_chart program.age_distribution %>
       </div>
     </div>
 
     <div class="row">
       <% program.steps.active.each do |step| %>
         <div class="col-md-6">
-          <div class="card">
+          <div class="card mb-4">
             <div class="card-body">
-              <h3><%= step.name %></h3>
+              <h4><%= step.name %></h4>
               <p>Número de Candidatos no Step: <%= step.user_count %></p>
               <p>Número de Submissões no Step: <%= step.submissions_count %></p>
 
-              <h4>Géneros</h4>
-              <% step.gender_distribution.each do |gender, percentage| %>
-                <p><%= gender %>: <%= percentage %> %</p>
-              <% end %>
+              <div>
+                <h5>Distribuição de Gênero no Step</h5>
+                <%= pie_chart step.gender_distribution, donut: true %>
+              </div>
 
-              <h4>Idades</h4>
-              <% step.age_distribution.each do |range, percentage| %>
-                <p><%= range %>: <%= percentage %> %</p>
-              <% end %>
+              <div>
+                <h5>Distribuição de Idade no Step</h5>
+                <%= column_chart step.age_distribution %>
+              </div>
             </div>
           </div>
         </div>
