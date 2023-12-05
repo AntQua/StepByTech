@@ -1,0 +1,13 @@
+/* custom.css */
+
+.dashboard-tabs .nav-link {
+  background-color: transparent;
+  color: $dark-gray;
+  font-size: 1.5rem;
+}
+
+.dashboard-tabs .nav-link.active {
+  background-color: transparent;
+  color: $light-purple;
+  border-color: #dee2e6 #dee2e6 #fff; /* Border color */
+}

@@ -47,19 +47,21 @@
 </div>
 
 <% if Program.active.any? %>
-  <ul class="nav nav-tabs">
-    <% Program.active.each_with_index do |program, index| %>
-      <li class="nav-item">
-        <a class="nav-link <%= 'active' if index == 0 %>" id="tab-<%= program.id %>-tab" data-bs-toggle="tab" href="#tab-<%= program.id %>" role="tab" aria-controls="tab-<%= program.id %>" aria-selected="<%= 'true' if index == 0 %>"><%= program.title %></a>
-      </li>
-    <% end %>
-  </ul>
+  <div class="mb-5">
+    <ul class="dashboard-tabs nav nav-tabs">
+      <% Program.active.each_with_index do |program, index| %>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if index == 0 %>" id="tab-<%= program.id %>-tab" data-bs-toggle="tab" href="#tab-<%= program.id %>" role="tab" aria-controls="tab-<%= program.id %>" aria-selected="<%= 'true' if index == 0 %>"><%= program.title %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
   <div class="tab-content">
     <% Program.active.each_with_index do |program, index| %>
       <div class="tab-pane fade <%= 'show active' if index == 0 %>" id="tab-<%= program.id %>" role="tabpanel" aria-labelledby="tab-<%= program.id %>-tab">
         <div class="card bg-white rounded-4 mb-3 p-3">
-          <h2><strong>Programa: </strong><%= program.title %></h2>
+          <h2><strong></strong><%= program.title %></h2>
           <p>Número de Candidatos: <%= program.user_count %></p>
 
           <div class="row">
