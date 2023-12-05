@@ -46,49 +46,62 @@
   <% end %>
 </div>
 
+<% if Program.active.any? %>
+  <div class="mb-5">
+    <ul class="dashboard-tabs nav nav-tabs">
+      <% Program.active.each_with_index do |program, index| %>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if index == 0 %>" id="tab-<%= program.id %>-tab" data-bs-toggle="tab" href="#tab-<%= program.id %>" role="tab" aria-controls="tab-<%= program.id %>" aria-selected="<%= 'true' if index == 0 %>"><%= program.title %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-<% Program.active.each do |program| %>
-  <div class="card bg-white rounded-4 mb-3 p-3">
-    <h2><strong>Programa: </strong><%= program.title %></h2>
-    <p>Número de Candidatos: <%= program.user_count %></p>
+  <div class="tab-content">
+    <% Program.active.each_with_index do |program, index| %>
+      <div class="tab-pane fade <%= 'show active' if index == 0 %>" id="tab-<%= program.id %>" role="tabpanel" aria-labelledby="tab-<%= program.id %>-tab">
+        <div class="card bg-white rounded-4 mb-3 p-3">
+          <h2><strong></strong><%= program.title %></h2>
+          <p>Número de Candidatos: <%= program.user_count %></p>
 
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Géneros</h3>
-        <% program.gender_distribution.each do |gender, percentage| %>
-          <p><%= gender %>: <%= percentage %> %</p>
-        <% end %>
-      </div>
-      <div class="col-md-6">
-        <h3>Idades</h3>
-        <% program.age_distribution.each do |range, percentage| %>
-          <p><%= range %>: <%= percentage %> %</p>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row">
-      <% program.steps.active.each do |step| %>
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <h3><%= step.name %></h3>
-              <p>Número de Candidatos no Step: <%= step.user_count %></p>
-              <p>Número de Submissões no Step: <%= step.submissions_count %></p>
-
-              <h4>Géneros</h4>
-              <% step.gender_distribution.each do |gender, percentage| %>
-                <p><%= gender %>: <%= percentage %> %</p>
-              <% end %>
-
-              <h4>Idades</h4>
-              <% step.age_distribution.each do |range, percentage| %>
-                <p><%= range %>: <%= percentage %> %</p>
-              <% end %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+            </div>
+            <div class="col-md-6">
+              <%= column_chart program.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
             </div>
           </div>
+
+          <% if program.steps.active.any? %>
+            <div class="row">
+              <% program.steps.active.each do |step| %>
+                <div class="col-md-6 mt-3">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h4><%= step.name %></h4>
+                      <p>Número de Candidatos no Step: <%= step.user_count %></p>
+                      <p>Número de Submissões no Step: <%= step.submissions_count %></p>
+
+                      <div>
+                        <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+                      </div>
+
+                      <div>
+                        <%= column_chart step.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <h3 class="mt-3">De momento não há Steps activos neste programa.</h3>
+          <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
+<% else %>
+  <h3>Não há programas ativos no momento.</h3>
 <% end %>

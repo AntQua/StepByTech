@@ -14,3 +14,5 @@ pin "sweetalert2", to: "https://ga.jspm.io/npm:sweetalert2@11.9.0/dist/sweetaler
 pin "tabulator-jspdf", to: "jspdf.umd.min.js"
 pin "tabulator-xlsx", to: "xlsx.full.min.js"
 pin "tabulator-jspdf-autotable", to: "jspdf.plugin.autotable.min.js"
+pin "chartkick", to: "chartkick.js"
+pin "Chart.bundle", to: "Chart.bundle.js"

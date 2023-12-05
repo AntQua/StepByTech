@@ -28,9 +28,10 @@ class Step < ApplicationRecord
     total_users = users.count
     return {} if total_users.zero?
 
-    User.genders.keys.each_with_object({}) do |gender, distribution|
-      count = users.where(gender: User.genders[gender]).count
-      distribution[gender] = (count.to_f / total_users * 100).round(2)
+    genders = { 'Masculino' => 0, 'Feminino' => 1, 'Outro' => 2 }
+    genders.each_with_object({}) do |(key, value), distribution|
+      count = users.where(gender: value).count
+      distribution[key] = (count.to_f / total_users * 100).round(2)
     end
   end
 
@@ -60,6 +61,21 @@ class Step < ApplicationRecord
     return {} if total_users.zero?
 
     age_ranges.transform_values { |count| (count.to_f / total_users * 100).round(2) }
+  end
+
+  private
+
+  def dates_must_be_present_and_valid
+    dates.reject!(&:blank?)
+    if dates.blank?
+      errors.add(:dates, "must be present")
+    else
+      dates.each do |date|
+        unless date.is_a?(Date)
+          errors.add(:dates, "must contain valid date values")
+        end
+      end
+    end
   end
 
 
