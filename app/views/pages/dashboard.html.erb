@@ -4,104 +4,109 @@
   <p class="m-0 txt-links-actived">Dashboard</p>
 </div>
 
-<div class="programs-list row">
-  <% @candidate_programs.each do |program_step| %>
-    <div class="program-card col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
-        <div class="d-flex row card-body flex-grow-1">
-            <%# Image program %>
-            <% if program_step.program.image.attached? %>
-              <%= image_tag program_step.program.image, class: "image-program-list position-relative" %>
-            <% else %>
-              <%= image_tag "temp_thumb.jpg", class: "image-program-list", alt: "default image program" %>
-            <% end %>
-            <%# Image program %>
-            <span class="badge text-bg-primary badge-program-dashboard"><%= program_step.status %></span>
-          <div class="d-flex justify-content-between align-items-center p-3">
-            <p class="card-title-dashboard"><%= program_step.program.title %></p>
-            <div class="badge text-bg-primary" style="height: 20px"><%= program_step.step.name %></div>
-          </div>
-          <p class="card-sub-title-dashboard mb-4 line-container"><%= program_step.program.description %></p>
-          <ul class="list-unstyled d-flex gap-2 justify-content-center column flex-md-row flex-sm-column">
-            <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
-              <p class="m-0"><span>Data inicial<br>
-                  <span><%= program_step.program.begin_date.strftime('%d/%m/%Y') %></p>
-            </li>
-            <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
-              <p class="m-0"><span>Data final<br>
-                  <span><%= program_step.program.end_date.strftime('%d/%m/%Y') %></p>
-            </li>
-          </ul>
-          <div class="d-flex justify-content-between pt-3">
-            <%= link_to cancel_apply_to_program_path(program_step.program.id), method: :post, class: "btn" do %>
-              <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom"></i>
-            <% end %>
-            <%= link_to program_path(program_step.program) do %>
-              <%= image_tag "arrow-right.svg" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
 
-<% if Program.active.any? %>
-  <div class="mb-5">
-    <ul class="dashboard-tabs nav nav-tabs">
-      <% Program.active.each_with_index do |program, index| %>
-        <li class="nav-item">
-          <a class="nav-link <%= 'active' if index == 0 %>" id="tab-<%= program.id %>-tab" data-bs-toggle="tab" href="#tab-<%= program.id %>" role="tab" aria-controls="tab-<%= program.id %>" aria-selected="<%= 'true' if index == 0 %>"><%= program.title %></a>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="tab-content">
-    <% Program.active.each_with_index do |program, index| %>
-      <div class="tab-pane fade <%= 'show active' if index == 0 %>" id="tab-<%= program.id %>" role="tabpanel" aria-labelledby="tab-<%= program.id %>-tab">
-        <div class="card bg-white rounded-4 mb-3 p-3">
-          <h2><strong></strong><%= program.title %></h2>
-          <p>Número de Candidatos: <%= program.user_count %></p>
-
-          <div class="row">
-            <div class="col-md-6">
-              <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+<% if policy(Program).dashboard? %>
+  <div class="programs-list row">
+    <% @candidate_programs.each do |program_step| %>
+      <div class="program-card col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 bg-white rounded-4 d-flex flex-column pt-3">
+          <div class="d-flex row card-body flex-grow-1">
+              <%# Image program %>
+              <% if program_step.program.image.attached? %>
+                <%= image_tag program_step.program.image, class: "image-program-list position-relative" %>
+              <% else %>
+                <%= image_tag "temp_thumb.jpg", class: "image-program-list", alt: "default image program" %>
+              <% end %>
+              <%# Image program %>
+              <span class="badge text-bg-primary badge-program-dashboard"><%= program_step.status %></span>
+            <div class="d-flex justify-content-between align-items-center p-3">
+              <p class="card-title-dashboard"><%= program_step.program.title %></p>
+              <div class="badge text-bg-primary" style="height: 20px"><%= program_step.step.name %></div>
             </div>
-            <div class="col-md-6">
-              <%= column_chart program.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
-            </div>
-          </div>
-
-          <% if program.steps.active.any? %>
-            <div class="row">
-              <% program.steps.active.each do |step| %>
-                <div class="col-md-6 mt-3">
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <h4><%= step.name %></h4>
-                      <p>Número de Candidatos no Step: <%= step.user_count %></p>
-                      <p>Número de Submissões no Step: <%= step.submissions_count %></p>
-
-                      <div>
-                        <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
-                      </div>
-
-                      <div>
-                        <%= column_chart step.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <p class="card-sub-title-dashboard mb-4 line-container"><%= program_step.program.description %></p>
+            <ul class="list-unstyled d-flex gap-2 justify-content-center column flex-md-row flex-sm-column">
+              <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
+                <p class="m-0"><span>Data inicial<br>
+                    <span><%= program_step.program.begin_date.strftime('%d/%m/%Y') %></p>
+              </li>
+              <li class="card-date d-flex flex-column-reverse align-items-center justify-content-center border-dashed dark-gray-border p-2 px-4 col-md-6">
+                <p class="m-0"><span>Data final<br>
+                    <span><%= program_step.program.end_date.strftime('%d/%m/%Y') %></p>
+              </li>
+            </ul>
+            <div class="d-flex justify-content-between pt-3">
+              <%= link_to cancel_apply_to_program_path(program_step.program.id), method: :post, class: "btn" do %>
+                <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="bottom"></i>
+              <% end %>
+              <%= link_to program_path(program_step.program) do %>
+                <%= image_tag "arrow-right.svg" %>
               <% end %>
             </div>
-          <% else %>
-            <h3 class="mt-3">De momento não há Steps activos neste programa.</h3>
-          <% end %>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
-<% else %>
-  <h3>Não há programas ativos no momento.</h3>
+<% end %>
+
+<% if policy(Program).admin_dashboard? %>
+  <% if Program.active.any? %>
+    <div class="mb-5">
+      <ul class="dashboard-tabs nav nav-tabs">
+        <% Program.active.each_with_index do |program, index| %>
+          <li class="nav-item">
+            <a class="nav-link <%= 'active' if index == 0 %>" id="tab-<%= program.id %>-tab" data-bs-toggle="tab" href="#tab-<%= program.id %>" role="tab" aria-controls="tab-<%= program.id %>" aria-selected="<%= 'true' if index == 0 %>"><%= program.title %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="tab-content">
+      <% Program.active.each_with_index do |program, index| %>
+        <div class="tab-pane fade <%= 'show active' if index == 0 %>" id="tab-<%= program.id %>" role="tabpanel" aria-labelledby="tab-<%= program.id %>-tab">
+          <div class="card bg-white rounded-4 mb-3 p-3">
+            <h2><strong></strong><%= program.title %></h2>
+            <p>Número de Candidatos: <%= program.user_count %></p>
+
+            <div class="row">
+              <div class="col-md-6">
+                <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+              </div>
+              <div class="col-md-6">
+                <%= column_chart program.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
+              </div>
+            </div>
+
+            <% if program.steps.active.any? %>
+              <div class="row">
+                <% program.steps.active.each do |step| %>
+                  <div class="col-md-6 mt-3">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h4><%= step.name %></h4>
+                        <p>Número de Candidatos no Step: <%= step.user_count %></p>
+                        <p>Número de Submissões no Step: <%= step.submissions_count %></p>
+
+                        <div>
+                          <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+                        </div>
+
+                        <div>
+                          <%= column_chart step.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <h3 class="mt-3">De momento não há Steps activos neste programa.</h3>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h3>Não há programas ativos no momento.</h3>
+  <% end %>
 <% end %>

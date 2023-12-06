@@ -61,4 +61,12 @@ class ProgramPolicy < ApplicationPolicy
     def disapprove?
       user.is_admin
     end
+
+    def dashboard?
+      user.present? && !user.is_admin
+    end
+
+    def admin_dashboard?
+      user.present? && user.is_admin
+    end
 end

@@ -69,18 +69,24 @@ end
   )
 end
 
-# Assign 15 users to the first program and 25 to the second program
+# Assign users to programs and steps
 first_program = Program.first
 second_program = Program.second
 
-# Assign users to the first step of each program
-first_step_first_program = first_program.steps.order(:step_order).first
-second_step_first_program = second_program.steps.order(:step_order).first
-
-User.limit(15).each do |user|
-  UsersProgramsStep.create!(user: user, program: first_program, step: first_step_first_program)
+# Assign users to the first program (15 users: 10 to step 1 and 5 to step 2)
+first_program_steps = first_program.steps.order(:step_order)
+User.limit(10).each do |user|
+  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.first)
+end
+User.offset(10).limit(5).each do |user|
+  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.second)
 end
 
-User.offset(15).limit(25).each do |user|
-  UsersProgramsStep.create!(user: user, program: second_program, step: second_step_first_program)
+# Assign users to the second program (25 users: 15 to step 1 and 10 to step 2)
+second_program_steps = second_program.steps.order(:step_order)
+User.offset(15).limit(15).each do |user|
+  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.first)
+end
+User.offset(30).limit(10).each do |user|
+  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.second)
 end
