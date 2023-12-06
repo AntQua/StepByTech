@@ -123,8 +123,17 @@
 
 <% if policy(@event).edit? %>
   <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <p><strong>Total de inscritos no evento:</strong> <%= @event.users.count %></p>
-
+    <div class="d-flex justify-content-between mb-4" >
+      <p><strong>Total de inscritos no evento:</strong> <%= @event.users.count %></p>
+      <div class="d-flex justify-content-end gap-2">
+        <%= link_to export_excel_event_path(@event), class: 'btn-excel text-decoration-none', method: :post do%>
+          <i class="fa-solid fa-file-excel"></i>
+        <% end %>
+        <%= link_to export_pdf_event_path(@event), class: 'btn-pdf text-decoration-none', method: :post do %>
+          <i class="fa-solid fa-file-pdf"></i>
+        <% end %>
+      </div>
+    </div>
     <!-- Table starts here -->
     <table class="table table-striped">
       <thead>
@@ -153,4 +162,3 @@
   </div>
 </div>
 <% end %>
-
