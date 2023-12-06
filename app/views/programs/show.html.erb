@@ -95,6 +95,12 @@
   <%# Candidatos tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">
     <div class="d-flex justify-content-end gap-2">
+      <div class="input-group my-3">
+        <input id="searchInput" class="form-control" type="text" placeholder="Search">
+        <button class="btn btn-search" type="button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
       <button data-action="click->candidate#downloadXlsx" class="btn-excel text-decoration-none mt-3 mb-3">
         <i class="fa-solid fa-file-excel"></i>
       </button>

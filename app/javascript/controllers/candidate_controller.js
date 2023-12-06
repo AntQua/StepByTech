@@ -6,7 +6,6 @@ export default class extends Controller {
 
   async connect() {
     await this.setup();
-
   }
 
   loadStepsOptions(programId) {
@@ -125,6 +124,10 @@ export default class extends Controller {
         this.saveCandidate(data);
       }
     });
+
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", (event) => this.searchCandidates(event));
+
   }
 
   showApproveConfirmation(event)
@@ -196,27 +199,26 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": getMetaValue("csrf-token"),
           }
-        })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`Erro na solicitação: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then((response) => {
-              Swal.fire({
-                position: "center",
-                icon: 'success',
-                title: response.message,
-                showConfirmButton: false,
-                timer: 1500
-              });
-
-              window.candidateTabulator.setData();
-            })
-            .catch((error) => {
-              console.error("Erro ao processar a solicitação:", error);
+        }).then((response) => {
+            if (!response.ok) {
+              throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((response) => {
+            Swal.fire({
+              position: "center",
+              icon: 'success',
+              title: response.message,
+              showConfirmButton: false,
+              timer: 1500
             });
+
+            window.candidateTabulator.setData();
+          })
+          .catch((error) => {
+            console.error("Erro ao processar a solicitação:", error);
+          });
       }
     });
   }
@@ -254,7 +256,78 @@ export default class extends Controller {
       title:"Candidatos", //add title to report
     });
   }
-  // addNewRow() {
-  //   this.attributesTabulator.addRow({ program_id: this.programId }, true);
-  // }
+
+  searchCandidates(event) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+    this.candidateTabulator.setFilter("user_name", "like", searchTerm);
+  }
+
+  evaluateResponse(event) {
+    Swal.fire({
+      title: "Qual a nota?",
+      html: `
+        <input id="answer_weight" type="number" class="swal2-input" max="100" min="0"/>
+      `,
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Confirmar",
+      showLoaderOnConfirm: true,
+      confirmButtonColor: "#B973FF",
+      preConfirm: async (evaluate) => {
+        fetch(`/users_programs_steps/disapprove/${user_program_step_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": getMetaValue("csrf-token"),
+          }
+        }).then((response) => {
+            if (!response.ok) {
+              throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((response) => {
+            Swal.fire({
+              position: "center",
+              icon: 'success',
+              title: response.message,
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            window.candidateTabulator.setData();
+          })
+          .catch((error) => {
+            console.error("Erro ao processar a solicitação:", error);
+          });
+        // try {
+        //   const githubUrl = `
+        //     https://api.github.com/users/${login}
+        //   `;
+        //   const response = await fetch(githubUrl);
+        //   if (!response.ok) {
+        //     return Swal.showValidationMessage(`
+        //       ${JSON.stringify(await response.json())}
+        //     `);
+        //   }
+        //   return response.json();
+        // } catch (error) {
+        //   Swal.showValidationMessage(`
+        //     Request failed: ${error}
+        //   `);
+        // }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url
+        });
+      }
+    });
+  }
 }

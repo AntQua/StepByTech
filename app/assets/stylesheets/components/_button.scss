@@ -168,3 +168,15 @@ input:checked + .slider:before {
   border: none;
   text-decoration: none;
 }
+
+.btn-search {
+  background: $light-purple;
+  color: $white;
+
+  border-radius: 0 6px 6px 0;
+
+  &:hover {
+    background: $purple;
+    color: $white;
+  }
+}

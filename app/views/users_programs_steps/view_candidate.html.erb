@@ -4,7 +4,7 @@
   <%= render partial: "shared/card_profile_details", locals: { user: @user_program_step.user, view: true } %>
 </div>
 <%# lógica para apresentar questionario.. %>
-<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3">
+<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3" data-controller="candidate">
   <h2 class="text-center">Respostas dos Questionários</h2>
   <div class="accordion" id="stepsQuestionnaries">
     <% if @questions_and_answers.present? %>
@@ -21,7 +21,12 @@
                 <h5><%= question[1][:title] %></h5>
                 <ul>
                   <% question[1][:answers]&.each do |answer| %>
-                    <li><%= answer %></li>
+                    <li>
+                      <% if question[1][:type] === 0 %>
+                        <button data-action="click->candidate#evaluateResponse">Avaliar</button>
+                      <% end %>
+                      <%= answer %>
+                    </li>
                   <% end %>
                 </ul>
               <% end %>
@@ -33,10 +38,8 @@
       <p>Nenhuma resposta disponível.</p>
     <% end %>
   </div>
-    <%# if @user_program_step %>
-
-    <%# else %>
-      <%#= redirect_to program_path(@program), alert: 'Candidato não encontrado!' %>
-    <%# end %>
+  <%# if @user_program_step %>
+  <%# else %>
+  <%#= redirect_to program_path(@program), alert: 'Candidato não encontrado!' %>
+  <%# end %>
 </div>
-
