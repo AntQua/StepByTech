@@ -59,9 +59,11 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "chartkick"
-gem 'axlsx_rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'axlsx_rails'
+gem 'rubyzip'
+
 
 
 group :development, :test do

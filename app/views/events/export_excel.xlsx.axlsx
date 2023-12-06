@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Event Users") do |sheet|
+  sheet.add_row ["Name", "Email", "Program"]
+  @event.users.each do |user|
+    user_program = user.programs.find_by(id: @event.program_id)
+    sheet.add_row [user.name, user.email, user_program&.title]
+  end
+end
+

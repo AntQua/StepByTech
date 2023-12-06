@@ -1,0 +1,22 @@
+<h2>Event Users</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Program</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event.users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <% user_program = user.programs.find_by(id: @event.program_id) %>
+          <%= user_program&.title || 'N/A' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
