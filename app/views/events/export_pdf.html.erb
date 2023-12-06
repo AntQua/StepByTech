@@ -1,4 +1,29 @@
-<h2>Event Users</h2>
+<h2>Lista de Participantes no Evento</h2>
+
+<div>
+  <p><strong>Evento:</strong> <%= @event.title %></p>
+   <p><strong>Data do Evento:</strong> <%= @event.date.strftime('%d/%m/%Y') %></p>
+   <p class="d-flex gap-2 align-items-center">
+      <% if @event.hour_start && @event.hour_finish %>
+      <strong>Hora de Inicio:</strong> <%= @event.hour_start.strftime('%H:%M') %>
+      <strong>| Hora de Fim:</strong> <%= @event.hour_finish.strftime('%H:%M') %>h
+      <% end %>
+    </p>
+
+    <p><strong>Formato:</strong> <span><%= @event.event_type.capitalize %></span></p>
+
+    <% if @event.program || @event.step %>
+      <div>
+        <% if @event.program %>
+          <p><strong>Programa associado:</strong> <span><%= @event.program.title %></span> </p>
+        <% end %>
+        <% if @event.step %>
+          <p><strong>Step associado:</strong> <span><%= @event.step.name_with_order %></span> </p>
+        <% end %>
+      </div>
+    <% end %>
+</div>
+
 <table class="table">
   <thead>
     <tr>

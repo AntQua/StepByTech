@@ -1,9 +1,39 @@
 wb = xlsx_package.workbook
-wb.add_worksheet(name: "Event Users") do |sheet|
-  sheet.add_row ["Name", "Email", "Program"]
+
+# Add a sheet for the event details and participants
+wb.add_worksheet(name: "Detalhes do Evento") do |sheet|
+  # Event details
+  sheet.add_row ["Evento:", @event.title]
+  sheet.add_row ["Data do Evento:", @event.date.strftime('%d/%m/%Y')]
+
+  if @event.hour_start && @event.hour_finish
+    sheet.add_row ["Hora de Inicio:", @event.hour_start.strftime('%H:%M')]
+    sheet.add_row ["Hora de Inicio:", @event.hour_start.strftime('%H:%M')]
+  end
+
+  sheet.add_row ["Formato:", @event.event_type.capitalize]
+
+  if @event.program
+    sheet.add_row ["Programa associado:", @event.program.title]
+  end
+
+  if @event.step
+    sheet.add_row ["Step associado:", @event.step.name_with_order]
+  end
+
+  # Blank row for spacing
+  sheet.add_row []
+
+  # Participant header
+  sheet.add_row ["Participantes do Evento"]
+
+  # Participant list header row
+  sheet.add_row ["Nome", "Email", "Programa"]
+
+  # Iterating over each user and adding a row per user
   @event.users.each do |user|
     user_program = user.programs.find_by(id: @event.program_id)
-    sheet.add_row [user.name, user.email, user_program&.title]
+    program_title = user_program&.title || 'N/A'
+    sheet.add_row [user.name, user.email, program_title]
   end
 end
-
