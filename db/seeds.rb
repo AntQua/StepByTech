@@ -27,7 +27,7 @@ Step.destroy_all
 
 # Create 2 programs
 2.times do |i|
-  program = Program.create!(
+  Program.create!(
     title: "Program #{i + 1}",
     description: "Description for Program #{i + 1}",
     registration_start_date: Date.today,
@@ -38,12 +38,14 @@ Step.destroy_all
     active: true,
     completed: false
   )
+end
 
-  # Create 2 steps for each program with valid dates
+# Create 2 steps for each program with valid dates
+Program.all.each do |program|
   2.times do |j|
     Step.create!(
       program_id: program.id,
-      name: "Step #{j + 1} of Program #{i + 1}",
+      name: "Step #{j + 1} of #{program.title}",
       step_order: j,
       submission: true,
       active: true,
@@ -52,7 +54,7 @@ Step.destroy_all
   end
 end
 
-# Create 40 users (20 for each program)
+# Create 40 users
 40.times do |k|
   birth_year = rand(1973..2005)
   birth_month = rand(1..12)
@@ -67,14 +69,24 @@ end
   )
 end
 
-# Assign users to programs and steps without repetition
-programs = Program.all
-programs.each do |program|
-  steps = program.steps
-  users = User.where.not(email: admin_user.email).limit(20)
-  users.each_with_index do |user, index|
-    step = steps[index % steps.size]
-    UsersProgramsStep.create!(user: user, program: program, step: step)
-  end
+# Assign users to programs and steps
+first_program = Program.first
+second_program = Program.second
+
+# Assign users to the first program (15 users: 10 to step 1 and 5 to step 2)
+first_program_steps = first_program.steps.order(:step_order)
+User.limit(10).each do |user|
+  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.first)
+end
+User.offset(10).limit(5).each do |user|
+  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.second)
 end
 
+# Assign users to the second program (25 users: 15 to step 1 and 10 to step 2)
+second_program_steps = second_program.steps.order(:step_order)
+User.offset(15).limit(15).each do |user|
+  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.first)
+end
+User.offset(30).limit(10).each do |user|
+  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.second)
+end

@@ -80,6 +80,8 @@ class Program < ApplicationRecord
 
     users.each do |user|
       user_age = user.age
+      next unless user_age # Skip if user_age is nil
+
       case user_age
       when 18..25 then age_ranges['18-25'] += 1
       when 26..30 then age_ranges['26-30'] += 1
@@ -95,6 +97,7 @@ class Program < ApplicationRecord
 
     age_ranges.transform_values { |count| (count.to_f / total_users * 100).round(2) }
   end
+
 
 
   # Scopes
