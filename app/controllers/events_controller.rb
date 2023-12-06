@@ -17,7 +17,10 @@ class EventsController < ApplicationController
   def show
     authorize @event
     @programs = Program.where(active: true)
+    # Eager load users with their programs
+    @event = Event.includes(users: :programs).find(params[:id])
   end
+
 
   def new
     @event = Event.new
