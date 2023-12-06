@@ -126,10 +126,12 @@
     <div class="d-flex justify-content-between mb-4" >
       <p><strong>Total de inscritos no evento:</strong> <%= @event.users.count %></p>
       <div class="d-flex justify-content-end gap-2">
-        <%# <%= link_to 'Export to Excel', export_excel_event_path(@event), class: 'btn-excel text-decoration-none', method: :post, data: { turbo: false } %>
-        <%# <%= link_to 'Export to PDF', export_pdf_event_path(@event), class: 'btn-pdf text-decoration-none', method: :post, data: { turbo: false } %>
-        <%= button_to 'Export to Excel', export_excel_event_path(@event), method: :post, form_class: 'd-inline', class: 'btn-excel text-decoration-none', data: { turbo: false } %>
-        <%= button_to 'Export to PDF', export_pdf_event_path(@event, format: :pdf), method: :post, class: 'btn-pdf text-decoration-none', data: { turbo: false } %>
+        <%= button_to export_excel_event_path(@event), method: :post, form_class: 'd-inline', class: 'btn-excel text-decoration-none mt-3 mb-3', data: { turbo: false } do %>
+          <i class="fa-solid fa-file-excel"></i>
+        <% end %>
+        <%= button_to export_pdf_event_path(@event, format: :pdf), method: :post, class: 'btn-pdf text-decoration-none mt-3 mb-3', data: { turbo: false } do %>
+          <i class="fa-solid fa-file-pdf"></i>
+        <% end %>
       </div>
     </div>
     <!-- Table starts here -->
