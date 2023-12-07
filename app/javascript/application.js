@@ -12,3 +12,5 @@ import Swal from 'sweetalert2';
 window.Swal = Swal;
 import "chartkick"
 import "Chart.bundle"
+import "trix"
+import "@rails/actiontext"

@@ -14,7 +14,7 @@
           <h3 class="mx-auto mt-2"><%= event.title %></h3>
         </div>
       </div>
-      <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.truncate(50) %></p>
+      <p class="card-sub-title-dashboard mt-3 mb-3"><%= event.description.to_plain_text.truncate(50) %></p>
       <div class="d-flex gap-2 align-items-center">
         <%= image_tag "date_range.png" %>
         <p class="m-0 card-sub-title-dashboard"><strong>Data do Evento:</strong> <%= event.date.strftime('%d/%m/%Y') %></p>
