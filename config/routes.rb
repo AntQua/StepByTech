@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :events do
       post 'participate', on: :member
       post 'unregister', on: :member
+      post 'export_excel', on: :member
+      post 'export_pdf', on: :member
     end
 
     post 'programs/:program_id/apply', to: 'users_programs_steps#apply_to_program', as: 'apply_to_program'

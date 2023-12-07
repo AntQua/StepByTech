@@ -7,6 +7,8 @@ class Event < ApplicationRecord
   belongs_to :step, optional: true
   has_one_attached :image
 
+  has_rich_text :description
+
   enum status: { agendado: 0, terminado: 1 }
   enum event_type: { online: 0, presencial: 1 }
 end

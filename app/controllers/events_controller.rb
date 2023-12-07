@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  include Pundit
+  include Pundit::Authorization
 
   before_action :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy, :participate, :unregister]
@@ -17,6 +17,8 @@ class EventsController < ApplicationController
   def show
     authorize @event
     @programs = Program.where(active: true)
+    # Eager load users with their programs
+    @event = Event.includes(users: :programs).find(params[:id])
   end
 
   def new
@@ -86,6 +88,33 @@ class EventsController < ApplicationController
     end
 
     redirect_to @event, notice: message
+  end
+
+  def export_excel
+    @event = Event.find(params[:id])
+    request.format = :xlsx
+    respond_to do |format|
+      format.xlsx do
+        response.headers['Content-Disposition'] = 'attachment; filename="event_users.xlsx"'
+        render layout: false
+      end
+    end
+  end
+
+  def export_pdf
+    @event = Event.find(params[:id])
+
+    respond_to do |format|
+      format.pdf do
+        render pdf: "event_users",
+               template: "events/export_pdf",
+               formats: [:html],  
+               layout: "pdf",
+               orientation: "Landscape",
+               page_size: "A4",
+               disposition: "attachment"
+      end
+    end
   end
 
   private

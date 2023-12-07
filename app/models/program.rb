@@ -61,9 +61,10 @@ class Program < ApplicationRecord
     total_users = users.count
     return {} if total_users.zero?
 
-    User.genders.keys.each_with_object({}) do |gender, distribution|
-      count = users.where(gender: User.genders[gender]).count
-      distribution[gender] = (count.to_f / total_users * 100).round(2)
+    genders = { 'Masculino' => 0, 'Feminino' => 1, 'Outro' => 2 }
+    genders.each_with_object({}) do |(key, value), distribution|
+      count = users.where(gender: value).count
+      distribution[key] = (count.to_f / total_users * 100).round(2)
     end
   end
 
@@ -79,13 +80,15 @@ class Program < ApplicationRecord
 
     users.each do |user|
       user_age = user.age
+      next unless user_age # Skip if user_age is nil
+
       case user_age
       when 18..25 then age_ranges['18-25'] += 1
       when 26..30 then age_ranges['26-30'] += 1
       when 31..35 then age_ranges['31-35'] += 1
       when 36..40 then age_ranges['36-40'] += 1
       when 41..50 then age_ranges['41-50'] += 1
-      when 51..   then age_ranges['50+']   += 1
+      else age_ranges['50+']   += 1 if user_age > 50
       end
     end
 
@@ -94,6 +97,7 @@ class Program < ApplicationRecord
 
     age_ranges.transform_values { |count| (count.to_f / total_users * 100).round(2) }
   end
+
 
 
   # Scopes

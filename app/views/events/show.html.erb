@@ -85,22 +85,82 @@
     </div>
   </div>
 
+  <!-- Tab Button -->
   <% if policy(@event).edit? %>
     <div class="mt-4">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link position-relative active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                Inscritos no evento
-                <span class="badge rounded-pill bg-success position-absolute" style="top: 1; right: 1; transform: translate(20%, -20%);">
-                  <%= @event.users.count %>
-                  <span class="visually-hidden">inscritos no evento</span>
-                </span>
-              </button>
-            </li>
-        </ul>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            onclick="this.classList.toggle('active-tab')"
+            class="nav-link position-relative"
+            id="profile-tab"
+            data-bs-toggle="collapse"
+            data-bs-target="#participantsTable"
+            type="button"
+            aria-controls="participantsTable"
+            aria-expanded="false"
+          >
+            Ver Lista de Participantes
+            <span class="badge rounded-pill bg-success position-absolute" style="top: 1; right: 1; transform: translate(20%, -20%);">
+              <%= @event.users.count %>
+              <span class="visually-hidden">inscritos no evento</span>
+            </span>
+          </button>
+        </li>
+      </ul>
     </div>
   <% end %>
+
 </div>
+
+<div class="text-start mt-2 mb-3 pt-3">
+  <%= link_to events_path do %>
+    <%= image_tag "arrow_left.png" %>
+  <% end %>
+</div>
+
+<% if policy(@event).edit? %>
+  <div class="collapse" id="participantsTable">
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="d-flex justify-content-between mb-4" >
+        <p><strong>Total de participantes incritos no evento:</strong> <%= @event.users.count %></p>
+        <div class="d-flex justify-content-end gap-2">
+          <%= button_to export_excel_event_path(@event), method: :post, form_class: 'd-inline', class: 'btn-excel text-decoration-none mt-3 mb-3', data: { turbo: false } do %>
+            <i class="fa-solid fa-file-excel"></i>
+          <% end %>
+          <%= button_to export_pdf_event_path(@event, format: :pdf), method: :post, class: 'btn-pdf text-decoration-none mt-3 mb-3', data: { turbo: false } do %>
+            <i class="fa-solid fa-file-pdf"></i>
+          <% end %>
+        </div>
+      </div>
+      <!-- Table starts here -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Programa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @event.users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td>
+                <% user_program = user.programs.find_by(id: @event.program_id) %>
+                <% if user_program %>
+                  <%= user_program.title %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- Table ends here -->
+    </div>
+  </div>
+<% end %>
 
 <% if policy(@event).participate? && @event.agendado?%>
   <div class="d-flex justify-content-end">
@@ -110,22 +170,6 @@
         <%= button_to 'Remover inscrição no evento', unregister_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
       <% else %>
         <%= button_to 'Participar neste evento', participate_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<div class="text-start mt-2 mb-3 pt-3">
-  <%= link_to events_path do %>
-    <%= image_tag "arrow_left.png" %>
-  <% end %>
-</div>
-
-<% if policy(@event).edit? %>
-    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      <p><strong>Total de inscritos no evento :</strong> <%= @event.users.count %></p>
-      <% @event.users.each do |user| %>
-        <p><%= user.name %></p>
       <% end %>
     </div>
   </div>
