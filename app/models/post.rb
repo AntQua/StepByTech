@@ -4,8 +4,8 @@ class Post < ApplicationRecord
   belongs_to :step, optional: true
   belongs_to :event, optional: true
 
-
   has_many_attached :media_contents # This will handle both images and videos
+  has_rich_text :body
 
   validates :title, presence: true
   validates :body, presence: true
