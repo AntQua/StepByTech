@@ -65,7 +65,18 @@
       <% Program.active.each_with_index do |program, index| %>
         <div class="tab-pane fade <%= 'show active' if index == 0 %>" id="tab-<%= program.id %>" role="tabpanel" aria-labelledby="tab-<%= program.id %>-tab">
           <div class="card bg-white rounded-4 mb-3 p-3">
-            <h2><strong></strong><%= program.title %></h2>
+            <div class="d-flex justify-content-between mb-4">
+              <h2><%= program.title %></h2>
+              <div class="d-flex justify-content-end gap-2">
+                <%= button_to export_programs_info_excel_path(format: :xlsx), method: :post, class: 'btn-excel text-decoration-none', data: { turbo: false } do %>
+                  <i class="fa-solid fa-file-excel"></i>
+                <% end %>
+                <%= button_to export_programs_info_pdf_path, method: :post, class: 'btn-pdf text-decoration-none', data: { turbo: false } do %>
+                  <i class="fa-solid fa-file-pdf"></i>
+                <% end %>
+              </div>
+            </div>
+
             <p>Número de Candidatos: <%= program.user_count %></p>
 
             <div class="row">
