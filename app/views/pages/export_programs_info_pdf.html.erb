@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Programs Info</title>
+  <style>
+    h2{
+      color: #B973FF;
+    }
+
+    .steps{
+      color: #0EDEAE;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    /* th {
+      background-color: #E3E4E9;
+    } */
+
+    .highlighted {
+      background-color: #E3E4E9; /* Your specified color */
+    }
+
+    .divider {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+
+  </style>
+</head>
+<body>
+  <% @programs.each do |program| %>
+    <h2><%= program.title %></h2>
+    <p>Numero de Candidatos: <%= program.user_count %></p>
+    <h4>Distribuicao de idades (%)</h4>
+    <table>
+      <% program.age_distribution.each do |age_range, percentage| %>
+        <tr>
+          <td class="highlighted"><%= age_range %></td>
+          <td><%= percentage %>%</td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h4>Distribuicao de generos (%)</h4>
+    <table>
+      <% program.gender_distribution.each do |gender, percentage| %>
+        <tr>
+          <td class="highlighted"><%= gender %></td>
+          <td><%= percentage %>%</td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h3 class="steps divider"> <%= program.title %> Steps</h3>
+    <% program.steps.active.each do |step| %>
+      <h3><%= step.name %> (Ordem do Step: <%= step.step_order %>)</h3>
+      <p>Numero de Candidatos: <%= step.user_count %></p>
+      <p>Numero de Submissoes: <%= step.submissions_count %></p>
+      <h4>Distribuicao de idades (%)</h4>
+        <table>
+          <% program.age_distribution.each do |age_range, percentage| %>
+            <tr>
+              <td class="highlighted"><%= age_range %></td>
+              <td><%= percentage %>%</td>
+            </tr>
+          <% end %>
+        </table>
+       <h4>Distribuicao de generos (%)</h4>
+          <table>
+            <% program.gender_distribution.each do |gender, percentage| %>
+              <tr>
+                <td class="highlighted"><%= gender %></td>
+                <td><%= percentage %>%</td>
+              </tr>
+            <% end %>
+          </table>
+    <% end %>
+    <div class="divider"> <hr> </div>
+  <% end %>
+</body>
+</html>

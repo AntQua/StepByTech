@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
     get 'dashboard', to: 'pages#dashboard'
     post 'dashboard/export_excel', to: 'pages#export_programs_info_excel', as: 'export_programs_info_excel'
-    post 'dashboard/export_programs_info_pdf', to: 'pages#export_programs_info_pdf', as: 'export_programs_info_pdf'
+    post 'dashboard/export_pdf', to: 'pages#export_programs_info_pdf', as: 'export_programs_info_pdf', defaults: { format: 'pdf' }
 
     resources :faqs
 

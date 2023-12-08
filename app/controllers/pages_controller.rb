@@ -32,5 +32,21 @@ class PagesController < ApplicationController
     end
   end
 
+  def export_programs_info_pdf
+    @programs = Program.active.includes(steps: :users)
+
+    respond_to do |format|
+      format.pdf do
+        render pdf: "programs_info",
+               template: 'pages/export_programs_info_pdf',
+               formats: [:html],
+               layout: 'pdf',
+               orientation: 'Portrait',
+               page_size: 'A4',
+               disposition: "attachment"
+      end
+    end
+  end
+
 
 end
