@@ -61,7 +61,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "chartkick"
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'axlsx_rails'
+gem 'caxlsx_rails'
 gem 'rubyzip'
 gem 'actiontext', '~> 7.0'
 
