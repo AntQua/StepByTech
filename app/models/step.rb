@@ -42,7 +42,7 @@ class Step < ApplicationRecord
       '31-35' => 0,
       '36-40' => 0,
       '41-50' => 0,
-      '50+'   => 0
+      '50+' => 0
     }
 
     users.each do |user|
@@ -55,7 +55,7 @@ class Step < ApplicationRecord
       when 31..35 then age_ranges['31-35'] += 1
       when 36..40 then age_ranges['36-40'] += 1
       when 41..50 then age_ranges['41-50'] += 1
-      else age_ranges['50+']   += 1 if user_age > 50
+      else age_ranges['50+'] += 1 if user_age > 50
       end
     end
 
@@ -65,22 +65,20 @@ class Step < ApplicationRecord
     age_ranges.transform_values { |count| (count.to_f / total_users * 100).round(2) }
   end
 
-
-  private
-
-  def dates_must_be_present_and_valid
-    dates.reject!(&:blank?)
-    if dates.blank?
-      errors.add(:dates, "must be present")
-    else
-      dates.each do |date|
-        unless date.is_a?(Date)
-          errors.add(:dates, "must contain valid date values")
-        end
+  def calculate_total_questionnaire(user_id)
+    user = User.find(user_id)
+    total = 0
+    if user
+      user.user_answers.includes(:step_question_option)
+          .filter { |user_answer| user_answer.step_question_option.step_question.step_id == self.id }
+          .each do |user_answer|
+        answer_custom_weight = user_answer.custom_weight != nil
+        answer_weight = answer_custom_weight ? user_answer.custom_weight : user_answer.step_question_option.weight
+        total += answer_weight
       end
     end
+    total
   end
-
 
   private
 

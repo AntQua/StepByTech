@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_07_093455) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_235700) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_093455) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "custom_weight"
     t.index ["step_question_option_id"], name: "index_user_answers_on_step_question_option_id"
     t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
