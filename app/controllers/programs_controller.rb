@@ -90,7 +90,6 @@ class ProgramsController < ApplicationController
     render json: steps
   end
 
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

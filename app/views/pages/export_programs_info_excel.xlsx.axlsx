@@ -1,0 +1,44 @@
+wb = xlsx_package.workbook
+
+@programs.each do |program|
+  wb.add_worksheet(name: program.title.truncate(31)) do |sheet|
+    # Program details
+    sheet.add_row ["Programa:", program.title]
+    sheet.add_row ["Numero de Candidatos:", program.user_count]
+    sheet.add_row ["Distribuição de idades (%)"]
+
+    # Add age distribution rows
+    program.age_distribution.each do |age_range, percentage|
+      sheet.add_row [age_range, percentage]
+    end
+
+    sheet.add_row ["Distribuição de géneros (%)"]
+
+    # Add gender distribution rows
+    program.gender_distribution.each do |gender, percentage|
+      sheet.add_row [gender, percentage]
+    end
+
+    sheet.add_row []  # Add a blank row for spacing
+
+    # Steps details
+    program.steps.active.each do |step|
+      sheet.add_row ["Step:", step.name]
+      sheet.add_row ["Ordem do Step:", step.step_order]
+      sheet.add_row ["Numero de Candidatos:", step.user_count]
+      sheet.add_row ["Numero de Submissões:", step.submissions_count]
+
+      sheet.add_row ["Distribuição de idades (%)"]
+      step.age_distribution.each do |age_range, percentage|
+        sheet.add_row [age_range, percentage]
+      end
+
+      sheet.add_row ["Distribuição de géneros (%)"]
+      step.gender_distribution.each do |gender, percentage|
+        sheet.add_row [gender, percentage]
+      end
+
+      sheet.add_row []  # Add a blank row for spacing
+    end
+  end
+end
