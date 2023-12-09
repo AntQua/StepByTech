@@ -265,6 +265,10 @@ export default class extends Controller {
         });
     }
 
+    refreshTable(event) {
+        window.candidateTabulator.setData();
+    }
+
     searchCandidates(event) {
         const searchTerm = event.target.value.trim().toLowerCase();
         this.candidateTabulator.setFilter("user_name", "like", searchTerm);
