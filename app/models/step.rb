@@ -5,7 +5,8 @@ class Step < ApplicationRecord
   has_many :posts
   has_many :step_questions, dependent: :destroy
   has_one_attached :image
-  has_many :user_answers
+  has_many :step_question_options, through: :step_questions
+  has_many :user_answers, through: :step_question_options
 
   validate :dates_must_be_present_and_valid
 

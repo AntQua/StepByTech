@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     get 'programs/:program_id/questionnaire', to: 'users_programs_steps#questionnaire', as: 'questionnaire'
      #Tabulator selector steps  response
     get 'steps/:program_id/table_data', to: 'steps#table_data', as: 'steps_table_data'
+    get 'steps/:program_id/get_steps_with_questionnaire', to: 'steps#get_steps_with_questionnaire', as: 'get_steps_with_questionnaire_by_program'
      #Tabulator candidates response
     get 'users_programs_steps/:program_id/table_data', to: 'users_programs_steps#table_data', as: 'candidates_table_data'
      #Tabulator attributes response
@@ -71,6 +72,8 @@ Rails.application.routes.draw do
 
     get 'step_questions/:program_id/new', to: 'step_questions#new', as: 'new_step_question'
     get 'step_questions/:program_id/edit/:id', to: 'step_questions#edit', as: 'edit_step_question'
+    get 'step_questions/:program_id/clone', to: 'step_questions#clone', as: 'clone_questions'
+    post 'step_questions/:program_id/clone', to: 'step_questions#save_clone', as: 'save_clone'
     post 'step_questions', to: 'step_questions#create', as: 'create_step_questions'
     patch 'step_questions/:id', to: 'step_questions#update', as: 'update_step_questions'
     delete 'step_questions/:id', to: 'step_questions#destroy', as: 'destroy_step_questions'

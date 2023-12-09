@@ -1,0 +1,25 @@
+<div class="d-flex flex-column" id="clone-modal-content" data-controller="question">
+  <div class="mb-3">
+    <label for="select-program" class="form-label">Programa Origem</label>
+    <select id="select-program" class="form-select" data-action="change->question#cloneSelectProgram">
+      <option></option>
+      <% programs.each do |program| %>
+        <option value="<%= program.id %>"><%= program.title %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="select-step-origin" class="form-label">Step Origem</label>
+    <select id="select-step-origin" class="form-select">
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="select-step-dest" class="form-label">Step Destino</label>
+    <select id="select-step-dest" class="form-select">
+      <option></option>
+      <% current_program_steps.each do |step| %>
+        <option value="<%= step.id %>"><%= step.name %></option>
+      <% end %>
+    </select>
+  </div>
+</div>

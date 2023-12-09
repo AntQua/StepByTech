@@ -62,7 +62,10 @@
   <%# Questionários tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-questions">
     <div data-controller="question">
-      <div class="d-flex justify-content-end align-items-center">
+      <div class="d-flex justify-content-end align-items-center gap-2">
+        <button data-action="click->question#clone" class="btn-excel text-decoration-none mt-3 mb-3">
+          <i class="fa-solid fa-clone"></i>
+        </button>
         <% if policy(Step).create? %>
           <%= link_to new_step_question_path(@program.id), class: "btn-edit-profile text-decoration-none mt-3 mb-3", data: { controller: 'question-modal', action: 'click->question-modal#showNewModal' } do %>
             Nova Questão

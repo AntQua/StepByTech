@@ -59,8 +59,14 @@
     </div>
     <%= yield(:extra_form_content) %>
     <div class="d-flex align-items-center justify-content-between py-6 px-9">
-      <%= link_to program_path(@program.id) do %>
-        <%= image_tag "arrow-left.svg" %>
+      <% if @program&.id != nil %>
+        <%= link_to program_path(@program.id) do %>
+          <%= image_tag "arrow-left.svg" %>
+        <% end %>
+      <% else %>
+        <%= link_to programs_path do %>
+          <%= image_tag "arrow-left.svg" %>
+        <% end %>
       <% end %>
       <%= f.button :submit, yield(:submit_button_text), class: 'btn-edit-profile' %>
     </div>
