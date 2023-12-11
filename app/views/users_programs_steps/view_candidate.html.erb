@@ -9,21 +9,26 @@
   <div class="accordion" id="stepsQuestionnaries">
     <% if @questions_and_answers.present? %>
       <% @questions_and_answers.each_with_index do |step, index| %>
+        <% available_evaluate = @user_program_step.step_id == step[1][:id].to_i && @user_program_step.evaluated == false %>
         <div class="accordion-item" id="step_<%= step[1][:id] %>">
           <h2 class="accordion-header" id="questionnaireHeading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#questionnaireCollapse_<%= index %>" aria-expanded="true" aria-controls="questionnaireCollapse_<%= index %>">
-              Questionário <%= step[0] %> (Total de Pontos: <span id="step_<%= step[1][:id] %>_total"><%= step[1][:total_points] %></span>)
+              Questionário <%= step[0] %> (Total de Pontos:
+              <span id="step_<%= step[1][:id] %>_total"><%= step[1][:total_points] %></span>)
             </button>
           </h2>
           <div id="questionnaireCollapse_<%= index %>" class="accordion-collapse collapse" aria-labelledby="questionnaireHeading" data-bs-parent="#stepsQuestionnaries">
             <div class="accordion-body">
               <% sorted_questions = step[1][:questions]&.sort_by { |_, question| question[:id] } %>
               <% sorted_questions&.each do |_, question| %>
-                <h5><span class="badge text-bg-secondary"><%= StepQuestion.question_types.key(question[:type]) %></span> <%= question[:title] %></h5>
+                <h5>
+                  <span class="badge text-bg-secondary"><%= StepQuestion.question_types.key(question[:type]) %></span> <%= question[:title] %>
+                </h5>
                 <ul>
                   <% question[:answers]&.each do |answer| %>
                     <li class="mb-1">
-                      <button data-action="click->candidate#evaluateResponse"
+                      <button data-action="<%= available_evaluate ? 'click->candidate#evaluateResponse' : '' %>"
+                              <%= !available_evaluate ? 'disabled' : '' %>
                               class="btn <%= answer[:weight]&.to_i == 0 ? 'btn-danger' : 'btn-primary' %>"
                               data-step-id="<%= step[1][:id] %>"
                               data-answer-id="<%= answer[:id] %>"
@@ -34,6 +39,13 @@
                     </li>
                   <% end %>
                 </ul>
+              <% end %>
+            </div>
+            <div class="d-flex justify-content-end p-3">
+              <% if available_evaluate %>
+                <button data-action="click->candidate#finishEvaluation" data-id="<%= step[1][:user_program_step_id] %>" class="btn-icon-purple">
+                  Finalizar avaliação
+                </button>
               <% end %>
             </div>
           </div>

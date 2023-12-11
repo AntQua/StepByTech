@@ -91,6 +91,7 @@ class UsersProgramsStepsController < ApplicationController
 
       @user_program_step.user.user_answers.includes(:step_question_option).each do |user_answer|
         step = user_answer.step_question_option.step_question.step
+        user_id = user_answer.user_id
         question_id = user_answer.step_question_option.step_question_id
         question_title = user_answer.step_question_option.step_question.title
         question_type = user_answer.step_question_option.step_question.question_type_before_type_cast
@@ -99,8 +100,10 @@ class UsersProgramsStepsController < ApplicationController
         answer_weight = answer_custom_weight ? user_answer.custom_weight : user_answer.step_question_option.weight
 
         if step
+          user_program_step = step.users_programs_steps.find_by(:user_id => user_id)
+
           # Verificar se já existe um grupo para este step
-          @questions_and_answers[step.name] ||= { id: step.id, total_points: 0, questions: {} }
+          @questions_and_answers[step.name] ||= { id: step.id, user_program_step_id: (user_program_step != nil ? user_program_step.id : 0), total_points: 0, questions: {} }
 
           # Verificar se já existe um grupo para esta pergunta dentro do step
           @questions_and_answers[step.name][:questions][question_id] ||= { id: question_id, title: question_title, type: question_type, answers: [], points: 0 }
@@ -153,6 +156,8 @@ class UsersProgramsStepsController < ApplicationController
         id: user_program_step.id,
         status_description: user_program_step.status,
         status_value: user_program_step.status_before_type_cast,
+        evaluated_value: user_program_step.evaluated,
+        evaluated: user_program_step.evaluated ? "Sim" : "Não",
         user_id: user_program_step.user.id,
         user_name: user_program_step.user.name,
         user_gender: user_program_step.user.gender,
@@ -227,7 +232,7 @@ class UsersProgramsStepsController < ApplicationController
       answers = build_answers
 
       if save_answers(answers)
-        current_user_program_step.update(status: UsersProgramsStep.statuses.key(0))
+        current_user_program_step.update({ status: UsersProgramsStep.statuses.key(0), evaluated: false })
         redirect_to program_path(@program), notice: 'Questionário respondido com sucesso!'
       else
         redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
@@ -263,8 +268,22 @@ class UsersProgramsStepsController < ApplicationController
     end
   end
 
-  private
+  def update_evaluation_status
+    user_program_step_id = params[:id].to_i
+    user_program_step = UsersProgramsStep.find(user_program_step_id)
+    if user_program_step
+      user_program_step.evaluated = true
+      if user_program_step.save
+        render json: { status: 'success', message: "Candidato avaliado com sucesso." }, status: :ok
+      else
+        render json: { status: 'error', message: "Falha na tentativa de avaliar o candidato.", errors: user_program_step.errors }, status: :unprocessable_entity
+      end
+    else
+      render json: { status: 'error', message: "Falha na tentativa de avaliar o candidato." }, status: :not_found
+    end
+  end
 
+  private
 
   def set_program_and_step
     @program = Program.find(params[:program_id]) if params[:program_id]
