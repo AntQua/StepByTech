@@ -82,6 +82,14 @@ class StepsController < ApplicationController
     end
   end
 
+  def get_steps_with_questionnaire
+    program = Program.find(params[:program_id])
+    steps =  program.steps.select { |step| step.step_questions.any? }.map { |step| { value: step.id, text: step.name } }
+    respond_to do |format|
+      format.json { render json: steps }
+    end
+  end
+
   private
 
   def set_program

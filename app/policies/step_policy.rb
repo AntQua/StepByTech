@@ -30,4 +30,8 @@ class StepPolicy < ApplicationPolicy
   def table_data?
     user.is_admin?
   end
+
+  def get_steps_with_questionnaire?
+    user.is_admin?
+  end
 end

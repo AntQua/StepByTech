@@ -30,5 +30,13 @@ class StepQuestionPolicy < ApplicationPolicy
   def preview?
     user.is_admin?
   end
+
+  def clone?
+    user.is_admin?
+  end
+
+  def save_clone?
+    user.is_admin?
+  end
 end
 

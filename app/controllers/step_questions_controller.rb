@@ -106,6 +106,36 @@ class StepQuestionsController < ApplicationController
     @step = params[:step_id].present? ? Step.find(params[:step_id]) : nil
   end
 
+  def clone
+    programs = Program.select { |program| program.step_questions.any? }.sort_by {|program| program.title }
+    current_program = Program.find(params[:program_id])
+    current_program_steps = current_program.steps.select { |step| !step.user_answers.any? }.sort_by { |step| step.step_order }
+    render "_clone_modal", :locals => { programs: programs, current_program_steps: current_program_steps }, :layout => false
+  end
+
+  def save_clone
+    step_origin = Step.find(params[:step_origin_id])
+    step_dest = Step.find(params[:step_dest_id])
+    ActiveRecord::Base.transaction do
+      step_dest.step_questions.destroy_all
+      step_origin.step_questions.each do | step_question|
+        new_step_question = step_question.dup
+        new_step_question.step_id = step_dest.id
+        new_step_question.save!
+
+        step_question.step_question_options.each do |step_question_option|
+          new_step_question_option = step_question_option.dup
+          new_step_question_option.step_question_id = new_step_question.id
+          new_step_question_option.save!
+        end
+      end
+
+      render json: { status: 'success', message: "Clone realizado com sucesso!" }, status: :ok
+    end
+  rescue ActiveRecord::RecordInvalid => e
+      render json: { status: 'error', message: "Falha ao tentar realizar o clone", errors: e.message }, status: :internal_server_error
+  end
+
   private
 
   def step_question_params

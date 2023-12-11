@@ -4,26 +4,48 @@
   <%= render partial: "shared/card_profile_details", locals: { user: @user_program_step.user, view: true } %>
 </div>
 <%# lógica para apresentar questionario.. %>
-<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3">
+<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3" data-controller="candidate">
   <h2 class="text-center">Respostas dos Questionários</h2>
   <div class="accordion" id="stepsQuestionnaries">
     <% if @questions_and_answers.present? %>
       <% @questions_and_answers.each_with_index do |step, index| %>
-        <div class="accordion-item">
+        <% available_evaluate = @user_program_step.step_id == step[1][:id].to_i && @user_program_step.evaluated == false %>
+        <div class="accordion-item" id="step_<%= step[1][:id] %>">
           <h2 class="accordion-header" id="questionnaireHeading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#questionnaireCollapse_<%= index %>" aria-expanded="true" aria-controls="questionnaireCollapse_<%= index %>">
-              Questionário <%= step[0] %> (Total de Pontos: <%= step[1][:total_points] %>)
+              Questionário <%= step[0] %> (Total de Pontos:
+              <span id="step_<%= step[1][:id] %>_total"><%= step[1][:total_points] %></span>)
             </button>
           </h2>
           <div id="questionnaireCollapse_<%= index %>" class="accordion-collapse collapse" aria-labelledby="questionnaireHeading" data-bs-parent="#stepsQuestionnaries">
             <div class="accordion-body">
-              <% step[1][:questions]&.each do |question| %>
-                <h5><%= question[1][:title] %></h5>
+              <% sorted_questions = step[1][:questions]&.sort_by { |_, question| question[:id] } %>
+              <% sorted_questions&.each do |_, question| %>
+                <h5>
+                  <span class="badge text-bg-secondary"><%= StepQuestion.question_types.key(question[:type]) %></span> <%= question[:title] %>
+                </h5>
                 <ul>
-                  <% question[1][:answers]&.each do |answer| %>
-                    <li><%= answer %></li>
+                  <% question[:answers]&.each do |answer| %>
+                    <li class="mb-1">
+                      <button data-action="<%= available_evaluate ? 'click->candidate#evaluateResponse' : '' %>"
+                              <%= !available_evaluate ? 'disabled' : '' %>
+                              class="btn <%= answer[:weight]&.to_i == 0 ? 'btn-danger' : 'btn-primary' %>"
+                              data-step-id="<%= step[1][:id] %>"
+                              data-answer-id="<%= answer[:id] %>"
+                              data-custom-weight="<%= answer[:custom_weight] %>">
+                        <%= answer[:weight] %> (<%= answer[:custom_weight] ? 'Atribuida' : 'Padrão' %>)
+                      </button>
+                      <%= answer[:value] %>
+                    </li>
                   <% end %>
                 </ul>
+              <% end %>
+            </div>
+            <div class="d-flex justify-content-end p-3">
+              <% if available_evaluate %>
+                <button data-action="click->candidate#finishEvaluation" data-id="<%= step[1][:user_program_step_id] %>" class="btn-icon-purple">
+                  Finalizar avaliação
+                </button>
               <% end %>
             </div>
           </div>
@@ -33,10 +55,8 @@
       <p>Nenhuma resposta disponível.</p>
     <% end %>
   </div>
-    <%# if @user_program_step %>
-
-    <%# else %>
-      <%#= redirect_to program_path(@program), alert: 'Candidato não encontrado!' %>
-    <%# end %>
+  <%# if @user_program_step %>
+  <%# else %>
+  <%#= redirect_to program_path(@program), alert: 'Candidato não encontrado!' %>
+  <%# end %>
 </div>
-

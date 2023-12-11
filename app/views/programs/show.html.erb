@@ -62,7 +62,10 @@
   <%# Questionários tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5" role="tabpanel" id="tab-questions">
     <div data-controller="question">
-      <div class="d-flex justify-content-end align-items-center">
+      <div class="d-flex justify-content-end align-items-center gap-2">
+        <button data-action="click->question#clone" class="btn-excel text-decoration-none mt-3 mb-3">
+          <i class="fa-solid fa-clone"></i>
+        </button>
         <% if policy(Step).create? %>
           <%= link_to new_step_question_path(@program.id), class: "btn-edit-profile text-decoration-none mt-3 mb-3", data: { controller: 'question-modal', action: 'click->question-modal#showNewModal' } do %>
             Nova Questão
@@ -95,6 +98,15 @@
   <%# Candidatos tab %>
   <div class="row tab-pane fade bg-white rounded-4 m-1 mt-5 p-1" role="tabpanel" id="tab-candidates" data-controller="candidate">
     <div class="d-flex justify-content-end gap-2">
+      <div class="input-group my-3">
+        <input id="searchInput" class="form-control" type="text" placeholder="Search">
+        <button class="btn btn-search" type="button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <button id="refreshCandidatesButton" data-action="click->candidate#refreshTable"class="btn btn-refresh" type="button">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
       <button data-action="click->candidate#downloadXlsx" class="btn-excel text-decoration-none mt-3 mb-3">
         <i class="fa-solid fa-file-excel"></i>
       </button>
