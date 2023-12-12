@@ -13,7 +13,11 @@
 
     <div class="form-inputs">
       <%= f.input :title, label: "Titulo", required: true %>
-      <%= f.rich_text_area :body, label: "Descrição", required: true %>
+
+    <div class="mb-3">
+      <%= f.label :description, "Descrição" %>
+      <%= f.rich_text_area :body, required: true %>
+    </div>
 
       <%# Existing media contents with the option to remove %>
       <% if @post.media_contents.attached? %>

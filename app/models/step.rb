@@ -8,6 +8,8 @@ class Step < ApplicationRecord
   has_many :step_question_options, through: :step_questions
   has_many :user_answers, through: :step_question_options
 
+  has_rich_text :description
+  
   validate :dates_must_be_present_and_valid
 
   def name_with_order

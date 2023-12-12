@@ -26,7 +26,8 @@
       <%= f.input :preview, label: "Breve Descrição", as: :text, input_html: { class: 'form-control bg-white' } %>
     </div>
     <div class="mb-3">
-      <%= f.input :description, label: "Descrição Detalhada", as: :text, input_html: { class: 'form-control bg-white custom-answer-input' } %>
+      <%= f.label :description, "Descrição Detalhada" %>
+      <%= f.rich_text_area :description, class: 'form-control bg-white custom-answer-input' %>
     </div>
     <!-- Group the registration dates -->
     <div class="row mb-3">

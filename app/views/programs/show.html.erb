@@ -25,7 +25,7 @@
                   </div>
                 </div>
               </div>
-              <p class="card-sub-title-dashboard mt-3 mb-3"><%= step.description %></p>
+              <p class="card-sub-title-dashboard mt-3 mb-3"><%= step.description.to_plain_text.truncate(50) %></p>
               <% if step.dates.present? %>
                 <%= image_tag "date_range.png" %>
                 <% grouped_dates = step.dates.compact.group_by { |date| date.strftime('%B') } %>
