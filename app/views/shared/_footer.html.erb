@@ -1,3 +1,59 @@
-<div class="footer">
-   <h2 class="text-animated">&lt; / &gt; &nbsp; INSCREVE-TE # ABERTO 20.04.24 &nbsp; &lt; / &gt; &nbsp; INSCREVE-TE # ABERTO 20.04.24 &nbsp;</h2>
-</div>
+<footer class="footer">
+  <% if @nearest_active_program.present? %>
+    <h2 class="text-animated">&lt; / &gt; &nbsp; INSCREVE-TE # ABERTO <%= @nearest_active_program.registration_start_date.strftime('%d.%m.%y') %> &nbsp; &lt; / &gt; &nbsp; INSCREVE-TE # ABERTO <%= @nearest_active_program.registration_start_date.strftime('%d.%m.%y') %> &nbsp;</h2>
+  <% else %>
+    <h2 class="text-animated">&lt; / &gt; &nbsp; SEM PROGRAMAS ATIVOS DE MOMENTO &nbsp; &lt; / &gt; &nbsp; SEM PROGRAMAS ATIVOS DE MOMENTO &nbsp;</h2>
+  <% end %>
+
+  <!-- Collapsible trigger -->
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#footerCollapse" aria-expanded="false" aria-controls="footerCollapse">
+      Informações
+    </button>
+  </div>
+
+  <!-- Collapsible content -->
+  <div class="collapse" id="footerCollapse">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-5">
+            <h5>POLÍTICA DE PRIVACIDADE</h5>
+            <%= link_to 'Política de privacidade CML', '#', target: '_blank', class: 'footer-link' %>
+            <%= link_to 'Política de privacidade Le Wagon', '#', target: '_blank', class: 'footer-link' %>
+          </div>
+          <div class="mb-5">
+            <h5>COORDENAÇÃO, ORGANIZAÇÃO E GESTÃO DA INFORMAÇÃO</h5>
+            <p>CML | DMEI-DEEE - Future of Work Lisboa</p>
+            <p>Le Wagon Portugal</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5>WEBDESIGN E DESENVOLVIMENTO</h5>
+          <p>Finalistas da 1ª edição do Programa StepByTech:</p>
+          <br>
+          <p>António Quaresma, Luana Bernardino, Margarida Almeida e Elidiane Bezerra </p>
+          <br>
+          <p>Luís Correia - CML (Designer 1ª edição)</p>
+        </div>
+      </div>
+      <div class="row footer-logos">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+          <%= image_tag("Logo_FoW.png", alt: "Lisboa unicorncapital and Future of work logos", class: "footer-logo") %>
+          <%= image_tag("Logo_White.svg", alt: "Le Wagon logo", class: "footer-logo") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center footer-bottom-text">
+          <%# <p>© 2023 Todos os direitos reservados. Câmara Municipal de Lisboa | DMEI-DEEE - Future of Work Lisboa e Le Wagon Portugal</p> %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center footer-bottom-text">
+      <p>© 2023 Todos os direitos reservados. Câmara Municipal de Lisboa | DMEI-DEEE - Future of Work Lisboa e Le Wagon Portugal</p>
+    </div>
+  </div>
+</footer>
