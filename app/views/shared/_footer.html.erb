@@ -1,5 +1,9 @@
 <footer class="footer">
-  <h2 class="text-animated">&lt; / &gt; &nbsp; INSCREVE-TE # ABERTO 20.04.24 &nbsp; &lt; / &gt; &nbsp; INSCREVE-TE # ABERTO 20.04.24 &nbsp;</h2>
+  <% if @nearest_active_program.present? %>
+    <h2 class="text-animated">&lt; / &gt; &nbsp; INSCREVE-TE # ABERTO <%= @nearest_active_program.registration_start_date.strftime('%d.%m.%y') %> &nbsp; &lt; / &gt; &nbsp; INSCREVE-TE # ABERTO <%= @nearest_active_program.registration_start_date.strftime('%d.%m.%y') %> &nbsp;</h2>
+  <% else %>
+    <h2 class="text-animated">&lt; / &gt; &nbsp; SEM PROGRAMAS ATIVOS DE MOMENTO &nbsp; &lt; / &gt; &nbsp; SEM PROGRAMAS ATIVOS DE MOMENTO &nbsp;</h2>
+  <% end %>
 
   <!-- Collapsible trigger -->
   <div class="d-flex justify-content-center">

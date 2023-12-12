@@ -3,8 +3,12 @@ class PagesController < ApplicationController
   layout "dashboard", only: [ :dashboard ]
 
   def home
-    @programs = Program.all
+    @programs = Program.active
+    @nearest_active_program = @programs.where('registration_start_date >= ?', Date.today)
+                                       .order(:registration_start_date)
+                                       .first
   end
+
 
   def dashboard
     @candidate_programs = current_user
