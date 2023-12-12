@@ -26,7 +26,8 @@
     </div>
 
     <div class="mb-3">
-      <%= f.rich_text_area :description, class: 'form-control bg-white', label: "Descrição do Evento" %>
+      <%= f.label :description, "Descrição do Evento" %>
+      <%= f.rich_text_area :description, class: 'form-control bg-white' %>
     </div>
 
     <%= f.input :date, as: :string, label: "Data do Evento", input_html: { data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data do evento" } %>

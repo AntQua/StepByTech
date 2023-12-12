@@ -28,7 +28,10 @@
       <%= f.check_box :active, class: 'form-check-input', id: 'activeSwitch' %>
       <%= f.label :active, 'Activo', class: 'form-check-label', for: 'activeSwitch' %>
     </div>
-    <%= f.input :description, label: "Descrição", input_html: { class: 'form-control bg-white' } %>
+    <div class="mb-3">
+      <%= f.label :description, "Descrição do Step" %>
+      <%= f.rich_text_area :description, class: 'form-control bg-white' %>
+    </div>
     <%= f.input :format, label: "Formato", collection: ["Online", "Presencial"], prompt: "Selecione um formato", input_html: { class: 'form-control bg-white' } %>
     <div class="mb-3">
       <label for="step[dates]" class="form-label">Escolha as Datas</label>

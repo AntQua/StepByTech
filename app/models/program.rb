@@ -11,6 +11,8 @@ class Program < ApplicationRecord
 
   has_one_attached :image # This is for the Active Storage association for the user's avatar.
 
+  has_rich_text :description
+  
   def registration_open?
     current_date = Date.today
     current_date >= registration_start_date && current_date <= registration_end_date
