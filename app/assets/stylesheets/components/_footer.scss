@@ -63,7 +63,9 @@
   }
 
   .footer-logos {
-    margin: 20px 0;
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $white;
 
     .footer-logo {
       max-width: 30%;
@@ -72,10 +74,11 @@
     }
   }
 
+}
 
-  .footer-bottom-text {
-    border-top: 1px solid $white;
-    padding-top: 10px;
+.footer-bottom-text {
+  padding-top: 10px;
+  p {
+    font-size: 0.7rem;
   }
-
 }
