@@ -33,10 +33,10 @@
 .profile-floating {
     position: absolute;
     background-color: $medium-black;
-    padding: 30px 20px 20px 20px;
+    padding: 30px 40px 20px 40px;
     border-radius: 20px 20px;
     transition: 0.5s;
-    transform: translate(0px, -190px);
+    transform: translate(0px, -138px);
     display: none;
 }
 
@@ -113,8 +113,8 @@
     right: 16px;
 }
 
-@media screen and (max-width: 800px) {
-    .sidebar {
+// @media screen and (max-width: 800px) {
+//     .sidebar {
 
-    }
-}
+//     }
+// }

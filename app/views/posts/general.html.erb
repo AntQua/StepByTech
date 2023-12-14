@@ -1,31 +1,18 @@
 <div class="galeria-container">
   <h1>GALERIA</h1>
   <div>
-    <ul class="d-flex galeria-links">
-      <li><a href="" class="active">Todos</a></li>
-      <li><a href="">Web Development</a></li>
-      <li><a href="">Data Science</a></li>
-      <li><a href="">Data Analytics</a></li>
-    </ul>
-  </div>
-
-  <div>
-    <ul class="nav nav-tabs mb-5">
+    <ul class="nav nav-tabs mb-5 d-flex galeria-links">
       <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-geral">Geral</a>
+        <a class="active" data-bs-toggle="tab" data-bs-target="#tab-geral">Geral</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
-        </li>
+        <a class="" data-bs-toggle="tab" data-bs-target="#tab-events">Eventos</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-programs">Programas/Steps</a>
+        <a class="" data-bs-toggle="tab" data-bs-target="#tab-programs">Programas/Steps</a>
       </li>
     </ul>
   </div>
-
-  <%# Lista de todos os posts - Customizar CSS em card_post_galeria %>
-  <%# Criar novos posts em admin no dashboard e testar css na galeria %>
-
   <div class="tab-content">
     <div class="row tab-pane fade show active" role="tabpanel" id="tab-geral">
       <div data-controller="media-modal">
@@ -34,7 +21,6 @@
             <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
           <% end %>
         </div>
-
         <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
             <div class="modal-content">
@@ -51,7 +37,6 @@
         </div>
       </div>
     </div>
-
     <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-events">
       <div data-controller="media-modal">
         <div class="posts-list">
@@ -59,7 +44,6 @@
             <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
           <% end %>
         </div>
-
         <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
             <div class="modal-content">
@@ -76,7 +60,6 @@
         </div>
       </div>
     </div>
-
     <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-programs">
       <div data-controller="media-modal">
         <div class="posts-list">
@@ -84,7 +67,6 @@
             <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
           <% end %>
         </div>
-
         <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
             <div class="modal-content">
@@ -102,5 +84,4 @@
       </div>
     </div>
   </div>
-
 </div>

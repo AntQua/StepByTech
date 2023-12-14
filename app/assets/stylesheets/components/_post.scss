@@ -22,8 +22,9 @@
 
 .galeria-links {
   gap: 15px;
-  padding: 0;
+  padding: 20px 0;
   margin-bottom: 50px;
+  cursor: pointer;
 
   li {
     list-style: none;
@@ -31,17 +32,18 @@
 
   a {
     text-decoration: none;
+    font-size: 18px;
   }
 
   a:hover{
-    color:$blue;
-  }
-
-  .active {
-    font-weight: bold;
     color: $blue;
-    border-bottom: 3px solid $blue;
   }
+}
+
+.galeria-links a.active {
+  font-weight: bold;
+  color: $blue;
+  border-bottom: 3px solid $blue;
 }
 
 .posts-container {
@@ -56,4 +58,13 @@
 
 .post-title {
   margin-right: 10px;
+}
+
+.post-txt-home {
+  color: $white;
+  background-color: transparent;
+}
+
+.bg-purple {
+  background-color: rgba(16, 17, 36, 0.4);
 }
