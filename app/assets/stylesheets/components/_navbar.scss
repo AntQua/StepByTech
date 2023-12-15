@@ -34,9 +34,9 @@
   color:$blue;
 }
 
-.navbar-stepbytech .navbar-center {
-  display: flex;
-}
+// .navbar-stepbytech .navbar-center {
+//   display: flex;
+// }
 
 .navbar-stepbytech .navbar-right {
   display: flex;
@@ -51,3 +51,34 @@
   width: 100px;
 }
 
+.navbar .navbar-toggler {
+  border-color: $green;
+}
+
+.navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(80, 205, 137, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+
+@media (max-width: 991px) { // This targets screens smaller than 992px
+  .navbar-stepbytech .navbar-collapse {
+    justify-content: center; // This centers the navbar items in the flex container
+    flex-grow: 1; // This allows the navbar-collapse to fill the space
+  }
+
+  .navbar-stepbytech .navbar-nav {
+    flex-direction: column; // This stacks the nav items vertically
+    width: 100%; // This ensures the nav items take up the full width
+    align-items: center; // This centers the nav items horizontally
+  }
+
+  .navbar-stepbytech .nav-item {
+    display: block; // This makes sure each nav item is full width
+  }
+
+  .navbar-stepbytech .navbar-right {
+    flex-direction: column;
+    align-items: center; // This centers the right-side items, like the login button
+    width: 100%; // This ensures the right-side items take up the full width
+  }
+}

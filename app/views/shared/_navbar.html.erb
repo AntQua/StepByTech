@@ -1,12 +1,15 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-stepbytech">
+<div class="navbar navbar-expand-lg navbar-light navbar-stepbytech">
   <div class="container-fluid">
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "stepbytech-title-p-500.png", class: "stepbytech-nav-logo" %>
     <% end %>
 
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <div class="navbar-center">
           <li class="nav-item">
             <%= link_to "Home", root_path(anchor: "home"), class: "nav-link active" %>
           </li>
@@ -28,7 +31,6 @@
           <li class="nav-item">
             <%= link_to "Contactos", contacts_path, class: "nav-link" %>
           </li>
-        </div>
       </ul>
       <ul class="navbar-nav">
         <div class="navbar-right">
