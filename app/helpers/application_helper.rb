@@ -18,10 +18,10 @@ module ApplicationHelper
   end
 
 
-    def profile_menu_item(text:, icon_class:)
-        content_tag(:div, class: 'd-flex gap-2 align-items-center') do
-          concat(content_tag(:p, text))
-          concat(content_tag(:i, '', class: "fa-regular #{icon_class}", style: 'color: #5e6278;'))
-        end
-    end
+  def profile_menu_item(text:, icon_class:)
+      content_tag(:div, class: 'd-flex gap-2 align-items-center') do
+        concat(content_tag(:p, text))
+        concat(content_tag(:i, '', class: "fa-regular #{icon_class}", style: 'color: #5e6278;'))
+      end
+  end
 end

@@ -25,27 +25,28 @@
   display: flex;
  }
 
-.navbar-nav .nav-link.active {
-  color: $blue;
-  font-weight: bold;
-}
+.navbar-stepbytech {
 
-.navbar-nav .nav-link:hover{
-  color:$blue;
-}
+  .nav-link {
+    color: $white; // Default color for nav links
 
-// .navbar-stepbytech .navbar-center {
-//   display: flex;
-// }
+    &:hover {
+      color: $blue; // Color on hover
+    }
+
+    &.active {
+      color: $blue;; // Color for active nav link
+      font-weight: bold; // Make active nav link bold
+    }
+  }
+
+}
 
 .navbar-stepbytech .navbar-right {
   display: flex;
   gap: 10px;
 }
 
-.navbar-stepbytech .nav-link{
-  color: $white;
-}
 
 .navbar-stepbytech .stepbytech-nav-logo {
   width: 100px;
@@ -81,4 +82,5 @@
     align-items: center; // This centers the right-side items, like the login button
     width: 100%; // This ensures the right-side items take up the full width
   }
+
 }
