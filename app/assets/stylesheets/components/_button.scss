@@ -27,6 +27,18 @@
   align-items: center;
 }
 
+.dash-button-purple {
+  display: flex;
+  flex-direction: row;
+  color: $white;
+  border: 1px dashed $white;
+  border-radius: 6px;
+  padding: 6px 10px;
+
+  gap: 10px;
+  align-items: center;
+}
+
 
 // Switch button begin //
 .switch {
