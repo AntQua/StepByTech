@@ -112,6 +112,7 @@ input:checked + .slider:before {
   border-radius: 6px;
   color: $white;
   font-weight: bold;
+
   &:hover{
     color: $white;
     background-color: $purple;
