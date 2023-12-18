@@ -42,6 +42,18 @@
       </div>
     </div>
   </div>
+  <!-- Data Protection Divulgation Consent Display -->
+  <div class="mx-5 mt-2">
+    <p class="txt-title fw-bold">Consentimento para Divulgação:</p>
+    <p class="txt-p col-12">
+      <% if user.data_protection_divulgation %>
+        Concordo com a receção de informação de divulgação
+      <% else %>
+        Sem consentimento
+      <% end %>
+    </p>
+  </div>
+
   <div class="mx-5">
     <p class="txt-title fw-bold">Sobre mim</p>
     <p class="txt-p col-12"><%= user.about_me %></p>
