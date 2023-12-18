@@ -8,7 +8,7 @@
       <%= image_tag "stepbytech-title-p-500.png", class: "auth-title" %>
     <% end %>
     <p class="mt-5">Crie sua conta</p>
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { controller: "data-protection" }) do |f| %>
       <div class="auth-form">
         <div class="input-group">
           <%= content_tag(:i, nil, class: "fa-solid fa-user auth-icon") %>
@@ -29,7 +29,7 @@
                       collection: User.genders.keys,
                       label: false,
                       required: true,
-                      placeholder: "Gênero",
+                      include_blank: "Escolha o seu genero",
                       input_html: { class: 'form-control' }
           %>
         </div>
@@ -63,8 +63,72 @@
                   input_html: { autocomplete: "new-password" } %>
         </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Registrar", class: "primary-button mt-4"  %>
+        <!-- Collapsible Trigger -->
+        <div class="text-center  m-2">
+          <p>Responda as questões abaixo sobre proteção de dados:</p>
+          <i class="fa-solid fa-angle-down" data-bs-toggle="collapse" data-bs-target="#dataProtectionQuestions" aria-expanded="false" aria-controls="dataProtectionQuestions" role="button" style="cursor: pointer;"></i>
+        </div>
+
+        <!-- Collapsible Content -->
+        <div class="collapse" id="dataProtectionQuestions">
+
+            <!-- Select All Checkbox -->
+          <div class="form-check mb-4">
+            <%= check_box_tag 'select_all', '1', false,
+                              class: "form-check-input custom-checkbox",
+                              id: "select_all",
+                              data: { action: "data-protection#selectAll" } %>
+            <%= label_tag 'select_all', "Concordo com TODAS as questões abaixo sobre proteção de dados", class: "form-check-label" %>
+          </div>
+
+          <div class="form-check mb-2">
+            <%= f.check_box :data_protection_divulgation,
+                            class: "form-check-input custom-checkbox",
+                            id: "data_protection_divulgation",
+                            data: { data_protection_target: "divulgation", action: "data-protection#toggleSubmitButton" } %>
+            <%= f.label :data_protection_divulgation, "Concordo com a receção de informação de divulgação (opcional)", class: "form-check-label" %>
+          </div>
+
+          <div class="form-check mb-2">
+            <%= f.check_box :data_protection_evaluation,
+                            class: "form-check-input custom-checkbox",
+                            id: "data_protection_evaluation",
+                            data: { data_protection_target: "evaluation", action: "data-protection#toggleSubmitButton" } %>
+            <%= f.label :data_protection_evaluation, "Concordo com a receção de informação para avaliação", class: "form-check-label" %>
+          </div>
+
+          <div class="form-check mb-2">
+            <%= f.check_box :data_protection_terms,
+                            class: "form-check-input custom-checkbox",
+                            id: "data_protection_terms",
+                            data: { data_protection_target: "terms", action: "data-protection#toggleSubmitButton" } %>
+            <%= f.label :data_protection_terms, class: "form-check-label" do %>
+              Concordo com os termos das políticas de privacidade da
+              <%= link_to 'CML', 'https://example.com/cml', target: '_blank', class: 'text-link' %> e da
+              <%= link_to 'Le Wagon', 'https://example.com/le-wagon', target: '_blank', class: 'text-link' %>
+            <% end %>
+          </div>
+
+          <div class="form-check mb-2">
+            <%= f.check_box :data_protection_usage,
+                            class: "form-check-input custom-checkbox",
+                            id: "data_protection_usage",
+                            data: { data_protection_target: "usage", action: "data-protection#toggleSubmitButton" } %>
+            <%= f.label :data_protection_usage, "Concordo com a utilização dos meus dados para efeitos de tratamento associado ao meu pedido", class: "form-check-label" %>
+          </div>
+
+        </div>
+
+        <!-- Warning message paragraph -->
+        <p data-data-protection-target="message" class="d-none text-center mt-4 mb-2">
+          A inscrição não é possível a menos que concorde com as questões obrigatorias relacionadas à proteção de dados.
+        </p>
+
+        <!-- Form submit button -->
+        <div class="form-actions text-center">
+          <%= f.button :submit, "Registrar",
+                      class: "primary-button mt-4",
+                      data: { data_protection_target: "submit", action: "click->data-protection#toggleSubmitButton" } %>
         </div>
 
         <p style="font-size: 12px" class="text-center mt-3">Já possui uma conta?  <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>

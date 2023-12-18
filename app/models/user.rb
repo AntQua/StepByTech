@@ -12,6 +12,12 @@ class User < ApplicationRecord
   has_many :posts
   has_many :user_answers
 
+  # Add fields for data protection responses
+  attribute :data_protection_usage, :boolean, default: false
+  attribute :data_protection_divulgation, :boolean, default: false
+  attribute :data_protection_evaluation, :boolean, default: false
+  attribute :data_protection_terms, :boolean, default: false
+
   validate :at_least_18
 
   has_one_attached :avatar  # This is for the Active Storage association for the user's avatar.
