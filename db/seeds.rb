@@ -65,7 +65,12 @@ end
     name: "User #{k + 1}",
     birth_date: Date.new(birth_year, birth_month, birth_day),
     gender: ['Masculino', 'Feminino', 'Outro'].sample,
-    is_admin: false
+    is_admin: false,
+    # Set data protection questions to true
+    data_protection_usage: true,
+    data_protection_divulgation: true,
+    data_protection_evaluation: true,
+    data_protection_terms: true
   )
 end
 
