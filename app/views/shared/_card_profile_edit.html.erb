@@ -58,6 +58,14 @@
         <%= f.input :city,  as: :select, collection: User.cities.keys, prompt: 'Selecione uma cidade', required: true, label: false, input_html: { class: 'form-control bg-white' } %>
       </div>
     </div>
+    <!-- Data Protection Divulgation Checkbox -->
+    <div class="form-check mb-2">
+      <%= f.check_box :data_protection_divulgation,
+                      class: "form-check-input custom-checkbox",
+                      id: "data_protection_divulgation" %>
+      <%= f.label :data_protection_divulgation, "Concordo com a receção de informação de divulgação (opcional)", class: "form-check-label" %>
+    </div>
+
     <!-- Sobre Mim -->
     <%= f.label :about_me, 'Sobre Mim' %>
     <%= f.input :about_me, as: :text, input_html: { rows: 4 }, label: false, input_html: { class: 'form-control bg-white' } %>
