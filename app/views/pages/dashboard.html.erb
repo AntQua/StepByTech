@@ -79,7 +79,7 @@
 
             <div class="row">
               <div class="col-md-6">
-                <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+                <%= pie_chart program.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#432054", "#B973FF", "#8154A9"] %>
               </div>
               <div class="col-md-6">
                 <%= column_chart program.age_distribution, title: "Idades", xtitle: "Faixa Etária", ytitle: "Percentagens" %>
@@ -97,7 +97,7 @@
                         <p>Número de Submissões no Step: <%= step.submissions_count %></p>
 
                         <div>
-                          <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#FF6384", "#36A2EB", "#FFCE56"] %>
+                          <%= pie_chart step.gender_distribution, donut: true, title: "Géneros (%)", colors: ["#432054", "#B973FF", "#8154A9"] %>
                         </div>
 
                         <div>
