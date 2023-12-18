@@ -102,7 +102,11 @@
                             class: "form-check-input custom-checkbox",
                             id: "data_protection_terms",
                             data: { data_protection_target: "terms", action: "data-protection#toggleSubmitButton" } %>
-            <%= f.label :data_protection_terms, "Concordo com os termos da política de privacidade da CML e da Le Wagon", class: "form-check-label" %>
+            <%= f.label :data_protection_terms, class: "form-check-label" do %>
+              Concordo com os termos das políticas de privacidade da
+              <%= link_to 'CML', 'https://example.com/cml', target: '_blank', class: 'text-link' %> e da
+              <%= link_to 'Le Wagon', 'https://example.com/le-wagon', target: '_blank', class: 'text-link' %>
+            <% end %>
           </div>
 
           <div class="form-check mb-2">
