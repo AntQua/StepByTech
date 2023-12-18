@@ -194,3 +194,9 @@ input:checked + .slider:before {
     color: $white;
   }
 }
+
+.form-check .custom-checkbox {
+  width: 1em;   /* Adjust the size as needed */
+  height: 1em;  /* Adjust the size as needed */
+  margin-right: 20px;
+}
