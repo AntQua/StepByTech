@@ -29,10 +29,20 @@
           <% end %>
         </div>
       <% end %>
-      <!-- attr with questions -->
-      <div class="d-flex justify-content-between py-6 px-9">
-        <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
-        <%= f.button :submit, 'Aplicar para o Programa', class: "btn-edit-profile" %>
+      <%# Conditions %>
+      <div data-controller="conditions">
+        <div class="bg-light p-3 rounded-4 border my-5">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="checkboxDeclaracaoVeracidade" name="checkboxDeclaracaoVeracidade" data-action="change->conditions#conditionApply">
+            <label class="form-check-label" for="checkboxDeclaracaoVeracidade">
+              <strong>Declaro que as informações fornecidas correspondem à verdade</strong>
+            </label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between py-6 px-9">
+          <%= link_to 'Voltar para a listagem dos Programas', programs_path, class: 'btn btn-secondary mt-3' %>
+          <%= button_tag 'Aplicar para o Programa', class: 'btn btn-edit-profile', disabled: true, data: { conditions_target: 'applyButton',  toggle: 'modal' } %>
+        </div>
       </div>
     <% end %>
   </div>
