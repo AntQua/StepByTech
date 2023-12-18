@@ -7,9 +7,7 @@
   <i class="fa-solid fa-chevron-right"></i>
   <p class="m-0 txt-links-actived">Detalhes do step</p>
 </div>
-
 <h3 class="mb-5">Detalhes do Step <%= @step.step_order %> : <span><%= @step.name %></span></h3>
-
 <div class="bg-white rounded-4 p-3">
   <div class="d-flex gap-3 p-3">
     <div>
@@ -40,9 +38,7 @@
           </div>
         <% end %>
       </div>
-
       <p class="card-sub-title-dashboard mt-3 mb-3"><%= @step.description %></p>
-
       <div>
         <div class="mb-3">
           <strong>Em Submissão :</strong> <span class="card-sub-title-dashboard"><%= @step.submission ? 'Sim' : 'Não' %></span>
@@ -68,7 +64,6 @@
           <strong>Hora de fim das sessões:</strong> <span class="card-sub-title-dashboard"><%= @step.hour_finish.strftime('%H:%M') unless @step.hour_finish.nil? %></span>
         </div>
       </div>
-
     </div>
   </div>
 </div>

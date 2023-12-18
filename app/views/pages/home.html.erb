@@ -53,11 +53,25 @@
             <div class="card-h">
             </div>
             <div class="card-body">
-              <h4 class="card-title"><span>&lt; / &gt; &nbsp;</span><%= program.title %></h4>
+              <div class="d-flex gap-3 align-items-center mb-4">
+                <% if program.image.attached? %>
+                  <%= image_tag program.image, class: "card-image-program" %>
+                <% else %>
+                  <%= image_tag "temp_thumb.jpg", class: "card-image-program", alt: "default image step" %>
+                <% end %>
+                <h4 class="card-title m-0"><%= program.title %></h4>
+              </div>
               <p class="card-text"><%= program.preview %></p>
-              <p class="card-sub-title">Data do Programa</p>
-              <p class="card-text">Início: <%= program.begin_date%> | Fim: <%= program.end_date %></p>
-              <%= link_to "Mais Informações", programdetail_path(program.id), class:"btn btn-programs"%>
+              <div>
+                <p class="card-sub-title">Data do Programa</p>
+                <div class="d-flex col gap-2 justify-content-center">
+                  <p class="dash-button-purple w-100">Início: <%= program.begin_date.strftime('%d/%m/%Y')%></p>
+                  <p class="dash-button-purple w-100">Fim: <%= program.end_date.strftime('%d/%m/%Y') %></p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center m-2">
+                <%= link_to "Mais Informações", programdetail_path(program.id), class:"btn btn-programs"%>
+              </div>
             </div>
           </div>
         <% end %>

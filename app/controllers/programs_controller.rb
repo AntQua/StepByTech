@@ -51,7 +51,7 @@ class ProgramsController < ApplicationController
                                         })
 
     if @program.save
-      redirect_to programs_path, notice: 'Program was successfully created.'
+      redirect_to programs_path, notice: 'O programa foi criado com sucesso.'
     else
       render :new
     end

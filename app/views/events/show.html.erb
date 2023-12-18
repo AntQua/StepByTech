@@ -13,14 +13,6 @@
 
     <div class="d-flex flex-column justify-content-between">
       <%= image_tag @event.image.attached? ? url_for(@event.image) : "image_web_details.png", class: "event-image" %>
-
-      <div class="text-start m-2 pt-3">
-        <% if @event.program.present? %>
-          <%= link_to program_path(@event.program) do %>
-            <%= image_tag "arrow-left.svg" %>
-          <% end %>
-        <% end %>
-      </div>
     </div>
 
     <div class="flex-grow-1">
@@ -109,13 +101,6 @@
         </li>
       </ul>
     </div>
-  <% end %>
-
-</div>
-
-<div class="text-start mt-2 mb-3 pt-3">
-  <%= link_to events_path do %>
-    <%= image_tag "arrow_left.png" %>
   <% end %>
 </div>
 

@@ -54,17 +54,28 @@ gem "sassc-rails"
 gem "image_processing", "~> 1.2"
 
 gem "bootstrap", "~> 5.2"
+
 gem "devise"
+
 gem "autoprefixer-rails"
+
 gem "font-awesome-sass", "~> 6.1"
+
 gem "simple_form", github: "heartcombo/simple_form"
+
 gem "chartkick"
+
 gem 'wicked_pdf'
+
 gem 'wkhtmltopdf-binary'
+
 gem 'caxlsx_rails'
+
 gem 'rubyzip'
+
 gem 'actiontext', '~> 7.0'
 
+gem 'sweetalert2-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
