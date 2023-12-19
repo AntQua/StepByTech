@@ -35,7 +35,6 @@ class EventsController < ApplicationController
       redirect_to events_path, notice: "Event created successfully!"
     else
       @programs = Program.where(active: true)
-      puts @event.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -66,25 +65,26 @@ class EventsController < ApplicationController
 
   #Adding Users to an Event: When a user decides to participate in an event
   def participate
-    # Check if the user is already registered
     unless @event.users.include?(current_user)
-      # Associate the current user with the event
       @event.users << current_user
-      message = "You have successfully joined the event!"
+      # Send email notification
+      EventMailer.participation_email(current_user, @event).deliver_now
+      message = "Você ingressou no evento com sucesso! Verifique o seu email."
     else
-      message = "You are already registered for this event!"
+      message = "Você já está inscrito neste evento!"
     end
 
     redirect_to @event, notice: message
   end
 
+
   def unregister
     if @event.users.include?(current_user)
       # Disassociate the current user from the event
       @event.users.delete(current_user)
-      message = "You have successfully unregistered from the event!"
+      message = "Você cancelou a inscrição no evento com sucesso!"
     else
-      message = "You are not registered for this event!"
+      message = "Você não está inscrito neste evento!"
     end
 
     redirect_to @event, notice: message
@@ -108,7 +108,7 @@ class EventsController < ApplicationController
       format.pdf do
         render pdf: "event_users",
                template: "events/export_pdf",
-               formats: [:html],  
+               formats: [:html],
                layout: "pdf",
                orientation: "Landscape",
                page_size: "A4",
