@@ -82,13 +82,18 @@ class EventsController < ApplicationController
     if @event.users.include?(current_user)
       # Disassociate the current user from the event
       @event.users.delete(current_user)
-      message = "Você cancelou a inscrição no evento com sucesso!"
+
+      # Send email notification
+      EventMailer.unregistration_email(current_user, @event).deliver_now
+
+      message = "Você cancelou a inscrição no evento com sucesso! Verifique o seu email."
     else
       message = "Você não está inscrito neste evento!"
     end
 
     redirect_to @event, notice: message
   end
+
 
   def export_excel
     @event = Event.find(params[:id])
