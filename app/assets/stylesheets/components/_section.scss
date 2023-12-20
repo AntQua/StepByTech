@@ -22,8 +22,8 @@
 
 .section {
   padding-top: 120px;
-  padding: 70px 170px;
-  min-height: 100vh;
+  padding: 50px 170px;
+  // min-height: 100vh;
 
   h2 {
     margin-bottom: 30px;
@@ -48,7 +48,7 @@
     height: calc(100% - 100px);
     object-fit: cover;
   }
-  
+
 
   .background-image {
     width: 1024px;
