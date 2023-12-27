@@ -92,3 +92,16 @@
     width: 35vh;
   }
 }
+
+
+/* Tablet devices (iPad, Surface Pro) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+  .auth-left-content, .auth-right-content {
+    width: 100%; /* adjust width for tablet screens */
+  }
+
+  .auth-form input {
+    width: 25vh; /* adjust input width for better fit */
+  }
+}
