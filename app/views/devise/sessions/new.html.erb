@@ -7,7 +7,7 @@
       <%= image_tag "stepbytech-title-p-500.png", class: "auth-title" %>
     <% end %>
 
-    <p class="mt-5">Login to your account</p>
+    <p class="mt-5 text-center">Faça login na sua conta</p>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="auth-form">
@@ -32,13 +32,13 @@
                       class: "input-group"
           %>
         </div>
-          <%= link_to "Forgot your password?", new_user_password_path, class:"auth-link d-flex flex-row-reverse" %>
-        </div>
+        <%= link_to "Esqueceu a sua password?", new_user_password_path, class:"auth-link d-flex flex-row-reverse" %>
+      </div>
 
       <div class="form-actions mt-4">
         <%= f.button :submit, "Login", class: "primary-button" %>
       </div>
 
-      <p style="font-size: 12px" class="text-center mt-3">Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name), class:"auth-link" %></p>
+      <p style="font-size: 12px" class="text-center mt-3"> Não tem uma conta? <%= link_to "Sign up", new_registration_path(resource_name), class:"auth-link" %></p>
     <% end %>
 </div>

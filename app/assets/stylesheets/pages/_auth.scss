@@ -75,26 +75,41 @@
 }
 
 
-/* ------------MEDIA QUERIES (SMALL DEVICES----------- */
+/* ------------MEDIA QUERIES MOBILE DEVICES----------- */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
+  // .auth-right-content {
+  //   width: 100%;
+  // }
+  // .auth-left-content {
+  //   display: none;
+  // }
+
+  // .auth-left-content img {
+  //   display: none;
+  // }
+  // .auth-form input {
+  //   width: 35vh;
+  // }
+
+
+  .auth-left-content {
+    display: none; /* Or adjust as needed */
+  }
+
   .auth-right-content {
     width: 100%;
   }
-  .auth-left-content {
-    display: none;
+
+  .auth-form input, .auth-form select {
+    width: 90%; /* Full width or as needed */
   }
 
-  .auth-left-content img {
-    display: none;
-  }
-  .auth-form input {
-    width: 35vh;
-  }
 }
 
 
-/* Tablet devices (iPad, Surface Pro) */
+/* ------------MEDIA QUERIES TABLET DEVICES ----------- */
+
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 
   .auth-left-content, .auth-right-content {
