@@ -7,7 +7,7 @@
       <%= image_tag "stepbytech-title-p-500.png", class: "auth-title" %>
     <% end %>
 
-    <p class="mt-5">Forgot your password?</p>
+    <p class="mt-5">Esqueceu a sua password?</p>
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <div class="auth-form">
@@ -25,8 +25,8 @@
     </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions", class: "primary-button"  %>
+    <%= f.button :submit, "Envie-me instruções de redefinição da Password", class: "primary-button"  %>
   </div>
 <% end %>
 
-<p style="font-size: 12px" class="text-center mt-3">Back to <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>
+<p style="font-size: 12px" class="text-center mt-3">Voltar ao <%= link_to "Login", new_session_path(resource_name), class:"auth-link" %></p>
