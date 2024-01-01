@@ -30,7 +30,8 @@
                     data: {
                       action: "click->media-modal#show",
                       media_modal_content_url: content_url,
-                      media_modal_content_type: content_type
+                      media_modal_content_type: content_type,
+                      media_modal_target: modal_id
                     } do %>
           <% if media_content.content_type.start_with?('image/') %>
             <%= image_tag(media_content, class: "media m-2") %>

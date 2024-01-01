@@ -1,5 +1,4 @@
 <div class="galeria-container">
-  <%# <h1>GALERIA</h1> %>
   <div>
     <ul class="nav nav-tabs mb-5 d-flex galeria-links">
       <li class="nav-item">
@@ -13,71 +12,65 @@
       </li>
     </ul>
   </div>
-  <div class="tab-content">
+  <div class="tab-content" data-controller="media-modal">
     <div class="row tab-pane fade show active" role="tabpanel" id="tab-geral">
-      <div data-controller="media-modal">
-        <div class="posts-list">
-          <% @general_posts.each do |post| %>
-            <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
-          <% end %>
-        </div>
-        <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-                  <%# <i class="fa-solid fa-circle-xmark"></i> %>
-                </button>
-              </div>
-              <div class="modal-body" data-media-modal-target="modalBody">
-                <!-- Content will be dynamically loaded here -->
-              </div>
+      <div class="posts-list">
+        <% @general_posts.each do |post| %>
+          <%= render partial: "shared/card_post_galeria_home", locals: { post: post, modal_id: "mediaModalGeral" } %>
+        <% end %>
+      </div>
+      <div class="modal fade" id="mediaModalGeral" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
+                <%# <i class="fa-solid fa-circle-xmark"></i> %>
+              </button>
+            </div>
+            <div class="modal-body" data-media-modal-target="modalBody">
+              <!-- Content will be dynamically loaded here -->
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-events">
-      <div data-controller="media-modal">
-        <div class="posts-list">
-          <% @event_posts.each do |post| %>
-            <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
-          <% end %>
-        </div>
-        <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-                  <%# <i class="fa-solid fa-circle-xmark"></i> %>
-                </button>
-              </div>
-              <div class="modal-body" data-media-modal-target="modalBody">
-                <!-- Content will be dynamically loaded here -->
-              </div>
+      <div class="posts-list">
+        <% @event_posts.each do |post| %>
+          <%= render partial: "shared/card_post_galeria_home", locals: { post: post, modal_id: "mediaModalEventos" } %>
+        <% end %>
+      </div>
+      <div class="modal fade" id="mediaModalEventos" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
+                <%# <i class="fa-solid fa-circle-xmark"></i> %>
+              </button>
+            </div>
+            <div class="modal-body" data-media-modal-target="modalBody">
+              <!-- Content will be dynamically loaded here -->
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row tab-pane fade m-1 mt-5" role="tabpanel" id="tab-programs">
-      <div data-controller="media-modal">
-        <div class="posts-list">
-          <% @program_and_step_posts.each do |post| %>
-            <%= render partial: "shared/card_post_galeria_home", locals: { post: post } %>
-          <% end %>
-        </div>
-        <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-                  <%# <i class="fa-solid fa-circle-xmark"></i> %>
-                </button>
-              </div>
-              <div class="modal-body" data-media-modal-target="modalBody">
-                <!-- Content will be dynamically loaded here -->
-              </div>
+      <div class="posts-list">
+        <% @program_and_step_posts.each do |post| %>
+          <%= render partial: "shared/card_post_galeria_home", locals: { post: post, modal_id: "mediaModalPrograms" } %>
+        <% end %>
+      </div>
+      <div class="modal fade" id="mediaModalPrograms" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered for centering -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
+                <%# <i class="fa-solid fa-circle-xmark"></i> %>
+              </button>
+            </div>
+            <div class="modal-body" data-media-modal-target="modalBody">
+              <!-- Content will be dynamically loaded here -->
             </div>
           </div>
         </div>
