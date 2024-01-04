@@ -147,14 +147,23 @@
   </div>
 <% end %>
 
-<% if policy(@event).participate? && @event.agendado?%>
+
+<% if policy(@event).participate? && @event.agendado? %>
   <div class="d-flex justify-content-end">
-    <div>
+    <div id="registration-status" data-controller="event-alerts">
       <% if @event.users.include?(current_user) %>
         <p>Já se encontra inscrito neste evento!</p>
-        <%= button_to 'Remover inscrição no evento', unregister_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
+        <%= form_with url: unregister_event_path(@event), method: :delete, data: { action: "submit->event-alerts#submit", event_alerts_target: "form", action_type: "unregister", event_id: @event.id }, class: "event-alerts-form" do %>
+          <%= button_tag type: 'submit', class: "btn-edit-profile text-decoration-none" do %>
+            Remover inscrição no evento
+          <% end %>
+        <% end %>
       <% else %>
-        <%= button_to 'Participar neste evento', participate_event_path(@event), class: "btn-edit-profile text-decoration-none" %>
+        <%= form_with url: participate_event_path(@event), method: :post, data: { action: "submit->event-alerts#submit", event_alerts_target: "form", action_type: "register", event_id: @event.id }, class: "event-alerts" do %>
+          <%= button_tag type: 'submit', class: "btn-edit-profile text-decoration-none" do %>
+            Participar neste evento
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

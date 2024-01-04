@@ -32,8 +32,8 @@ Rails.application.routes.draw do
 
 
     resources :events do
-      post 'participate', on: :member
-      post 'unregister', on: :member
+      post 'participate', on: :member   # Keep this as it is for registration
+      delete 'unregister', on: :member  # Change to delete for unregistration
       post 'export_excel', on: :member
       post 'export_pdf', on: :member
     end
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     patch 'program_attributes/:program_id/save', to: 'program_attributes#save', as: 'save_attribute'
      #Tabulator update step candidate
     patch 'users_programs_steps/:program_id/update', to: 'users_programs_steps#update_step_candidate', as: 'update_step_candidate'
-    
+
     # update evaluation status
     patch 'update_evaluation_status/:id', to: 'users_programs_steps#update_evaluation_status'
 
