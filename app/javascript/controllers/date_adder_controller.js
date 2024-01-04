@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["datePicker", "selectedDates", "datesArray"];
 
   // connect() {
-  //   console.log("date_adder_controller connected!");
+  //    console.log("date_adder_controller connected!");
   // }
 
   addDate() {

@@ -62,36 +62,29 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Event deleted successfully!"
   end
 
-
-  #Adding Users to an Event: When a user decides to participate in an event
   def participate
-    unless @event.users.include?(current_user)
-      @event.users << current_user
-      # Send email notification
-      EventMailer.participation_email(current_user, @event).deliver_now
-      message = "Você ingressou no evento com sucesso! Verifique o seu email."
-    else
-      message = "Você já está inscrito neste evento!"
+    begin
+      unless @event.users.include?(current_user)
+        @event.users << current_user
+        EventMailer.participation_email(current_user, @event).deliver_now
+      end
+    rescue ActiveRecord::RecordNotUnique
+      # Log the incident or notify the user
+      Rails.logger.info "User #{current_user.id} already registered for event #{@event.id}"
+      # Optionally, you can add a flash message or similar notification mechanism here
     end
 
-    redirect_to @event, notice: message
+    head :ok
   end
 
 
   def unregister
     if @event.users.include?(current_user)
-      # Disassociate the current user from the event
       @event.users.delete(current_user)
-
-      # Send email notification
       EventMailer.unregistration_email(current_user, @event).deliver_now
-
-      message = "Você cancelou a inscrição no evento com sucesso! Verifique o seu email."
-    else
-      message = "Você não está inscrito neste evento!"
     end
 
-    redirect_to @event, notice: message
+    head :ok
   end
 
 
