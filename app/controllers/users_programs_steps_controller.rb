@@ -26,7 +26,12 @@ class UsersProgramsStepsController < ApplicationController
       if valid_answers_limit?
         answers = build_answers
         if save_answers(answers)
-          create_user_program_step
+          data_protection_usage = params['checkboxTratamento'] == 'on'
+          data_protection_divulgation = params['checkboxDivulgacao'] == 'on'
+          data_protection_evaluation = params['checkboxAvaliacao'] == 'on'
+          data_protection_terms = params['checkboxPoliticaPrivacidade'] == 'on'
+          
+          create_user_program_step(data_protection_usage, data_protection_divulgation, data_protection_evaluation, data_protection_terms)
           redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
         else
           redirect_to_program_with_alert
@@ -121,13 +126,17 @@ class UsersProgramsStepsController < ApplicationController
     end
   end
 
-  def create_user_program_step
+  def create_user_program_step(agree_usage, agree_divulgation, agree_evaluation, agree_terms)
     initial_step = @program.steps.find_by(step_order: 0)
     current_user.users_programs_steps.create!(
       program_id: @program.id,
       step_id: initial_step.id,
       registration_date: DateTime.now,
-      status: 0 # Aguardando Aprovação
+      status: 0, # Aguardando Aprovação
+      data_protection_usage: agree_usage,
+      data_protection_divulgation: agree_divulgation,
+      data_protection_evaluation: agree_evaluation,
+      data_protection_terms: agree_terms
     )
   end
 
