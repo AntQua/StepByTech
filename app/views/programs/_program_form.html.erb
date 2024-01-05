@@ -36,20 +36,22 @@
       <%= f.label :description, "Descrição Detalhada" %>
       <%= f.rich_text_area :description, class: 'form-control bg-white custom-answer-input' %>
     </div>
+    <!-- Group the registration dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { data: { mode: "single" }, class: "datepicker", placeholder: "Selecionar data" }, required: true %>
+        <%= f.input :registration_start_date, as: :string, label: "Data de início da inscrição", input_html: { value: @program&.registration_start_date&.strftime('%d/%m/%Y'),data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { data: { mode: "single" }, class: "datepicker", placeholder: "Selecionar data" }, required: true %>
+        <%= f.input :registration_end_date, as: :string, label: "Data de fim da inscrição", input_html: { value: @program&.registration_end_date&.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
     </div>
+    <!-- Group the event dates -->
     <div class="row mb-3">
       <div class="col">
-        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { data: { mode: "single" }, class: "datepicker", placeholder: "Selecionar data" }, required: true %>
+        <%= f.input :begin_date, as: :string, label: "Data de início do programa", input_html: { value: @program&.begin_date&.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
       <div class="col">
-        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { data: { mode: "single" }, class: "datepicker", placeholder: "Selecionar data" }, required: true %>
+        <%= f.input :end_date, as: :string, label: "Data de fim do programa", input_html: { value: @program&.end_date&.strftime('%d/%m/%Y'), data: { mode: "single"}, class: "datepicker", placeholder: "Selecionar data" } %>
       </div>
     </div>
     <div class="mb-3">
