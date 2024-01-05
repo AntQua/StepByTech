@@ -21,6 +21,7 @@ end
 
 # Clear existing data (optional but recommended for clean seeding)
 # Skip deletion for admin user
+UsersProgramsStep.delete_all
 User.where.not(email: admin_user.email).destroy_all
 Program.destroy_all
 Step.destroy_all
@@ -81,17 +82,39 @@ second_program = Program.second
 # Assign users to the first program (15 users: 10 to step 1 and 5 to step 2)
 first_program_steps = first_program.steps.order(:step_order)
 User.limit(10).each do |user|
-  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.first)
+  UsersProgramsStep.create!(
+    user: user,
+    program: first_program,
+    step: first_program_steps.first,
+    registration_date: Date.today - rand(1..10) # Random registration date within the last 10 days
+  )
 end
 User.offset(10).limit(5).each do |user|
-  UsersProgramsStep.create!(user: user, program: first_program, step: first_program_steps.second)
+  UsersProgramsStep.create!(
+    user: user,
+    program: first_program,
+    step: first_program_steps.second,
+    registration_date: Date.today - rand(1..10)
+  )
 end
 
 # Assign users to the second program (25 users: 15 to step 1 and 10 to step 2)
 second_program_steps = second_program.steps.order(:step_order)
 User.offset(15).limit(15).each do |user|
-  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.first)
+  UsersProgramsStep.create!(
+    user: user,
+    program: second_program,
+    step: second_program_steps.first,
+    registration_date: Date.today - rand(1..10)
+  )
 end
 User.offset(30).limit(10).each do |user|
-  UsersProgramsStep.create!(user: user, program: second_program, step: second_program_steps.second)
+  UsersProgramsStep.create!(
+    user: user,
+    program: second_program,
+    step: second_program_steps.second,
+    registration_date: Date.today - rand(1..10)
+  )
 end
+
+puts "Seed data created successfully!"
