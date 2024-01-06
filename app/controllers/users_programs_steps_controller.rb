@@ -26,7 +26,14 @@ class UsersProgramsStepsController < ApplicationController
       if valid_answers_limit?
         answers = build_answers
         if save_answers(answers)
-          create_user_program_step
+          data_protection_usage = params['checkboxTratamento'] == 'on'
+          data_protection_divulgation = params['checkboxDivulgacao'] == 'on'
+          data_protection_evaluation = params['checkboxAvaliacao'] == 'on'
+          data_protection_terms = params['checkboxPoliticaPrivacidade'] == 'on'
+          
+          create_user_program_step(data_protection_usage, data_protection_divulgation, data_protection_evaluation, data_protection_terms)
+          EventMailer.apply_program_email(current_user, @program).deliver_now
+
           redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
         else
           redirect_to_program_with_alert
@@ -121,13 +128,17 @@ class UsersProgramsStepsController < ApplicationController
     end
   end
 
-  def create_user_program_step
+  def create_user_program_step(agree_usage, agree_divulgation, agree_evaluation, agree_terms)
     initial_step = @program.steps.find_by(step_order: 0)
     current_user.users_programs_steps.create!(
       program_id: @program.id,
       step_id: initial_step.id,
       registration_date: DateTime.now,
-      status: 0 # Aguardando Aprovação
+      status: 0, # Aguardando Aprovação
+      data_protection_usage: agree_usage,
+      data_protection_divulgation: agree_divulgation,
+      data_protection_evaluation: agree_evaluation,
+      data_protection_terms: agree_terms
     )
   end
 
@@ -188,6 +199,11 @@ class UsersProgramsStepsController < ApplicationController
 
     if @user_program_step.save
       render json: { status: 'success', message: "Candidato aprovado com sucesso!" }, status: :ok
+      if current_step_order == 0
+        EventMailer.approved_program_email(@user_program_step.user, @user_program_step.program).deliver_now
+      elsif next_step != nil
+        EventMailer.approved_step_email(@user_program_step.user, next_step).deliver_now
+      end
     else
       approve_render_error
     end
@@ -200,6 +216,14 @@ class UsersProgramsStepsController < ApplicationController
   def disapprove
     @user_program_step.status = UsersProgramsStep.statuses.key(2) # Reprovado
     if @user_program_step.save
+      current_step_order = @user_program_step.step.step_order
+      next_step = @user_program_step.program.next_step(current_step_order)
+
+      if current_step_order == 0
+        EventMailer.disapproved_program_email(@user_program_step.user, @user_program_step.program).deliver_now
+      elsif next_step != nil
+        EventMailer.disapproved_step_email(@user_program_step.user, next_step).deliver_now
+      end
       render json: { status: 'success', message: "Candidato reprovado com sucesso!" }, status: :ok
     else
       render json: { status: 'error', message: "Falha na tentativa de reprovar o candidato", errors: @user_program_step.errors }, status: :unprocessable_entity
@@ -233,6 +257,7 @@ class UsersProgramsStepsController < ApplicationController
 
       if save_answers(answers)
         current_user_program_step.update({ status: UsersProgramsStep.statuses.key(0), evaluated: false })
+        EventMailer.submit_step_email(current_user, current_user_program_step.step).deliver_now
         redirect_to program_path(@program), notice: 'Questionário respondido com sucesso!'
       else
         redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'

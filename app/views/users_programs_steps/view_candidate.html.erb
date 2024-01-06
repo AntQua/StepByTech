@@ -3,6 +3,30 @@
   <%= render partial: "shared/card_profile", locals: { user: @user_program_step.user } %>
   <%= render partial: "shared/card_profile_details", locals: { user: @user_program_step.user, view: true } %>
 </div>
+
+<div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3">
+  <h2 class="text-center">Termos de consentimento do programa</h2>
+  <ul class="mx-5 list-unstyled">
+    <li>
+      <%= check_box_tag 'data_protection_terms', '1', @user_program_step.data_protection_terms, { disabled: true } %>
+      <%= label_tag 'data_protection_terms', 'Concordo com os termos da política de privacidade' %>
+    </li>
+    <li>
+      <%= check_box_tag 'data_protection_evaluation', '1', @user_program_step.data_protection_evaluation, { disabled: true } %>
+      <%= label_tag 'data_protection_evaluation', 'Concordo com a receção de informação para avaliação' %>
+    </li>
+    <li>
+      <%= check_box_tag 'data_protection_usage', '1', @user_program_step.data_protection_usage, { disabled: true } %>
+      <%= label_tag 'data_protection_usage', 'Concordo com a utilização dos meus dados para efeitos de tratamento associado ao meu pedido' %>
+    </li>
+    <li>
+      <%= check_box_tag 'data_protection_divulgation', '1', @user_program_step.data_protection_divulgation, { disabled: true } %>
+      <%= label_tag 'data_protection_divulgation', 'Concordo com a receção de informação de divulgação' %>
+    </li>
+  </ul>
+
+</div>
+
 <%# lógica para apresentar questionario.. %>
 <div class="bg-white rounded-4 p-4 d-flex row gap-3 mt-3" data-controller="candidate">
   <h2 class="text-center">Respostas dos Questionários</h2>
