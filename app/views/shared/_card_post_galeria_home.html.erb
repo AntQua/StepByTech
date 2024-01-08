@@ -1,24 +1,26 @@
 <div class="card bg-purple rounded-4 mb-3 p-3">
   <div class="card-header bg-transparent">
-    <div class= "d-flex justify-content-between align-items-center bg-transparent border-bottom">
-      <div class="d-flex align-items-baseline mb-1">
-        <h5 class="post-txt-home py-2"><%= post.title %></h5>
-        <% if post.step.present? %>
-          <p class="mb-0"><%= post.step.name %></p>
-        <% end %>
-      </div>
-      <% if post.step.present? %>
-        <h6 class="mb-0"><%= post.step.program.title %></h6>
-      <% end %>
-      <% if post.program.present? %>
-        <h6 class="mb-0"><%= post.program.title %></h6>
-      <% end %>
+    <div class= "d-flex justify-content-between bg-transparent border-bottom post-txt-home">
+        <h5 class="py-2"><%= post.title %></h5>
+        <p class="opacity-50"><%= post.created_at.strftime("%d %b %Y") %></p>
     </div>
   </div>
   <div class="card-body post-txt-home">
     <% if post.event.present? %>
-      <p class="m-0">Evento: <%= post.event.title %></p>
+      <p class="opacity-50">Evento: <%= post.event.title %></p>
     <% end %>
+
+    <% if post.program.present? %>
+      <p class="opacity-50">Programa: <%= post.program.title %></p>
+    <% end %>
+
+    <% if post.step.present? %>
+      <% if post.step.program.present? %>
+        <p class="opacity-50">Programa associado ao Step: <%= post.step.program.title %></p>
+      <% end %>
+      <p class="opacity-50">Step <%= post.step.step_order %>: <%= post.step.name %></p>
+    <% end %>
+
     <p class="m-0"><%= post.body %></p>
   </div>
   <% if post.media_contents.attached? %>
@@ -36,7 +38,7 @@
           <% if media_content.content_type.start_with?('image/') %>
             <%= image_tag(media_content, class: "media m-2") %>
           <% elsif media_content.content_type.start_with?('video/') %>
-            <video controls class="media-thumbnail m-2">
+            <video controls class="media m-2">
               <source src="<%= content_url %>" type="<%= media_content.content_type %>">
               Your browser does not support the video tag.
             </video>

@@ -32,7 +32,7 @@
 
   a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1rem;
   }
 
   a:hover{
@@ -51,9 +51,13 @@
 }
 
 .media {
-  width: 250px;
-    height: 250px;
-    object-fit: cover;
+  // width: 180px;
+  // height: 140px;
+  // object-fit: cover;
+  width: 100%;
+  max-width: 180px; // ensures that the media doesn't exceed this width on larger screens
+  height: auto;
+  object-fit: cover;
 }
 
 .post-title {
@@ -63,6 +67,15 @@
 .post-txt-home {
   color: $white;
   background-color: transparent;
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
 }
 
 .bg-purple {
