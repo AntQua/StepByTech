@@ -32,6 +32,8 @@ class UsersProgramsStepsController < ApplicationController
           data_protection_terms = params['checkboxPoliticaPrivacidade'] == 'on'
           
           create_user_program_step(data_protection_usage, data_protection_divulgation, data_protection_evaluation, data_protection_terms)
+          EventMailer.apply_program_email(current_user, @program).deliver_now
+
           redirect_to program_path(@program), notice: 'Candidatura realizada com sucesso!'
         else
           redirect_to_program_with_alert
@@ -197,6 +199,11 @@ class UsersProgramsStepsController < ApplicationController
 
     if @user_program_step.save
       render json: { status: 'success', message: "Candidato aprovado com sucesso!" }, status: :ok
+      if current_step_order == 0
+        EventMailer.approved_program_email(@user_program_step.user, @user_program_step.program).deliver_now
+      elsif next_step != nil
+        EventMailer.approved_step_email(@user_program_step.user, next_step).deliver_now
+      end
     else
       approve_render_error
     end
@@ -209,6 +216,14 @@ class UsersProgramsStepsController < ApplicationController
   def disapprove
     @user_program_step.status = UsersProgramsStep.statuses.key(2) # Reprovado
     if @user_program_step.save
+      current_step_order = @user_program_step.step.step_order
+      next_step = @user_program_step.program.next_step(current_step_order)
+
+      if current_step_order == 0
+        EventMailer.disapproved_program_email(@user_program_step.user, @user_program_step.program).deliver_now
+      elsif next_step != nil
+        EventMailer.disapproved_step_email(@user_program_step.user, next_step).deliver_now
+      end
       render json: { status: 'success', message: "Candidato reprovado com sucesso!" }, status: :ok
     else
       render json: { status: 'error', message: "Falha na tentativa de reprovar o candidato", errors: @user_program_step.errors }, status: :unprocessable_entity
@@ -242,6 +257,7 @@ class UsersProgramsStepsController < ApplicationController
 
       if save_answers(answers)
         current_user_program_step.update({ status: UsersProgramsStep.statuses.key(0), evaluated: false })
+        EventMailer.submit_step_email(current_user, current_user_program_step.step).deliver_now
         redirect_to program_path(@program), notice: 'Questionário respondido com sucesso!'
       else
         redirect_to program_path(@program), alert: 'Não foi possível responder o questionário!'
