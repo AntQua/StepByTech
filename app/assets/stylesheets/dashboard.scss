@@ -47,13 +47,17 @@ main {
 }
 
 @media screen and (max-width: 800px) {
+
     body {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         grid-template-areas: "main";
     }
 
     .sidebar {
-        display: none; /* Esconda a barra lateral por padrão */
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        right: 0;
     }
 
     .sidebar-toggle {
