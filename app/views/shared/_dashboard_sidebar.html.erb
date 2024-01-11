@@ -3,7 +3,7 @@
     <button data-action="click->sidebar#toggleSidebar" class="btn-sidebar"><i class="fa-solid fa-bars fa-lg"></i></button>
   </div>
   <div class="sidebar" data-sidebar-target="sidebar" style="background-color: #101124; color: #E3E4E9">
-    <i data-action="click->sidebar#closeSidebar" class="d-flex justify-content-end fa-solid fa-xmark fa-xl"></i>
+    <i data-action="click->sidebar#closeSidebar" class="d-flex justify-content-end fa-solid fa-xmark fa-xl btn-close-sidebar"></i>
     <div class="d-flex justify-content-center align-items-center mb-5">
       <%= link_to root_path do %>
         <%= image_tag('stepbytech-logo-sidebar.png', class: 'img-fluid') %>

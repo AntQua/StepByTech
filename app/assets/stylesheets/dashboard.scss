@@ -58,6 +58,11 @@ main {
     display: block;
 }
 
+.btn-close-sidebar {
+    visibility: hidden;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 800px) {
 
     body {
@@ -79,6 +84,10 @@ main {
     .sidebar-toggle {
         display: block;
         z-index: 1000;
+    }
+
+    .btn-close-sidebar {
+        visibility: visible;
     }
 }
 
