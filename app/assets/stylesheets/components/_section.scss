@@ -192,6 +192,15 @@
       flex-direction: column;
     }
   }
+
+  #home {
+    .home-content {
+      p {
+        max-width: 300px;
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -202,6 +211,27 @@
       justify-content: space-between;
       gap: 50px;
       margin-top: 50px;
+    }
+  }
+
+  #home {
+    .home-content {
+      p {
+        max-width: 270px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  
+  #home {
+    .home-content {
+      p {
+        max-width: 270px;
+        font-size: 12px;
+      }
     }
   }
 }
