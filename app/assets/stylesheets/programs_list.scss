@@ -25,24 +25,14 @@
     box-sizing: border-box;
 }
 
-// .programs-list {
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 20px;
+@media screen and (max-width: 1200px) {
+    .program-card {
+        max-width: calc(50% - 10px);
+    }
+}
 
-//   .program-card {
-//     background: white;
-//     padding: 20px;
-//     border-radius: 5px;
-//     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-//     h3 {
-//       margin-top: 0; // Removing default margin
-//       color: #333;
-//     }
-
-//     p {
-//       color: #777;
-//     }
-//   }
-// }
+@media screen and (max-width: 900px) {
+    .program-card {
+        max-width: calc(100% - 10px);
+    }
+}

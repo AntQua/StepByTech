@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="sidebar"
 export default class extends Controller {
   static targets = ["sidebar"];
 
@@ -8,7 +7,10 @@ export default class extends Controller {
   }
 
   toggleSidebar() {
-    console.log("Toggle sidebar works !!!");
     this.sidebarTarget.classList.toggle('show-sidebar');
+  }
+
+  closeSidebar() {
+    this.sidebarTarget.classList.remove('show-sidebar');
   }
 }

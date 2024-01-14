@@ -51,19 +51,10 @@
 
 
   .background-image {
-    width: 1024px;
+    width: 67%;
     z-index: 1;
     position: relative;
     animation: floatAnimation 3s ease-in-out infinite;
-    // background-image: url("stepbytech_astro.png"), url("bg_back_blend-25.png");
-    // background-size: 75%, 50%;
-    // background-repeat: no-repeat;
-    // background-position: center, right;
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // bottom: 0;
   }
 
   .home-content {
@@ -114,19 +105,21 @@
   }
 
   .stepbytech-topics {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     gap: 100px;
     margin-top: 50px;
   }
 
   .stepbytech-context {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: stretch;
-    gap: 45px;
-    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    // justify-items: stretch;
+    // gap: 45px;
+    // align-items: flex-start;
   }
 
   .stepbytech-topics-container {
@@ -137,6 +130,7 @@
   .aboutus-patrocinio-img {
     width: 100%;
     border-radius: 10px;
+    object-fit: cover;
   }
 }
 
@@ -186,4 +180,58 @@
   margin: 100px 0 15px 0;
   font-size: 14px;
   text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .section {
+    padding: 50px 80px;
+  }
+
+  #aboutus {
+    .stepbytech-context {
+      flex-direction: column;
+    }
+  }
+
+  #home {
+    .home-content {
+      p {
+        max-width: 300px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #aboutus {
+
+    .stepbytech-topics {
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 50px;
+      margin-top: 50px;
+    }
+  }
+
+  #home {
+    .home-content {
+      p {
+        max-width: 270px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  
+  #home {
+    .home-content {
+      p {
+        max-width: 270px;
+        font-size: 12px;
+      }
+    }
+  }
 }
